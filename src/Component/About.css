@@ -1,0 +1,87 @@
+/* About Us Page Styles */
+
+.about-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header Section */
+  .header {
+    background-color: #00aaff;
+    padding: 1rem;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-links li {
+    margin-right: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #00aaff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .demo-btn {
+    background-color: #ffaa00;
+    color: white;
+  }
+  
+  /* About Section */
+  .about-section {
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .about-section h1 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .rules-list {
+    list-style-type: disc;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 600px;
+    padding-left: 20px;
+  }
+  
+  .rules-list li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Footer Section */
+  footer {
+    padding: 1rem;
+    text-align: center;
+    background-color: #00aaff;
+    color: white;
+  }
+  

@@ -1,0 +1,51 @@
+/* Navbar Styles */
+
+.header {
+    background-color: #00aaff;
+    padding: 1rem;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin-right: 20px; /* Adds space between the nav links */
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .nav-links a:hover {
+    color: #ffaa00;
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #00aaff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .demo-btn {
+    background-color: #ffaa00;
+    color: white;
+  }
+  
