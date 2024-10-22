@@ -30,7 +30,7 @@ import LineChart from './LineChart';
         <header className="dashboard-header">
           <h2>Dashboard</h2>
           <div className="user-info">
-            <span>Emma Kwan</span>
+            {/* <span>Emma Kwan</span> */}
           </div>
         </header>
 
