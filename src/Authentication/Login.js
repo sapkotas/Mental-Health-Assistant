@@ -21,7 +21,7 @@ function Login() {
    
     if (userId === validUserId && password === validPassword) {
       alert('Login successful!');
-      navigate("/")
+      navigate("/dashboard/user")
     } else {
       setErrorMessage('Invalid user ID or password');
     }

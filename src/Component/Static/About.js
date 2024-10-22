@@ -27,7 +27,7 @@ function About() {
 
       {/* Footer Section */}
       <footer>
-        <p>ProNature &copy; 2024. All rights reserved.</p>
+        <p>Mehea &copy; 2024. All rights reserved.</p>
       </footer>
     </div>
   );

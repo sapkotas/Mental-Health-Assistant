@@ -1,0 +1,68 @@
+/* Line chart container with shadow and border-radius for a clean, modern look */
+.chart-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for elevation */
+    margin-bottom: 30px;
+    transition: transform 0.2s ease; /* Subtle hover effect */
+  }
+  
+  .chart-card:hover {
+    transform: translateY(-5px); /* Hover effect - lifts the card slightly */
+  }
+  
+  /* Title of the chart with professional typography */
+  .chart-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: left;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+  }
+  
+  /* Responsive layout for the line chart */
+  .line-chart-container {
+    width: 100%;
+    max-width: 100%; /* Ensures the chart does not overflow */
+    height: auto;
+    padding: 15px;
+  }
+  
+  /* Custom tooltip styling */
+  .chartjs-tooltip {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #333;
+  }
+  
+  /* Grid and axis styling to make it look more subtle and modern */
+  .chartjs-grid-line {
+    stroke: rgba(0, 0, 0, 0.05); /* Faint grid lines */
+  }
+  
+  .chartjs-axis-label {
+    font-family: 'Inter', sans-serif;
+    color: #777;
+    font-size: 14px;
+  }
+  
+  .chartjs-legend-label {
+    font-family: 'Inter', sans-serif;
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Adding padding around the chart itself */
+  .chart-container {
+    padding: 20px;
+  }
+  

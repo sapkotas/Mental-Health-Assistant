@@ -1,8 +1,11 @@
 import React from 'react'
 import { BrowserRouter , Routes , Route} from 'react-router-dom'
-import Home from './Component/Home'
-import About from './Component/About'
-import Login from './User/Login'
+
+import Login from './Authentication/Login'
+import Signup from './Authentication/Signup'
+import Home from './Component/Static/Home'
+import About from './Component/Static/About'
+import UserDashboard from './Dashboard/UserDashboard'
 
 const App = () => {
   return (
@@ -12,6 +15,9 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path ="/about" element = { <About/>}/>
         <Route path ="/login" element = { <Login/>}/>
+        <Route path ="/signup" element = { <Signup/>}/>
+        <Route path ="/dashboard/user" element = { <UserDashboard/>}/>
+
     </Routes>
     </BrowserRouter>
 </>

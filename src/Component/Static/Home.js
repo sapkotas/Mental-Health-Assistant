@@ -15,8 +15,8 @@ function Home() {
         <section className="wellbeing-section">
           <div className="content">
             <h1>Wellbeing & mental healthcare</h1>
-            <p>Have you ever wondered what it’s like to be working in a mental health environment?</p>
-            <button className="btn">Request a demo</button>
+            <p> <b>Have you ever wondered what it’s like to be working in a mental health environment? </b></p>
+           <button className="btn"><Link to ="/login" style={{textDecoration:"none"}}> Request a demo</Link> </button>
           </div>
           <div className="image-section">
             <img src = {mediating} alt="person mediating" srcset=""/>
@@ -33,8 +33,8 @@ function Home() {
               <button className="btn">Read more</button>
             </div>
             <div className="card">
-              <h3>Set your Fitness Assistant Mr. Bolt</h3>
-              <p>Stay Fit and Healthy</p>
+              <h3>Set your Fitness Assistant Mr. Bot</h3>
+              <p>We provide Assistant to you.For further information.please login!</p>
               <button className="btn">Talk</button>
             </div>
           </div>
@@ -56,7 +56,7 @@ function Home() {
 
       {/* Footer Section */}
       <footer>
-        <p>ProNature &copy; 2024. All rights reserved.</p>
+        <p>Mehea &copy; 2024. All rights reserved.</p>
       </footer>
     </div>
   );
