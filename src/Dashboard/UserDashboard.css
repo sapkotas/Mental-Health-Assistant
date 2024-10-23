@@ -102,29 +102,7 @@
   .dashboard-graphs {
     display: flex;
     justify-content: space-between;
-  }
+  } 
   
-  .graph-card {
-    background-color: #fff;
-    padding: 20px;
-    width: 28%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-  }
-  
-  .graph-card h3 {
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .placeholder-graph {
-    height:350px;
-    background-color: #eaeaea;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
-    border-radius: 10px;
-    width: 38%;
-  }
+
   

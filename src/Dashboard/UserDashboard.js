@@ -1,13 +1,11 @@
 import React from 'react';
 import './UserDashboard.css'; // Ensure you link the CSS file for styling
-import Navbar from '../Component/Static/Navbar';
 import PieChart from './PieChart';
-import LineChart from './LineChart';
+import BarChart from './BarChart';
 
  const UserDashboard = () => {
   return (
     <>
-    <Navbar/>
     <div className="dashboard-container">
       <aside className="sidebar">
         <div className="logo">
@@ -54,10 +52,9 @@ import LineChart from './LineChart';
         </div>
 
         <div className="dashboard-graphs">
-            <div className="placeholder-graph"><LineChart/>
-            </div>
+        <BarChart/>
           <div className="graph-card">
-              <PieChart/>
+          <PieChart/>
           </div>
         </div>
       </main>
