@@ -1,0 +1,18 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5; /* Adjust according to your design */
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  

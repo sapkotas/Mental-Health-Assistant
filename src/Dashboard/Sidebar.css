@@ -1,0 +1,83 @@
+/* sidebar.css */
+* {
+    box-sizing: border-box;
+  }
+  
+  .dashboard {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f7f8fc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidebar-header h2 {
+    color: #4a4a4a;
+    margin-bottom: 30px;
+  }
+  
+  .register-btn {
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .register-btn:hover {
+    background-color: #005e8d;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-nav ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: #5f6368;
+    cursor: pointer;
+  }
+  
+  .sidebar-nav ul li:hover {
+    color: #00aaff;
+  }
+  
+  .sidebar-nav ul li svg {
+    margin-right: 10px;
+    color: #7e57c2;
+  }
+  
+  .sidebar-footer {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .sidebar-footer h4 {
+    margin-bottom: 10px;
+    color: #4a4a4a;
+  }
+  
+  .app-icons img {
+    width: 40px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .app-icons img:hover {
+    opacity: 0.8;
+  }
+  

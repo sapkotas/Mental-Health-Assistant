@@ -22,6 +22,7 @@ function Navbar() {
   };
 
   return (
+    <>
     <header className="header">
       <nav className="navbar">
         <div className="logo">Mehea</div>
@@ -30,14 +31,15 @@ function Navbar() {
           <li><Link to="/about">About Us</Link></li>
           <li><Link to="#">Our Works</Link></li>
         </ul>
-
         {isLoggedIn ? (
           <button className="btn demo-btn" onClick={handleLogout}>Logout</button>
         ) : (
           <Link to="/login"><button className="btn demo-btn">Login</button></Link>
         )}
       </nav>
+      
     </header>
+    </>
   );
 }
 
