@@ -1,0 +1,139 @@
+/* General styles */
+.prediction-body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient( 360deg,#74ebd5, #acb6e5);
+  color: #333;
+}
+
+.questions-container {
+  max-width: 900px;
+  margin: 0px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* .questions-container:hover {
+  transform: scale(1.02);
+} */
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+}
+
+.question-block {
+  margin-bottom: 25px;
+}
+
+h3 {
+  font-size: 1.3em;
+  color: #4a4a4a;
+  margin-bottom: 10px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.option-label:hover {
+  background: #e8f7ff;
+  transform: scale(1.02);
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #007bff;
+  transform: scale(1.2);
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #2575fc, #6a11cb);
+  transform: translateY(-2px);
+}
+
+.error-message {
+  margin: 20px 0;
+  color: #ff4d4f;
+  font-weight: bold;
+  text-align: center;
+  background: #ffe6e6;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.loading-message {
+  margin: 20px 0;
+  color: #f0ad4e;
+  font-size: 1.2em;
+  font-style: italic;
+  text-align: center;
+}
+
+.prediction-result {
+  margin-top: 30px;
+  padding: 20px;
+  background: #eafbf0;
+  border-left: 5px solid #28a745;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.prediction-result h2 {
+  color: #28a745;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.prediction-result p {
+  font-size: 1.2em;
+  color: #4a4a4a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .questions-container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .submit-button {
+    font-size: 1em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+}

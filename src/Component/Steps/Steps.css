@@ -1,0 +1,124 @@
+/* Section Container */
+.steps-section {
+    padding: 80px 20px;
+    background: linear-gradient(to right, #ffffff, #d6e0ea);
+    color: #1a202c; /* Soft dark color for text */
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  /* Header Styles */
+  .steps-header h6 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #6c63ff; /* Softer accent color */
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  
+  .steps-header h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a202c; /* Darker for emphasis */
+    margin-bottom: 20px;
+  }
+  
+  .steps-header p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #4a5568; /* Neutral gray for better readability */
+    max-width: 700px;
+    margin: 0 auto; /* Center-align the paragraph */
+    margin-bottom: 40px;
+  }
+  
+  /* Button Styles */
+  .discover-button {
+    padding: 12px 36px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #6c63ff, #3a86ff); /* Gradient button */
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 20px;
+  }
+  
+  .discover-button:hover {
+    background: linear-gradient(135deg, #3a86ff, #6c63ff);
+    transform: scale(1.05); /* Slight hover effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  }
+  
+  /* Grid Container */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjusted grid for alignment */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center-align grid */
+    padding: 40px 20px;
+  }
+  
+  
+  .step-card {
+    background: #ffffff; /* Clean, light card background */
+    color: #1a202c; /* Dark text for readability */
+    border-radius: 16px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .step-card:hover {
+    transform: translateY(-10px); /* Lift-up effect on hover */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  }
+  
+  /* Step Icon Styles */
+  .step-icon {
+    font-size: 3rem; /* Larger icon size for emphasis */
+    margin-bottom: 20px;
+    color: #6c63ff; /* Updated accent color for consistency */
+  }
+  
+  /* Step Number */
+  .step-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1a202c; /* Match header color */
+  }
+  
+  /* Step Title */
+  .step-card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #4a5568; /* Neutral gray for readability */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .steps-header h2 {
+      font-size: 2rem;
+    }
+  
+    .steps-header p {
+      font-size: 0.95rem;
+    }
+  
+    .steps-grid {
+      grid-template-columns: 1fr; /* Stack cards for smaller screens */
+      gap: 20px;
+    }
+  
+    .discover-button {
+      padding: 10px 28px;
+      font-size: 0.95rem;
+    }
+  }

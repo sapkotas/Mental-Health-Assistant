@@ -1,0 +1,92 @@
+/*detail section*/
+.detail-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+  }
+  
+  .detail-content {
+    max-width: 600px;
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .detail-subtitle {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #cccccc;
+    margin-bottom: 10px;
+  }
+  
+  .detail-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+  .detail-description {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  
+  
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .service-icon {
+    background-color: #3a8de8;
+    ;
+    color: white;
+    font-size: 2rem;
+    padding: 15px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  
+  .service-item h5 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #333333;
+  }
+  
+  .service-item p {
+    font-size: 0.9rem;
+    color: #777777;
+  }
+  
+  .detail-image {
+    flex: 1;
+    position: relative;
+    text-align: center;
+  }
+  
+  .detail-image img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .experience {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 25px;
+    text-align: center;
+  }

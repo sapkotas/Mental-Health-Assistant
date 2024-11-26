@@ -1,0 +1,110 @@
+/* Navbar Container */
+.navbar {
+  background-color: white;
+  padding: 15px 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Inner Navbar Layout */
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-item a:hover {
+  color: #3a8de8; /* Blue hover color */
+}
+
+/* Active Link Styles */
+.nav-item .active {
+  color: #e5759e; /* Pink active link */
+  font-weight: 600;
+  border-bottom: 2px solid #e5759e; /* Active underline */
+  padding-bottom: 2px;
+}
+
+/* Button Section */
+.nav-button {
+  display: flex;
+  align-items: center;
+}
+
+.discover-button {
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #3a8de8;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.discover-button:hover {
+  background-color: #2f76bf;
+  transform: translateY(-2px); /* Subtle hover effect */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .discover-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

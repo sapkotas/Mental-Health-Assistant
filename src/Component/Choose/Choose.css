@@ -1,0 +1,50 @@
+/* Why Choose Us Section */
+.why-choose-us {
+    padding: 50px 20px;
+    text-align: center;
+    background:linear-gradient(to right, #f3f1f1, #d6e0ea)
+  }
+  
+  .section-heading {
+    zoom: 0.9;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #2c3e50; /* Dark heading color */
+  }
+  
+  .features-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px,1fr));
+    gap: 40px;
+    justify-items: center;
+  }
+  
+  .icon{
+    width: 60px;
+    height: 20px;
+  }
+  
+  .feature {
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .feature img {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 30px;
+  }
+  
+  .feature h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 10px;
+  }
+  
+  .feature p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.6;
+  }

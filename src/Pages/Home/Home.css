@@ -1,0 +1,93 @@
+/* Home.css */
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  background-color: #eef2f5;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #d6e0ea);
+  flex-wrap: wrap; /* For responsive design */
+}
+
+.text-container {
+  max-width: 50%;
+  text-align: left;
+  padding-right: 50px;
+}
+
+.main-heading {
+  font-size: 3.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.sub-text {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.appointment-button {
+  padding: 15px 30px;
+  font-size: 1rem;
+  background-color: #3a8de8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.appointment-button:hover {
+  background-color: #2f76bf;
+}
+
+.stats-container {
+  display: flex;
+  margin-top: 30px;
+}
+
+.stat {
+  margin-right: 40px;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #777;
+}
+
+.image-container {
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensures image scales properly */
+  border-radius: 10px;
+  max-height: 500px; /* Prevents overly tall images from breaking the layout */
+}
+
+
+
+
+
+
+
+
+
+
+

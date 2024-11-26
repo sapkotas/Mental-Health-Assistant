@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter , Routes , Route} from 'react-router-dom'
+import Home from './Pages/Home/Home';
+import Dashboard from './Dashboard/Dashboard';
+import About from './Pages/About/About';
+import Service from './Pages/Services/Service';
+import { Predict } from './Component/Predict/Predict';
 
-import Login from './Authentication/Login'
-import Signup from './Authentication/Signup'
-import Home from './Component/Static/Home'
-import About from './Component/Static/About'
-import Dashboard from './Dashboard/Dashboard'
 
 const App = () => {
   return (
@@ -13,11 +13,13 @@ const App = () => {
     <BrowserRouter>
     <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path ="/about" element = { <About/>}/>
-        <Route path ="/login" element = { <Login/>}/>
-        <Route path ="/signup" element = { <Signup/>}/>
-        <Route path ="/dashboard" element = { <Dashboard/>}/>
-        
+        <Route path="/about" element={<About/>} />
+        <Route path="/service" element={<Service/>} />
+        <Route path="/check_your_condition" element={<Predict/>} />
+        {/* {/* <Route path ="/about" element = { <About/>}/> */}
+        {/* <Route path ="/login" element = { <Login/>}/>
+        <Route path ="/signup" element = { <Signup/>}/> */}
+        <Route path ="/overview/dashboard" element = { <Dashboard/>}/>
 
 
     </Routes>
