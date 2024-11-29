@@ -31,9 +31,6 @@ const Sidebar = () => {
             <li className="sidebar-items"onClick={()=>navigate("/history")}>
               <FaHistory /> History
             </li>
-            <li className="sidebar-items"onClick={()=>navigate("/settings")}>
-              <FaCog /> Settings
-            </li>
           </ul>
         </nav>   
       </aside>

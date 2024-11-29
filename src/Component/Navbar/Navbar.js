@@ -87,7 +87,6 @@ const Navbar = () => {
                 <div className="dropdown-menu">
                   <button className='dropdown-item' onClick={()=>navigate("/profile")}><FaUser/>  profile</button>
                   <button className="dropdown-item" onClick={handleLogout}><FaSignOutAlt/>  logout</button>
-                  <button className="dropdown-item" onClick={()=>navigate("/settings")}><FaCog/>  settings</button>
                 </div>
               )}
 
