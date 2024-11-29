@@ -1,139 +1,168 @@
-/* General styles */
+/* General Styles */
 .prediction-body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient( 360deg,#74ebd5, #acb6e5);
-  color: #333;
+  background: linear-gradient(to right, #f8f9fa, #d6e0ea); 
+  color: #1a202c; 
 }
 
+/* Container for Flex Layout */
+.predict-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px;
+  max-width: 1500px;
+  margin: 30px auto;
+  background-image: url('../../assest/therapistt.jpg');
+  object-fit: contain;
+}
+
+/* Questions Container */
 .questions-container {
-  max-width: 900px;
-  margin: 0px auto;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-/* .questions-container:hover {
-  transform: scale(1.02);
-} */
-
-h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 60%;  /* Adjusted to take 60% of the container */
   text-align: center;
-  font-size: 2.5em;
-  color: #4a4a4a;
-  margin-bottom: 20px;
 }
 
+/* Header Styles */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1a202c;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Question Block */
 .question-block {
   margin-bottom: 25px;
+  width: 100%;
 }
 
 h3 {
-  font-size: 1.3em;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: #4a4a4a;
   margin-bottom: 10px;
 }
 
+/* Option Styles */
 .option-label {
   display: flex;
   align-items: center;
-  background: #f8f8f8;
+  background: #f1f5f9;
   margin-bottom: 8px;
-  padding: 10px 15px;
+  padding: 12px 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   transition: background 0.3s, transform 0.2s ease;
   cursor: pointer;
 }
 
 .option-label:hover {
   background: #e8f7ff;
-  transform: scale(1.02);
+  transform: translateY(-2px);
 }
 
 input[type="radio"] {
   margin-right: 10px;
-  accent-color: #007bff;
+  accent-color: #3a86ff;
   transform: scale(1.2);
 }
 
+/* Submit Button */
 .submit-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  font-size: 1.2em;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6c63ff, #3a86ff);
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s ease;
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
 .submit-button:hover {
-  background: linear-gradient(90deg, #2575fc, #6a11cb);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #3a86ff, #6c63ff);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Error and Loading Messages */
+.error-message, .loading-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
 .error-message {
-  margin: 20px 0;
   color: #ff4d4f;
-  font-weight: bold;
-  text-align: center;
   background: #ffe6e6;
-  padding: 10px;
-  border-radius: 8px;
 }
 
 .loading-message {
-  margin: 20px 0;
   color: #f0ad4e;
-  font-size: 1.2em;
+  background: #fff5e6;
   font-style: italic;
-  text-align: center;
 }
 
+/* Prediction Result Styles */
 .prediction-result {
   margin-top: 30px;
-  padding: 20px;
+  padding: 30px;
+  width: 100%;
   background: #eafbf0;
   border-left: 5px solid #28a745;
   border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .prediction-result h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
   color: #28a745;
-  font-size: 1.5em;
   margin-bottom: 10px;
 }
 
 .prediction-result p {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   color: #4a4a4a;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .questions-container {
-    padding: 20px;
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .questions-container, .image-container {
+    width: 100%;
+    margin: 10px 0;
   }
 
   h1 {
-    font-size: 2em;
+    font-size: 2rem;
   }
 
   .submit-button {
-    font-size: 1em;
+    font-size: 1rem;
+    padding: 12px 30px;
   }
 
   h3 {
-    font-size: 1.2em;
+    font-size: 1.1rem;
   }
 }

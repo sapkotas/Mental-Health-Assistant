@@ -6,19 +6,19 @@ const Steps = () => {
     const navigate = useNavigate();
     const steps = [
         { id: 1, icon: "📝", title: "Initial Assessment" },
-        { id: 2, icon: "✈️", title: "Custom Plan" },
-        { id: 3, icon: "⚙️", title: "Continual Guidance" },
-        { id: 4, icon: "📈", title: "Monitoring & Growth" },
+        { id: 2, icon: "⚙️", title: "Continual Guidance" },
+        { id: 3, icon: "📈", title: "Monitoring & Growth" },
       ];
   return (
     <div className="steps-section">
     <div className="steps-header">
-      <h6>How It Works</h6>
-      <h2>Step-by-Step Support for Your Mental Health Journey</h2>
-      <p>
-        Habitant quis augue in feugiat aenean magnis neque primis pharetra odio sociosqu auctor quam integer lobortis eros nam volutpat ligula urna tincidunt adipiscing.
+      <h1 className='main-heading'>Step-by-Step Support for Your Mental Health Journey</h1>
+      <p className='steps-subtext'>
+      How are you feeling today? Are you experiencing any stress, anxiety, or sadness? Take a moment to check in with yourself and prioritize your mental health. Remember, it's okay to not be okay, and seeking support is a sign of strength.
       </p>
-      <button className="discover-button" onClick={()=>navigate("/check_your_condition")}>Check your condition</button>
+      <div className='button-container'>
+      <button className="condition-button" onClick={()=>navigate("/check_your_condition")}>Check your condition</button>
+      </div>
     </div>
 
     <div className="steps-grid">

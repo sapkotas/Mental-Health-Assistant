@@ -3,24 +3,26 @@ import './About.css';
 import Navbar from '../../Component/Navbar/Navbar';
 import Footer from '../../Component/Footer/Footer';
 import sunav from '../../assest/sunav.jpg'
+import shashank from '../../assest/shashank.jpg'
+import rohan from '../../assest/rohan.PNG'
 const teamMembers = [
   { 
     name: 'Rohan Pokhrel', 
     role: 'Developer', 
-    img: 'https://via.placeholder.com/150', 
+    img: rohan, 
     description: 'Rohan ensures our operations run smoothly and efficiently.' 
   },
   { 
     name: 'Shashank Katwal', 
     role: 'Developer', 
-    img: 'https://via.placeholder.com/150', 
-    description: 'Shashank is the visionary behind our company with over 20 years of experience.' 
+    img: shashank, 
+    description: 'Shashank is the visionary behind our company with over 80 years of experience.' 
   },
   { 
     name: 'Sunav Sapkota', 
     role: 'Developer', 
     img: sunav,
-    description: 'Sunav is the brain behind our technology and software.' 
+    description: 'Sunav is the thinker behind our technology and software.' 
   }
 ];
 

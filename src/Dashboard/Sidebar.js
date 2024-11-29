@@ -1,6 +1,6 @@
 import React from 'react';
 import './Sidebar.css';
-import { FaUser, FaClipboardList, FaMapMarkerAlt, FaHospital, FaUserMd, FaHistory, FaCog, FaHome } from 'react-icons/fa';
+import { FaUser, FaClipboardList,FaUserMd, FaHistory, FaCog, FaHome } from 'react-icons/fa';
 import innerpeace from '../../src/assest/innerpeace.png'
 import { useNavigate } from 'react-router-dom';
 
@@ -11,27 +11,27 @@ const Sidebar = () => {
     <div className="sidebar-dashboard">
       <aside className="sidebar">
       <div className="logo">
-          <img src={innerpeace} alt="Inner Peace Logo" className="logo-image" onClick={()=>navigate("/")}/>
-          <span className="logo-text" onClick={()=>navigate("/")}>Inner Peace</span>
+          <img src={innerpeace} alt="Inner Peace Logo" className="logo-image" onClick={()=>navigate("/")} style={{height:"45px" , width:"45px"}}/>
+          <span className="logo-text" onClick={()=>navigate("/")} style={{fontSize:"1.3rem"}}>Inner Peace</span>
         </div>
         <nav className="sidebar-nav">
-          <ul>
-            <li onClick={()=>navigate("/")}>
+          <ul className='sidebar-links'>
+            <li className="sidebar-items"onClick={()=>navigate("/")}>
               <FaHome/>Home
             </li>
-            <li>
+            <li className="sidebar-items"onClick={()=>navigate("/overview/dashboard")}>
               <FaClipboardList /> Overview
             </li>
-            <li>
+            <li className="sidebar-items" onClick={()=>navigate("/profile")}>
               <FaUser /> Profile
             </li>
-            <li>
+            <li className="sidebar-items"onClick={()=>navigate("/doctor")}>
               <FaUserMd /> Doctors
             </li>
-            <li>
+            <li className="sidebar-items"onClick={()=>navigate("/history")}>
               <FaHistory /> History
             </li>
-            <li>
+            <li className="sidebar-items"onClick={()=>navigate("/settings")}>
               <FaCog /> Settings
             </li>
           </ul>

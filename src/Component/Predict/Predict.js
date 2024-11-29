@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Predict.css";
 import axiosInstance from "../../axiosInstance";
-
+import therapist from "../../assest/therapist.jpg"
 import Footer from '../../Component/Footer/Footer'
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 
 export const Predict = () => {
   const navigate = useNavigate()
@@ -38,15 +39,15 @@ export const Predict = () => {
     setPrediction("");
     setError("");
 
-    setLoadingMessage("Analyzing answers..."); // First loading message
+    setLoadingMessage("Analyzing answers..."); 
     setTimeout(() => {
       setLoadingMessage("Predicting your condition...");
       setTimeout(() => {
         axiosInstance
           .post("/predict", { responses })
           .then((response) => {
-            setLoadingMessage(""); // Clear loading messages
-            setPrediction(response.data.prediction); // Set prediction
+            setLoadingMessage(""); 
+            setPrediction(response.data.prediction); 
           })
           .catch((err) => {
             console.error("Error submitting responses:", err);
@@ -59,7 +60,9 @@ export const Predict = () => {
 
   return (
     <>
+    <Navbar/>
     <div className="prediction-body"> 
+  <div className="predict-container">
     <div className="questions-container">
       <h1>Mental Health Assessment</h1>
       {error && <div className="error-message">{error}</div>}
@@ -82,7 +85,7 @@ export const Predict = () => {
           </div>
         ))}
         <button type="submit" className="submit-button">
-          Predict
+          Find Your Condition
         </button>
       </form>
       {loadingMessage && <div className="loading-message">{loadingMessage}</div>}
@@ -95,8 +98,10 @@ export const Predict = () => {
         </div>
       )}
     </div>
-    <Footer/>
-    </div>
+  </div>
+  <Footer/>
+</div>
+
     </>
   );
 };

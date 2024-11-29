@@ -1,29 +1,39 @@
 import React from 'react'
 import './Detail.css'
-import { FaChild, FaUser, FaUsers } from "react-icons/fa";
+import { FaChild, FaComment, FaUser} from "react-icons/fa";
 import therapist from '../../assest/therapist.jpg';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Detail = () => {
+  const navigate = useNavigate();
   return (
     <div className="detail-section">
     <div className="detail-content">
-      <h4 className="detail-subtitle">Who We Are</h4>
-      <h2 className="detail-title">Mental health is a human right, not a privilege.</h2>
+      <h1 className="detail-title">Mental health is a human right, not a privilege.</h1>
       <p className="detail-description">
-        Conubia integer etiam dictum eros praesent amet mollis. Maecenas fermentum dui molestie
-        platea odio elementum aliquet ac dignissim. Eros mollis morbi per montes in.
+      It's time to break the stigma surrounding mental health. Everyone deserves access to quality mental healthcare. Let's work together to create a world where mental health is valued and supported.
       </p>
       <div className="services">
+        <div className="service-item">
+          <div className="service-icon" onClick={()=>navigate("/journal")}>
+            <FaComment />
+          </div>
+          <div>
+            <h5>Journal Writing</h5>
+            <p>
+            Reflect on a time when you felt truly understood. How did that person make you feel? What did they say or do? What can you learn from this experience to better connect with others?
+            </p>
+          </div>
+        </div>
         <div className="service-item">
           <div className="service-icon">
             <FaChild />
           </div>
           <div>
-            <h5>Children Therapy</h5>
+            <h5>Individual Therapy</h5>
             <p>
-              Quam senectus potenti curae tincidunt praesent malesuada amet est ridiculus laoreet
-              consectetur.
+            Consider individual therapy if you're struggling with personal challenges, seeking self-improvement, or managing mental health conditions.
             </p>
           </div>
         </div>
@@ -32,22 +42,9 @@ export const Detail = () => {
             <FaUser />
           </div>
           <div>
-            <h5>Individual Coaching</h5>
+            <h5>Personal Coaching</h5>
             <p>
-              Quam senectus potenti curae tincidunt praesent malesuada amet est ridiculus laoreet
-              consectetur.
-            </p>
-          </div>
-        </div>
-        <div className="service-item">
-          <div className="service-icon">
-            <FaUsers />
-          </div>
-          <div>
-            <h5>Group Therapy</h5>
-            <p>
-              Quam senectus potenti curae tincidunt praesent malesuada amet est ridiculus laoreet
-              consectetur.
+            Ready to unlock your full potential? A personal coach can help you navigate your condition, achieve your goals, and live a more fulfilling life.
             </p>
           </div>
         </div>

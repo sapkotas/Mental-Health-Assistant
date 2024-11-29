@@ -1,8 +1,9 @@
 import React from 'react';
 import './Downbar.css';
-import { FaHeart, FaBrain, FaUserMd } from 'react-icons/fa';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
+import { FaFemale, FaMale } from 'react-icons/fa';
+import { FaPeopleGroup } from 'react-icons/fa6';
 
 // Registering required elements
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -90,16 +91,16 @@ const Downbar = () => {
     </thead>
     <tbody>
       <tr>
-        <td><FaHeart /> Cardiology</td>
-        <td>247</td>
+        <td><FaMale /> Male</td>
+        <td>55</td>
       </tr>
       <tr>
-        <td><FaBrain /> Neurology</td>
-        <td>164</td>
+        <td><FaFemale /> Female</td>
+        <td>25</td>
       </tr>
       <tr>
-        <td><FaUserMd /> Surgery</td>
-        <td>86</td>
+        <td><FaPeopleGroup /> Others</td>
+        <td>16</td>
       </tr>
     </tbody>
   </table>
