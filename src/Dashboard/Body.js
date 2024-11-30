@@ -9,23 +9,23 @@ ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearS
 const Body = () => {
   // Data for bar chart
   const barData = {
-    labels: ['Oct 2019', 'Nov 2019', 'Dec 2019', 'Jan 2020', 'Feb 2020', 'Mar 2020'],
+    labels: ['Shrawan', 'Bhadra', 'Ashoj', 'Khartik', 'Mangsir', 'Poush'],
     datasets: [
       {
-        label: 'Outpatients',
+        label: 'Healthy',
         backgroundColor: '#00C49F',
         borderColor: '#00C49F',
         borderWidth: 1,
         hoverBackgroundColor: '#00E5B0',
-        data: [10, 40,80,120,180,240],
+        data: [1, 2, 5,4,6,9],
       },
       {
-        label: 'Inpatients',
+        label: 'Unhealthy',
         backgroundColor: '#7E57C2',
         borderColor: '#7E57C2',
         borderWidth: 1,
         hoverBackgroundColor: '#9E75E2',
-        data: [15, 50, 90, 130, 200, 250],
+        data: [3, 2, 8, 3, 7,6],
       },
     ],
   };
@@ -35,7 +35,7 @@ const Body = () => {
     labels: ['Female', 'Male', 'Other'],
     datasets: [
       {
-        data: [25, 55, 16],
+        data: [8, 5, 2],
         backgroundColor: ['#FF6384', '#36A2EB','#FFCE56'],
 
         hoverBackgroundColor: ['#FF85A0', '#68B4F4','#FFD67E'],
@@ -46,10 +46,10 @@ const Body = () => {
 
   // Data for patients (Doughnut)
   const patientData = {
-    labels: ['Outpatients', 'Inpatients'],
+    labels: ['Healthy', 'Unhealthy'],
     datasets: [
       {
-        data: [28, 72],
+        data: [10, 5],
         backgroundColor: ['#00C49F', '#7E57C2'],
         hoverBackgroundColor: ['#00E5B0', '#9E75E2'],
       },
@@ -71,28 +71,28 @@ const Body = () => {
         <div className="overview-card">
           <FaBed className="icon" />
           <div>
-            <h3>245</h3>
+            <h3>15</h3>
             <p>Total Patients</p>
           </div>
         </div>
         <div className="overview-card">
           <FaUsers className="icon" />
           <div>
-            <h3>100</h3>
+            <h3>10</h3>
             <p>Available Staff</p>
           </div>
         </div>
         <div className="overview-card">
           <FaMoneyBill className="icon" />
           <div>
-            <h3>Rs 2,536</h3>
+            <h3>Rs 2,000</h3>
             <p>Avg Treat. Costs</p>
           </div>
         </div>
         <div className="overview-card">
           <FaUserMd className="icon" />
           <div>
-            <h3>38</h3>
+            <h3>10</h3>
             <p>Available Doctor</p>
           </div>
         </div>
@@ -100,7 +100,7 @@ const Body = () => {
 
       <div className="body-charts">
         <div className="chart-section">
-          <h4>Outpatients vs. Inpatients Trend</h4>
+          <h4>Healthy vs. Unhealthy</h4>
           <Bar data={barData} options={{ responsive: true }} />
         </div>
    

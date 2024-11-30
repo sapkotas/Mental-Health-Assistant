@@ -3,7 +3,7 @@ import './Navbar.css';
 import innerpeace from '../../assest/innerpeace.png';
 import user from '../../assest/user.png'; 
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaUser, FaClipboardList,FaUserMd, FaHistory, FaCog, FaHome, FaOutdent, FaSign, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -60,22 +60,22 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="nav-links">
           <li className="nav-item">
-            <NavLink to="/" exact activeClassName="active">
+            <NavLink to="/" exact activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/"; }}>
               Home
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" activeClassName="active">
+            <NavLink to="/about" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/about"; }}>
               About
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/service" activeClassName="active">
+            <NavLink to="/service" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/service"; }}>
               Service
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/contact" activeClassName="active">
+            <NavLink to="/contact" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/contact"; }}>
               Contact
             </NavLink>
           </li>

@@ -1,12 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
-import Dashboard from './Dashboard/Dashboard';
 import About from './Pages/About/About';
 import { Predict } from './Component/Predict/Predict';
 import Login from './Authentication/Login';
 import  {Profile}  from './Pages/Profile/Profile';
-import { Settings } from './Pages/Settings/Settings';
 import { Doctor } from './Pages/Doctor/Doctor';
 import { History } from './Pages/History/History';
 import ProtectedRoute from './ProtectedRoute';
@@ -15,6 +13,7 @@ import SignIn from './Authentication/SignIn';
 import { NotFound } from './Component/NotFound/NotFound';
 import TermsOfService from './Component/Service/TermsOfService';
 import ContactUs from './Pages/Contact/ContactUs';
+import Dashboard from './Dashboard/Dashboard';
 const App = () => {
   return (
     <>
@@ -41,14 +40,6 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
             </ProtectedRoute>
           }
         />

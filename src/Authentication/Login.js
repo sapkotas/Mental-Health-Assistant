@@ -122,13 +122,13 @@ function Login() {
               />
               <button
                 type="button"
-                className="toggle-password-btn"
+                className="toggle-password"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
-                  <img src={view} alt="view" style={{ height: '22px', width: '20px' }} />
+                  <img src={view} alt="view" style={{ height: '22px', width: '20px' ,}} className='eye-button'/>
                 ) : (
-                  <img src={hide} alt="hide" style={{ height: '22px', width: '20px' }} />
+                  <img src={hide} alt="hide" style={{ height: '22px', width: '20px' }} className='eye-button'/>
                 )}
               </button>
             </div>
@@ -139,9 +139,6 @@ function Login() {
               <input type="checkbox" id="remember" onChange={handleRememberMe} />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <a href="/" className="forgot-password">
-              Forgot password
-            </a>
           </div>
           <button type="submit" className="btn-primary" disabled={isLoading}>
             {isLoading ? 'Signing in...' : 'Sign in'}

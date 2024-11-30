@@ -5,8 +5,11 @@ import Footer from "../Footer/Footer";
 import personalized from '../../assest/personalized.png'
 import secure from '../../assest/secure.png'
 import professional from '../../assest/professional.png'
-import schedule from '../../assest/schedule.png'
+import service from '../../assest/schedule.png'
 import accept from '../../assest/accept.png'
+import timelogo from '../../assest/time logo.jpg'
+import modification from '../../assest/modification.png'
+import contact from '../../assest/contact.png'
 
 
   const faqData = [
@@ -53,8 +56,7 @@ const TermsOfService = () => {
       <h1>Terms of Service</h1>
       <p>
         Welcome to <b> Inner peace </b> These Terms of Service govern your use of
-        our website,and any related services provided
-        by us.
+        our website,and any related services provided by us and if you are not <b>logged in,</b> you cannot access most of the feature.
       </p>
   <h3> <img src={accept} alt="accept"className="logo-service-img" /> Acceptance of Terms</h3>
     <p>
@@ -78,12 +80,12 @@ const TermsOfService = () => {
         Your privacy is our priority. We provide a safe, non-judgmental
         space for you to explore.
       </p>
-    <h3> <img src={schedule} alt="Therapy on your schedule"className="logo-service-img" /> Therapy on Your Schedule</h3>
+    <h3> <img src={timelogo} alt="Therapy on your schedule"className="logo-service-img"/> Therapy on Your Schedule</h3>
       <p>
         You can prioritize your mental health without disrupting your
         routine.
       </p>
-    <h3>Services</h3>
+    <h3> <img src={service} alt="Therapy on your schedule"className="logo-service-img" /> Services</h3>
       <p>
         Our mental health assistant  website provides the following services to our
         customers:
@@ -96,7 +98,7 @@ const TermsOfService = () => {
         <ul><img src={accept} alt="accept"className="logo-service-imgg" /> secure and no leakage of your information</ul>
         <ul><img src={accept} alt="accept"className="logo-service-imgg" /> Exclusive discounts and promotions for registered users</ul>
       </ul>
-    <h3>7. Modification of Terms</h3>
+    <h3> <img src={modification} alt="modification of terms"className="logo-service-img" /> Modification of Terms</h3>
       <p>
         We reserve the right to modify these Terms of Service at any time
         without prior notice. Any changes to these Terms of Service will be
@@ -104,7 +106,7 @@ const TermsOfService = () => {
         and services following the posting of changes constitutes your
         acceptance of such changes.
       </p>
-    <h3>8. Contact Us</h3>
+    <h3> <img src={contact} alt="contact us"className="logo-service-img" /> Contact Us</h3>
       <p>
         If you have any questions about these Terms of Service, please contact
         us.

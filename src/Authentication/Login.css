@@ -67,7 +67,6 @@
   border-color: #6a5acd;
   box-shadow: 0 0 3px rgba(106, 90, 205, 0.5);
 }
-
 .options {
   display: flex;
   justify-content: space-between;
@@ -165,18 +164,12 @@
   align-items: center;
 }
 
-.toggle-password-btn {
+.toggle-password {
   margin-left: 10px;
   background: none;
   border: none;
-  color: #007bff;
   cursor: pointer;
 }
-
-.toggle-password-btn:hover {
-  text-decoration: underline;
-}
-
 
 .form-error {
   color: #ff4d4d;
@@ -201,9 +194,9 @@
   background-color: #ffe6e6; /* Light red background */
 }
 
-/* Add error icons for visual clarity */
+
 .form-group .error-text::before {
-  content: "⚠️ "; /* Add a warning icon before error text */
+  content: "⚠️ "; 
   margin-right: 5px;
 }
 

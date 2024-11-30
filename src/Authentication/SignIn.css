@@ -143,14 +143,9 @@
     margin-left: 10px;
     background: none;
     border: none;
-    color: #007bff;
     cursor: pointer;
   }
-  
-  .toggle-password-btn:hover {
-    text-decoration: underline;
-  }
-  
+    
   .form-error {
     color: #ff4d4d;
     font-size: 0.9rem;

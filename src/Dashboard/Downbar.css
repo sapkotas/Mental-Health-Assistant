@@ -5,9 +5,8 @@
     gap: 20px; /* Space between components */
   }
   
-  .chart-section, .division-section{
+  .chart-section, .division-section ,.patients-card{
     flex: 0.9; 
-    height: 100%; 
     background-color: #fff;
     padding: 20px;
     border-radius: 12px;
@@ -38,19 +37,6 @@
     text-align: left;
   }
   
-  .patients-card {
-    background-color: rgba(126, 87, 194, 0.2); 
-    flex: 0.9; 
-    height: 10%; 
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: box-shadow 0.3s;
-  }
   
   .patients-card h3 {
     font-size: 36px;

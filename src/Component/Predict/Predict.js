@@ -90,12 +90,15 @@ export const Predict = () => {
       </form>
       {loadingMessage && <div className="loading-message">{loadingMessage}</div>}
       {prediction && (
-        <div className="prediction-result">
-          <h2>Prediction:</h2>
-          <p>{prediction}</p>
-          <p><button>Visit Doctor</button></p>
-          <p><button onClick={()=>navigate("/")}>Visit home</button></p>
-        </div>
+     <div className="prediction-result">
+     <h2>Prediction:</h2>
+     <p>{prediction}</p>
+     <div className="button-group">
+       <button onClick={() => navigate("/")}>Visit Home</button>
+       <button onClick={()=> navigate("/doctor")}>Visit Doctor</button>
+       <button onClick={() => navigate("/journal")}>Journal</button>
+     </div>
+   </div>   
       )}
     </div>
   </div>

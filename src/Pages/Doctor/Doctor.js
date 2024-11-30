@@ -5,7 +5,7 @@ export const Doctor = () => {
   return (
     <>
     <Sidebar/>
-    <h1>Doctor is comming soon...</h1>
+    <h1>Doctor is comming soon...</h1>  
     </>
   )
 }

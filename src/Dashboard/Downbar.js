@@ -26,11 +26,11 @@ const Downbar = () => {
 
   // Line chart for 'Patients this month'
   const patientsThisMonthData = {
-    labels: ['14', '15', '16', '17', '18', '19'],
+    labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
       {
         label: 'Patients this month',
-        data: [190, 210, 180, 200, 232, 220],
+        data: [1, 3, 4, 2, 3, 2],
         borderColor: '#7E57C2',
         backgroundColor: 'rgba(126, 87, 194, 0.2)',
         fill: true,
@@ -81,33 +81,33 @@ const Downbar = () => {
 
         {/* Patients by Division */}
   <div className="division-section">
-  <h4>Patients By Division</h4>
+  <h4>Patients By Condition</h4>
   <table className="division-table">
     <thead>
       <tr>
-        <th>Division</th>
+        <th>Condition</th>
         <th>PT.</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><FaMale /> Male</td>
-        <td>55</td>
+        <td>1</td>
       </tr>
       <tr>
         <td><FaFemale /> Female</td>
-        <td>25</td>
+        <td>3</td>
       </tr>
       <tr>
         <td><FaPeopleGroup /> Others</td>
-        <td>16</td>
+        <td>1</td>
       </tr>
     </tbody>
   </table>
 </div>
         {/* Patients this month card */}
         <div className="patients-card">
-          <h3>100</h3>
+          <h3>8</h3>
           <p>Patients this month</p>
           <Line data={patientsThisMonthData} options={chartOptions} />
         </div>

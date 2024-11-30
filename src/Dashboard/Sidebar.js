@@ -2,7 +2,7 @@ import React from 'react';
 import './Sidebar.css';
 import { FaUser, FaClipboardList,FaUserMd, FaHistory, FaCog, FaHome } from 'react-icons/fa';
 import innerpeace from '../../src/assest/innerpeace.png'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -16,20 +16,30 @@ const Sidebar = () => {
         </div>
         <nav className="sidebar-nav">
           <ul className='sidebar-links'>
-            <li className="sidebar-items"onClick={()=>navigate("/")}>
+            <li className="sidebar-items">
+              <NavLink to="/overview/dashboard" activeClassName="active">
+              <FaClipboardList /> Dashboard
+              </NavLink>
+            </li>
+            <li className="sidebar-items">
+              <NavLink to ="/" activeClassName="active" >
               <FaHome/>Home
+              </NavLink>
             </li>
-            <li className="sidebar-items"onClick={()=>navigate("/overview/dashboard")}>
-              <FaClipboardList /> Overview
-            </li>
-            <li className="sidebar-items" onClick={()=>navigate("/profile")}>
+            <li className="sidebar-items">
+              <NavLink to ="/profile" activeClassName="active">
               <FaUser /> Profile
+              </NavLink>
             </li>
-            <li className="sidebar-items"onClick={()=>navigate("/doctor")}>
+            <li className="sidebar-items">
+              <NavLink to="/doctor" activeClassName="active">
               <FaUserMd /> Doctors
+              </NavLink>
             </li>
-            <li className="sidebar-items"onClick={()=>navigate("/history")}>
+            <li className="sidebar-items">
+              <NavLink to="/history" activeClassName="active">
               <FaHistory /> History
+              </NavLink>
             </li>
           </ul>
         </nav>   
