@@ -12,6 +12,9 @@ import { History } from './Pages/History/History';
 import ProtectedRoute from './ProtectedRoute';
 import { Journal } from './Pages/Journal/Journal';
 import SignIn from './Authentication/SignIn';
+import { NotFound } from './Component/NotFound/NotFound';
+import TermsOfService from './Component/Service/TermsOfService';
+import ContactUs from './Pages/Contact/ContactUs';
 const App = () => {
   return (
     <>
@@ -21,6 +24,9 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/service" element={<TermsOfService />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/check_your_condition" element={
            <ProtectedRoute>
            <Predict />

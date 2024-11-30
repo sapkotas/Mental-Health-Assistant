@@ -69,6 +69,16 @@ const Navbar = () => {
               About
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to="/service" activeClassName="active">
+              Service
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/contact" activeClassName="active">
+              Contact
+            </NavLink>
+          </li>
         </ul>
 
         {/* Button Section */}

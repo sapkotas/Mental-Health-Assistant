@@ -148,7 +148,7 @@ function Login() {
           </button>
         </form>
         <p className="signup-link">
-          Don't have an account? <Link to="/signin"></Link>
+          Don't have an account? <Link to="/signin">Sign in</Link>
         </p>
       </div>
       <div className="login-right">
