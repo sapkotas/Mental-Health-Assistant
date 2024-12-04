@@ -1,46 +1,84 @@
 /* General Styles */
 
-
-.home-container {
+.home-container,.detail-section{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 60px;
   min-height: 100vh;
-  background: #ffffff;
+  background-color: rgb(255, 251, 245);
   gap: 20px;
   flex-wrap: wrap;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  margin: 20px auto;
-  max-width: 1200px;
+  justify-content: center;
 }
-
-/* Text Section */
+.steps-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+  min-height: 100vh;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  justify-content: center;
+  background: url('../../assest/mental-img-2.jpg') no-repeat center center; 
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-attachment: fixed; /* Keeps the background fixed during scroll */
+  background-blend-mode: overlay; /* Optional: Blend the image with a color for better readability */
+  background-color: rgba(255, 255, 255, 0.8); /* Adds a white overlay for readability */
+}
+.detail-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 140px;
+  min-height: 100vh;
+  background-color: rgb(255, 251, 245);
+  gap: 20px;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  justify-content: center;
+}
 .text-container {
-  flex: 1;
+  flex: 0.9;
   padding: 20px;
 }
-
+.main-image{
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  justify-content: flex-end; /* Align image to the right */
+}
 .main-heading {
-  font-size: 2.6rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #1a1a1a;
   line-height: 1.1;
-  margin-bottom: 30px;
 }
-
 .sub-text {
   font-size: 1.1rem;
   color: #555555;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   line-height: 1.8;
+  padding: 30px;
+  text-align: center;
 }
-
+.dashboard-button-container {
+  display: flex;
+  justify-content: center;  /* Horizontally center the button */
+  align-items: center;      /* Vertically center the button */
+  height: 100%;             /* Ensure the container takes the full height */
+  width: 100%;              /* Ensure the container takes the full width */
+}
 .dashboard-button {
   padding: 15px 25px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 400;
   background: linear-gradient(to right, #007bff, #0056b3);
   color: #ffffff;
   border: none;
@@ -48,27 +86,16 @@
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .dashboard-button:hover {
   background: linear-gradient(90deg, #0056b3, #003c7a);
   transform: scale(1.08);
   box-shadow: 0 6px 20px rgba(0, 91, 187, 0.5);
 }
-
-/* Image Section */
 .image-container {
-  flex: 1;
+  flex: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.main-image {
-  width: 100%;
-  max-width: 450px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
 }
 .error-message {
   color: red;
@@ -76,6 +103,166 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+
+/* about sections*/
+.about-us-container {
+  padding: 0px 20px;
+  text-align: center;
+  background-color: rgb(255, 251, 245);
+}
+.about-us-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 40px;
+}
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px;
+}
+.team-member {
+  flex: 1;
+  max-width: 300px;
+  min-width: 200px;
+  text-align: center;
+}
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.team-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+.image-container:hover .team-image {
+  filter: blur(4px);
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 60px;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.image-container:hover .overlay {
+  opacity: 1;
+}
+.icon-link {
+  color: #fff;
+  font-size: 1rem; 
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.icon-link:hover {
+  transform: scale(1.2); 
+}
+.github-icon:hover {
+  color: #24292e; /* GitHub-specific color */
+}
+.linkedin-icon:hover {
+  color: #0077b5; /* LinkedIn-specific color */
+}
+.image-container:hover .overlay {
+  opacity: 1;
+}
+.icon-link {
+  margin: 5px;
+  color: #fff;
+  font-size: 3.8rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.icon-link:hover .github-icon {
+  color: #24292e;
+}
+.icon-link:hover .linkedin-icon {
+  color: #0077b5;
+}
+.team-name {
+  margin-top: 10px;
+}
+
+
+/* service section  */
+.service {
+  margin: 0 auto;
+  padding: 50px;
+  max-width: 1200px;
+  
+}
+.service-container{
+  background-color: rgb(255, 251, 245);
+}
+.logo-service-img{
+  width: 22px;
+  height: 22px;
+}
+.logo-service-imgg{
+  width: 15px;
+  height: 15px;
+}
+.contact-us{
+  color: #0056b3;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .terms-of-service {
+    padding: 10px;
+  }
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .about-us-container {
+    padding: 40px 15px;
+  }
+
+  .about-us-heading {
+    font-size: 2rem;
+  }
+
+  .team-member {
+    max-width: 250px;
+  }
+
+  .image-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-heading {
+    font-size: 1.8rem;
+  }
+
+  .team-member {
+    max-width: 200px;
+  }
+
+  .image-container {
+    height: 200px;
+  }
+
+  .icon-link {
+    font-size: 1.5rem;
+  }
+}
+
 
 /* Responsive Design */
 @media (max-width: 992px) {

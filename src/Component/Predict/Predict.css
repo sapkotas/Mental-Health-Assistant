@@ -11,11 +11,12 @@
 .predict-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 50px;
-  max-width: 1500px;
-  margin: 30px auto;
-  background-image: url('../../assest/therapistt.jpg');
+  padding: 30px;
+  background: url('../../assest/brain.png') no-repeat center center; 
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-attachment: fixed; /* Keeps the background fixed during scroll */
+  background-blend-mode: overlay; /* Optional: Blend the image with a color for better readability */
+  background-color: rgba(85, 84, 84, 0.8);
   object-fit: contain;
 }
 

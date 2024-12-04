@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
-import About from './Pages/About/About';
 import { Predict } from './Component/Predict/Predict';
 import Login from './Authentication/Login';
 import  {Profile}  from './Pages/Profile/Profile';
@@ -9,21 +8,18 @@ import { Doctor } from './Pages/Doctor/Doctor';
 import { History } from './Pages/History/History';
 import ProtectedRoute from './ProtectedRoute';
 import { Journal } from './Pages/Journal/Journal';
-import SignIn from './Authentication/SignIn';
+import SignUp from './Authentication/SignUp';
 import { NotFound } from './Component/NotFound/NotFound';
-import TermsOfService from './Component/Service/TermsOfService';
 import ContactUs from './Pages/Contact/ContactUs';
 import Dashboard from './Dashboard/Dashboard';
 const App = () => {
   return (
     <>
-    <BrowserRouter>
-   
+
+    <Router>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/service" element={<TermsOfService />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/check_your_condition" element={
@@ -32,7 +28,7 @@ const App = () => {
          </ProtectedRoute>
           } />
         <Route path="/login" element={<Login />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/register/:role" element={<SignUp />} />
 
         {/* Protected Routes */}
         <Route
@@ -76,7 +72,7 @@ const App = () => {
           }
         />
       </Routes>
-    </BrowserRouter>
+      </Router>
     </>
   );
 };

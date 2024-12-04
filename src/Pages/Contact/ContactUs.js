@@ -56,6 +56,7 @@ const ContactUs = () => {
   return (
     <>
       <Navbar />
+      <div className="contact-container">
       <div className="contact-page">
         <div className="contact-wrapper"> {/* New wrapper for both containers */}
           <div className="contact-form">
@@ -122,6 +123,7 @@ const ContactUs = () => {
             />
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </>

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Predict.css";
 import axiosInstance from "../../axiosInstance";
-import therapist from "../../assest/therapist.jpg"
 import Footer from '../../Component/Footer/Footer'
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
 
 export const Predict = () => {
   const navigate = useNavigate()
@@ -60,7 +58,6 @@ export const Predict = () => {
 
   return (
     <>
-    <Navbar/>
     <div className="prediction-body"> 
   <div className="predict-container">
     <div className="questions-container">
@@ -94,7 +91,7 @@ export const Predict = () => {
      <h2>Prediction:</h2>
      <p>{prediction}</p>
      <div className="button-group">
-       <button onClick={() => navigate("/")}>Visit Home</button>
+       <button onClick={(e) => { e.preventDefault();  window.location.href = "/"; }}>Visit Home</button>
        <button onClick={()=> navigate("/doctor")}>Visit Doctor</button>
        <button onClick={() => navigate("/journal")}>Journal</button>
      </div>

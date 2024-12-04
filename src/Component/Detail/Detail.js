@@ -1,4 +1,4 @@
-import React from 'react'
+ import React from 'react'
 import './Detail.css'
 import { FaChild, FaComment, FaUser} from "react-icons/fa";
 import therapist from '../../assest/therapist.jpg';
@@ -10,7 +10,7 @@ export const Detail = () => {
   return (
     <div className="detail-section">
     <div className="detail-content">
-      <h1 className="detail-title">Mental health is a human right, not a privilege.</h1>
+      <h1 className="detail-title"> <span style={{color:"red"}}>Mental</span> health is a human right, not a privilege.</h1>
       <p className="detail-description">
       It's time to break the stigma surrounding mental health. Everyone deserves access to quality mental healthcare. Let's work together to create a world where mental health is valued and supported.
       </p>

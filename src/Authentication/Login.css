@@ -1,9 +1,7 @@
 /* General Layout */
 .login-container {
   display: flex;
-  height: 100vh;
-  font-family: 'Arial', sans-serif;
-  background-color: #ced4da;
+  background-color: rgb(255, 251, 245);
   justify-content: center;
 }
 
@@ -67,6 +65,15 @@
   border-color: #6a5acd;
   box-shadow: 0 0 3px rgba(106, 90, 205, 0.5);
 }
+
+.password-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+  
+
 .options {
   display: flex;
   justify-content: space-between;
@@ -164,13 +171,6 @@
   align-items: center;
 }
 
-.toggle-password {
-  margin-left: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
 .form-error {
   color: #ff4d4d;
   font-size: 0.9rem;
@@ -206,6 +206,19 @@
   cursor: not-allowed;
 }
 
+.toggle-password {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 10px !important;
+  outline: none !important;
+}
+
+.toggle-password:hover,
+.toggle-password:focus {
+  background: none !important;
+  outline: none !important;
+}
 
 
 /* Responsive Design */

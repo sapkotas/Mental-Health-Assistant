@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import logoforloginpage from '../assest/logoforloginpage.PNG';
 import login from '../assest/login.PNG';
-import hide from '../assest/hide.png';
-import view from '../assest/view.png';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing eye icons from react-icons
+// Import Font Awesome icons
+
 
 function Login() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
-  const [formError, setFormError] = useState(''); // General form error
+  const [formError, setFormError] = useState('');
 
   useEffect(() => {
     setFormData({
@@ -31,8 +32,8 @@ function Login() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' })); // Clear field-specific error on typing
-    setFormError(''); // Clear general error on typing
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    setFormError('');
   };
 
   const handleRememberMe = (e) => {
@@ -51,6 +52,20 @@ function Login() {
     setErrors({});
     setFormError('');
 
+    const emailPattern = /^[a-zA-Z]+\d+@gmail\.com$/;
+    const newErrors = {};
+
+    if (!formData.email || !emailPattern.test(formData.email)) {
+      newErrors.email = 'Email must be in the format abc12@gmail.com.';
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setIsLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL || 'https://mental-health-assistant-backend.onrender.com'}/api/users/login`,
@@ -58,24 +73,32 @@ function Login() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
+          signal: controller.signal,
         }
       );
 
-      const data = await response.json();
-      setIsLoading(false);
 
-      if (data.status === 'success') {
-        localStorage.setItem('isLoggedIn', 'true');
-        const redirectTo = localStorage.getItem('redirectPath') || '/';
-        navigate(redirectTo);
-      } else if (data.errors) {
-        setErrors(data.errors); // Set field-specific errors from the response
+      if (!response.ok) {
+        const errorData = await response.json();
+        setFormError(errorData.message || 'Login failed. Please try again.');
       } else {
-        setFormError(data.message || 'Login failed. Please check your credentials.');
+        const data = await response.json();
+        if (data.status === 'success') {
+          localStorage.setItem('isLoggedIn', 'true');
+          const redirectTo = localStorage.getItem('redirectPath') || '/';
+          navigate(redirectTo);
+        } else {
+          setFormError(data.message || 'Login failed. Please check your credentials.');
+        }
       }
     } catch (error) {
+      if (error.name === 'AbortError') {
+        setFormError('Request timed out. Please try again later.');
+      } else {
+        setFormError('An error occurred while logging in. Please try again.');
+      }
+    } finally {
       setIsLoading(false);
-      setFormError('An error occurred while logging in. Please try again.');
     }
   };
 
@@ -91,7 +114,6 @@ function Login() {
         <h1 className="welcome-text">Welcome back</h1>
         <p className="subtext">Please enter your details</p>
         <form className="login-form" onSubmit={handleLogin}>
-          {/* General form error */}
           {formError && <p className="form-error">{formError}</p>}
           <div className="form-group">
             <label htmlFor="email">Email address</label>
@@ -109,7 +131,7 @@ function Login() {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <div className="password-input-container">
+            <div className="password-input-group">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -123,13 +145,9 @@ function Login() {
               <button
                 type="button"
                 className="toggle-password"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? (
-                  <img src={view} alt="view" style={{ height: '22px', width: '20px' ,}} className='eye-button'/>
-                ) : (
-                  <img src={hide} alt="hide" style={{ height: '22px', width: '20px' }} className='eye-button'/>
-                )}
+               {showPassword ? <FaEye />:   <FaEyeSlash />}
               </button>
             </div>
             {errors.password && <p className="error-text">{errors.password}</p>}
@@ -145,7 +163,7 @@ function Login() {
           </button>
         </form>
         <p className="signup-link">
-          Don't have an account? <Link to="/signin">Sign in</Link>
+          Don't have an account? <Link to="/register/user">Register</Link>
         </p>
       </div>
       <div className="login-right">

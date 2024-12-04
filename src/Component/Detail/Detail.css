@@ -1,18 +1,4 @@
-/*detail section styling enhancements*/
-.detail-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px;
-  min-height: 100vh;
-  background: #f9fafc; 
-  gap: 20px;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 16px; 
-  margin: 20px auto;
-  max-width: 1200px;
-}
+
 
 /*detail content styling enhancements*/
 .detail-content {
@@ -68,6 +54,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .service-item h5 {
@@ -78,11 +65,10 @@
 
 .service-item p {
   font-size: 0.9rem;
-  color: #6b7b8a; /* Soft gray for secondary text */
+  color: #6b7b8a; 
   line-height: 1.5;
 }
 
-/*detail image styling enhancements*/
 .detail-image {
   flex: 1;
   position: relative;
@@ -92,10 +78,11 @@
 .detail-image img {
   width: 100%;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+  object-fit: cover;
+  margin-top: 230px;
 }
 
-/*experience badge styling enhancements*/
 .experience {
   position: absolute;
   top: 20px;

@@ -1,49 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import innerpeace from '../../assest/innerpeace.png';
-import user from '../../assest/user.png'; 
+import user from '../../assest/user.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const navigate = useNavigate();
-
-  // State to check if the user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // State to toggle dropdown menu visibility
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Ref for the user profile and dropdown to detect outside clicks
   const menuRef = useRef(null);
 
-  // Simulate user login state from localStorage or API
   useEffect(() => {
     const userLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(userLoggedIn);
   }, []);
 
-  // Handle logout
   const handleLogout = () => {
     localStorage.setItem('isLoggedIn', 'false');
     setIsLoggedIn(false);
     navigate('/');
   };
 
-  // Close menu when clicking outside
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
   };
 
-  // Event listener for clicks outside the menu
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Toggle the dropdown menu on user logo click
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
   };
@@ -60,24 +49,35 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="nav-links">
           <li className="nav-item">
-            <NavLink to="/" exact activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/"; }}>
+            <NavLink to="/" exact activeClassName="active">
               Home
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/about"; }}>
+            <a
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('about').scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+            >
               About
-            </NavLink>
+            </a>
           </li>
           <li className="nav-item">
-            <NavLink to="/service" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/service"; }}>
+          <a
+              href="#service"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('service').scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+            >
               Service
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/contact" activeClassName="active" onClick={(e) => { e.preventDefault();  window.location.href = "/contact"; }}>
-              Contact
-            </NavLink>
+            </a>
           </li>
         </ul>
 
@@ -89,21 +89,27 @@ const Navbar = () => {
                 src={user}
                 alt="User Logo"
                 className="user-logo"
-                onClick={toggleMenu} // Toggle menu visibility on click
+                onClick={toggleMenu}
               />
-  
-
               {menuOpen && (
                 <div className="dropdown-menu">
-                  <button className='dropdown-item' onClick={()=>navigate("/profile")}><FaUser/>  profile</button>
-                  <button className="dropdown-item" onClick={handleLogout}><FaSignOutAlt/>  logout</button>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => navigate('/profile')}
+                  >
+                    <FaUser /> Profile
+                  </button>
+                  <button className="dropdown-item" onClick={handleLogout}>
+                    <FaSignOutAlt /> Logout
+                  </button>
                 </div>
               )}
-
-
             </div>
           ) : (
-            <button className="discover-button" onClick={() => navigate('/login')}>
+            <button
+              className="discover-button"
+              onClick={() => navigate('/login')}
+            >
               Discover Calm
             </button>
           )}

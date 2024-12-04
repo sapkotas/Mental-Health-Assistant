@@ -1,42 +1,31 @@
 
 
-/* Section Container */
-.steps-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px;
-  min-height: 100vh;
-  background: #ffffff;
-  gap: 20px;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin: 20px auto;
-  max-width: 1200px;
-}
 
-.steps-header h1 {
+
+.main-heading {
   font-size: 2.5rem;
   font-weight: 600;
-  color: black; /* Darker for emphasis */
+  color: black; 
   margin-bottom: 20px;
 }
 
-.steps-header p {
-  font-size: 1rem;
+.steps-subtext{
+  font-size: 1.1rem;
+  color: #555555;
   line-height: 1.8;
-  color: #4a5568; /* Neutral gray for better readability */
-  max-width: 700px;
-  margin: 0 auto; /* Center-align the paragraph */
-  margin-bottom: 40px;
+  padding: 30px;
+  max-width: 880px;
+  text-align: center;
+  margin: auto;
+  
 }
 
 /* button container  */
 .button-container {
   display: flex;
   justify-content: center; 
-  align-items: center;             
+  align-items: center;   
+            
 }
 
 /* Button Styles */
@@ -70,11 +59,11 @@
 }
 
 .step-card {
-  background: #d3d3d3; /* Clean, light card background */
-  color: #1a202c; /* Dark text for readability */
+  background: #f7f5f5; 
+  color: #1a202c;
   border-radius: 16px;
   padding: 30px 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  box-shadow: 0 4px 8px rgb(44, 152, 224);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
