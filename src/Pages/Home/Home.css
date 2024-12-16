@@ -1,6 +1,6 @@
 /* General Styles */
 
-.home-container,.detail-section{
+.home-container,.detail-section, .contact-page{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -219,6 +219,68 @@
   cursor: pointer;
 }
 
+.contact-form {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(44, 152, 224);
+}
+.contact-form h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.contact-form p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+.form-field {
+  margin-bottom: 15px;
+}
+.form-field label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.contact-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+.status-message {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+.status-message.success {
+  color: green;
+}
+.status-message.error {
+  color: red;
+}
+
 @media only screen and (max-width: 600px) {
   .terms-of-service {
     padding: 10px;
@@ -245,78 +307,3 @@
   }
 }
 
-@media (max-width: 768px) {
-  .about-us-heading {
-    font-size: 1.8rem;
-  }
-
-  .team-member {
-    max-width: 200px;
-  }
-
-  .image-container {
-    height: 200px;
-  }
-
-  .icon-link {
-    font-size: 1.5rem;
-  }
-}
-
-
-/* Responsive Design */
-@media (max-width: 992px) {
-  .home-container {
-    flex-direction: column;
-    padding: 40px;
-  }
-
-  .text-container {
-    max-width: 100%;
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  .main-heading {
-    font-size: 2.5rem;
-  }
-
-  .sub-text {
-    font-size: 1rem;
-  }
-
-  .stats-container {
-    justify-content: center;
-  }
-
-  .image-container {
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-heading {
-    font-size: 2.2rem;
-  }
-
-  .sub-text {
-    font-size: 0.95rem;
-  }
-
-  .appointment-button {
-    font-size: 0.9rem;
-  }
-
-  .stat {
-    min-width: 120px;
-    padding: 10px;
-  }
-
-  .stat-value {
-    font-size: 1.6rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-  }
-}

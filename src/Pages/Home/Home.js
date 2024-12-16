@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
+import { FaGithub, FaLinkedin } from "react-icons/fa"; 
+// some components below 
 import Navbar from "../../Component/Navbar/Navbar";
 import Footer from  "../../Component/Footer/Footer"
-import { useNavigate } from "react-router-dom";
 import Steps from "../../Component/Steps/Steps";
 import { Detail } from "../../Component/Detail/Detail";
-import { FaGithub, FaLinkedin } from "react-icons/fa"; 
-import rohan from '../../assest/rohan.PNG';
+// images below 
+import rohan from '../../assest/rohan.jpg';
 import shashank from '../../assest/shashank.jpg';
 import sunav from '../../assest/sunav.jpg';
 import hero from '../../assest/hero.png';
@@ -15,34 +17,79 @@ import secure from '../../assest/secure.png'
 import professional from '../../assest/professional.png'
 import service from '../../assest/schedule.png'
 import accept from '../../assest/accept.png'
-import timelogo from '../../assest/time logo.jpg'
 import modification from '../../assest/modification.png'
 import contact from '../../assest/contact.png'
 
 const teamMembers = [
   {
-    name: "ML developer",
+    name: "Developer",
     image: rohan,
-    github: "https://github.com/Rotavirus22",
-    linkedin: "https://linkedin.com/in/johndoe",
+    github: "https://github.com/Rotavirus22/",
+    linkedin: "https://www.linkedin.com/in/rohan-pokhrel-730392235/",
   },
   {
-    name: "Backend developer",
+    name: "Developer",
     image: shashank,
-    github: "https://github.com/janesmith",
-    linkedin: "https://linkedin.com/in/janesmith",
+    github: "https://github.com/sh4nky2002",
+    linkedin: "https://www.linkedin.com/in/shashank-katwal-605967340/",
   },
 {
-  name: "Frontend Developer",
+  name: "Developer",
   image: sunav,
-  github: "https://github.com/sapkotas",
-  linkedin: "https://linkedin.com/in/janesmith",
+  github: "https://github.com/sapkotas/",
+  linkedin: "https://www.linkedin.com/in/sunav-sapkota-9a9958322/",
 },
 ];
 
 const Home = () => {
-  
-  const navigate = useNavigate();
+   const navigate = useNavigate();
+   const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [statusMessage, setStatusMessage] = useState({
+    message: "",
+    type: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Post form data to Formspree endpoint
+    const response = await fetch("https://formspree.io/f/xgvepzjk", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      }),
+    });
+
+    if (response.ok) {
+      setStatusMessage({
+        message: "Your message has been sent successfully!",
+        type: "success",
+      });
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } else {
+      setStatusMessage({
+        message: "Something went wrong, please try again.",
+        type: "error",
+      });
+    }
+  };
   return (
 <>
 {/* navbar container  */}
@@ -140,11 +187,6 @@ const Home = () => {
         Your privacy is our priority. We provide a safe, non-judgmental
         space for you to explore.
       </p>
-    <h3> <img src={timelogo} alt="Therapy on your schedule"className="logo-service-img"/> Therapy on Your Schedule</h3>
-      <p>
-        You can prioritize your mental health without disrupting your
-        routine.
-      </p>
     <h3> <img src={service} alt="Therapy on your schedule"className="logo-service-img" /> Services</h3>
       <p>
         Our mental health assistant  website provides the following services to our
@@ -168,15 +210,84 @@ const Home = () => {
       </p>
     <h3> <img src={contact} alt="contact us"className="logo-service-img" /> Contact Us</h3>
       <p>
-        If you have any questions about these Terms of Service, please <span className="contact-us" onClick={(e) => { e.preventDefault();  window.location.href = "/contact"; }}>contact </span> 
+        If you have any questions about these Terms of Service, please <span className="contact-us">contact </span> 
         us.
       </p>
     </div>
 </div>
 
+{/* contact us container  */}
+<div className="contact-container" id="contact">
+      <div className="contact-page">
+        <div className="contact-wrapper"> {/* New wrapper for both containers */}
+          <div className="contact-form">
+            <h1>Send us a <span style={{color:'red'}}>message</span></h1>
+            <p>
+            Let's keep the conversation going! Share your thoughts or anything else that's on your mind. A quick message is all it takes!
+            </p>
+            <form onSubmit={handleSubmit} method="POST">
+              <div className="form-field">
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="name">Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="name">Phone:</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Your Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="name">Message:</label>
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" className="contact-button">Send Message</button>
+            </form>
 
+            {statusMessage.message && (
+              <p className={`status-message ${statusMessage.type}`}>
+                {statusMessage.message}
+              </p>
+            )}
+          </div>
+          <div className="contact-image">
+            {/* <img
+              src={showingdirec}
+              alt="Contact Us"
+            /> */}
+          </div>
+        </div>
+      </div>
 </div>
 
+</div>
 {/* footer container  */}
 <Footer/>
 </>

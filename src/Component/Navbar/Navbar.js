@@ -79,6 +79,19 @@ const Navbar = () => {
               Service
             </a>
           </li>
+          <li className="nav-item">
+          <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact').scrollIntoView({
+                  behavior: 'smooth',
+                });
+              }}
+            >
+              contact
+            </a>
+          </li>
         </ul>
 
         {/* Button Section */}

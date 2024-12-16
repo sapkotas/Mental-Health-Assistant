@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://mental-health-assistant-ml.onrender.com", // Base URL for the API
+  baseURL: "https://mental-health-assistant-backend.onrender.com/api", // Base URL for the API
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer <token>",

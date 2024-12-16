@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
-import './SignUp.css';
-import logoforloginpage from '../assest/logoforloginpage.PNG';
-import login from '../assest/login.PNG';
-import { Link, useNavigate} from 'react-router-dom';
+import logoforloginpage from '../../assest/logoforloginpage.PNG';
+import login from '../../assest/login.PNG';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert'; // Material-UI for Snackbar and Alert components
+import Alert from '@mui/material/Alert';
 
-function SignUp() {
+function DoctorRegister() {
   const navigate = useNavigate();
-
-
 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     retypePassword: '',
-    role: 'user',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -25,7 +21,7 @@ function SignUp() {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success', // success, error, warning, info
+    severity: 'success',
   });
 
   const handleInputChange = (e) => {
@@ -42,26 +38,24 @@ function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     setErrors({});
-  
+
     const newErrors = {};
-    const nameRegex = /^[a-zA-Z\s]+$/;
-    const emailRegex = /^[a-zA-Z]+[0-9]*@gmail\.com$/;
-  
-    const passwordMinLength = 8;
-  
-    if (!nameRegex.test(formData.fullName)) {
-      newErrors.fullName = 'Full name should only contain letters and spaces.';
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full name is required.';
     }
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Email should contain name followed by numbers.';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address.';
     }
-    if (formData.password.length < passwordMinLength) {
-      newErrors.password = `Password must be at least ${passwordMinLength} characters long.`;
+    if (formData.password.length < 5) {
+      newErrors.password = 'Password must be at least 5 characters long.';
     }
     if (formData.password !== formData.retypePassword) {
       newErrors.retypePassword = 'Passwords do not match.';
     }
-  
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setIsLoading(false);
@@ -72,10 +66,10 @@ function SignUp() {
       });
       return;
     }
-  
+
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'https://mental-health-assistant-backend.onrender.com'}/api/users/register`,
+        `${process.env.REACT_APP_API_URL || 'https://mental-health-assistant-backend.onrender.com'}/api/doctor/register`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -83,34 +77,27 @@ function SignUp() {
             fullName: formData.fullName,
             email: formData.email,
             password: formData.password,
-            role: formData.role,
           }),
         }
       );
-  
+
       const data = await response.json();
       setIsLoading(false);
-  
-      if (data.status === 'User registered successfully !!') {
+
+      if (response.status === 201) {
         setSnackbar({
           open: true,
           message: 'Account created successfully! Redirecting...',
           severity: 'success',
         });
+        localStorage.setItem('accessToken', data.accessToken);
         setTimeout(() => {
-          navigate('/login'); // Redirect to the login page
-        }, 3000);
-      } else if (data.errors) {
-        setErrors(data.errors);
-        setSnackbar({
-          open: true,
-          message: 'Error in form submission. Please check your details.',
-          severity: 'error',
-        });
+          navigate('/');
+        }, 2000);
       } else {
         setSnackbar({
           open: true,
-          message: data.message || 'Signup failed. Please try again.',
+          message: data || 'Signup failed. Please try again.',
           severity: 'error',
         });
       }
@@ -123,7 +110,6 @@ function SignUp() {
       });
     }
   };
-  
 
   return (
     <div className="signin-container">
@@ -222,7 +208,7 @@ function SignUp() {
         </form>
 
         <p className="login-link">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/doctor/login">Login</Link>
         </p>
       </div>
 
@@ -246,4 +232,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default DoctorRegister;

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './Login.css';
-import logoforloginpage from '../assest/logoforloginpage.PNG';
-import login from '../assest/login.PNG';
+import logoforloginpage from '../../assest/logoforloginpage.PNG';
+import login from '../../assest/login.PNG';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Eye icons from react-icons
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
-function Login() {
+function DoctorLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +17,7 @@ function Login() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('error'); // "error" or "success"
 
+  // Load remembered credentials on component mount
   useEffect(() => {
     setFormData({
       email: localStorage.getItem('rememberedEmail') || '',
@@ -25,20 +25,23 @@ function Login() {
     });
   }, []);
 
+  // Redirect if already logged in
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (isLoggedIn) {
-      navigate('/');
+      navigate('/overview/dashboard');
     }
   }, [navigate]);
 
+  // Input change handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
-    setFormError('');
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' })); // Clear specific field errors
+    setFormError(''); // Clear general form errors
   };
 
+  // Remember credentials handler
   const handleRememberMe = (e) => {
     if (e.target.checked) {
       localStorage.setItem('rememberedEmail', formData.email);
@@ -49,59 +52,65 @@ function Login() {
     }
   };
 
+  // Close Snackbar
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+    if (snackbarSeverity === 'success') {
+      navigate('/admin/dashboard'); // Navigate after success
+    }
   };
 
+  // Form submission handler
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors({});
     setFormError('');
   
-    const emailPattern = /^[a-zA-Z]+\d+@gmail\.com$/;
-    const newErrors = {};
+    // const emailPattern = /^[a-zA-Z]+\d+@gmail\.com$/;
+    // const newErrors = {};
   
-    if (!formData.email || !emailPattern.test(formData.email)) {
-      newErrors.email = 'Email must be in the format abc12@gmail.com.';
-    }
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setIsLoading(false);
-      return;
-    }
-  
-    const controller = new AbortController();
+    // // Validate email
+    // if (!formData.email || !emailPattern.test(formData.email)) {
+    //   newErrors.email = 'Email must be in the format abc12@gmail.com.';
+    // }
+    // if (Object.keys(newErrors).length > 0) {
+    //   setErrors(newErrors);
+    //   setIsLoading(false);
+    //   return;
+    // }
   
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'https://mental-health-assistant-backend.onrender.com'}/api/users/login`,
+        `${process.env.REACT_APP_API_URL || 'https://mental-health-assistant-backend.onrender.com'}/api/admin/login`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
-          signal: controller.signal,
         }
       );
-      
-    
+  
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Login Error:', errorData); // Log error message if not successful
         setFormError(errorData.message || 'Login failed. Please try again.');
         setSnackbarMessage(errorData.message || 'Login failed. Please try again.');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
       } else {
         const data = await response.json();
+        console.log('API Response:', data); // Log full API response
+        console.log('Access Token:', data.token);  // Log token for debugging
+  
+        // Directly access the token from the response data
         if (data.status === 'success') {
-          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('accessToken', data.token);  // Store token in localStorage
           localStorage.setItem('isLoggedIn', 'true');
-          const redirectTo = localStorage.getItem('redirectPath') || '/';
+          const redirectTo = localStorage.getItem('redirectPath') || '/admin/dashboard';
           setSnackbarMessage('Login successful!');
           setSnackbarSeverity('success');
           setSnackbarOpen(true);
           setTimeout(() => navigate(redirectTo), 2000);
-        
         } else {
           setFormError(data.message || 'Login failed. Please check your credentials.');
           setSnackbarMessage(data.message || 'Login failed. Please check your credentials.');
@@ -110,21 +119,22 @@ function Login() {
         }
       }
     } catch (error) {
-      if (error.name === 'AbortError') {
-        setFormError('Request timed out. Please try again later.');
-        setSnackbarMessage('Request timed out. Please try again later.');
-      } else {
-        setFormError('An error occurred while logging in. Please try again.');
-        setSnackbarMessage('An error occurred while logging in. Please try again.');
-      }
+      console.error('Network Error:', error); // Log network errors
+      setFormError('An error occurred while logging in. Please try again.');
+      setSnackbarMessage('An error occurred while logging in. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
     } finally {
       setIsLoading(false);
     }
   };
-  
-  
+
+  // Handle logout (removes the token)
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.setItem('isLoggedIn', 'false');
+    navigate('/');
+  };
 
   return (
     <div className="login-container">
@@ -186,10 +196,7 @@ function Login() {
           </button>
         </form>
         <p className="signup-link">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
-        <p className="signup-link">
-           are you a doctor? <Link to="/doctor/login">login</Link>
+          Don't have an account? <Link to="/doctor/register">Register</Link>
         </p>
       </div>
       <div className="login-right">
@@ -201,9 +208,9 @@ function Login() {
       {/* Snackbar */}
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}
@@ -213,5 +220,4 @@ function Login() {
   );
 }
 
-export default Login;
-
+export default DoctorLogin;

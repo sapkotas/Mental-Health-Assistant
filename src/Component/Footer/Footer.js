@@ -62,7 +62,7 @@ const Footer = () => {
             className="text-center p-3"
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
           >
-            © 2020 Copyright: <img src={logo} alt="logo" style={{height:"28px", width:"28px"}}/> InnerPeace
+            © 2024 Copyright: <img src={logo} alt="logo" style={{height:"28px", width:"28px"}}/> InnerPeace
             
     
             
