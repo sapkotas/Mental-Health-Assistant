@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./VerifyDoctor.css"; 
-import AdminSidebar from "../Dashboard/Sidebar/AdminSidebar";
 
 const VerifyDoctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -112,7 +111,6 @@ const VerifyDoctor = () => {
 
   return (
     <>
-      <AdminSidebar />
       <div className="verify-doctors-container">
         <h2>Pending Doctors</h2>
         {doctors.length === 0 ? (

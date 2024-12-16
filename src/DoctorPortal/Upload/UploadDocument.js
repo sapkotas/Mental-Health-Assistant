@@ -7,11 +7,12 @@ function UploadDocument() {
   const [isUploading, setIsUploading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // "success" or "error"
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   // Handle file selection
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    console.log("Selected File:", e.target.files[0]);
   };
 
   // Handle snackbar close
@@ -31,7 +32,6 @@ function UploadDocument() {
     }
 
     const token = localStorage.getItem("accessToken");
-
     if (!token) {
       setSnackbarMessage("Access token is missing. Please log in again.");
       setSnackbarSeverity("error");
@@ -40,7 +40,11 @@ function UploadDocument() {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", file); // Key name for the file upload
+
+    console.log("Token:", token);
+    console.log("API URL:", process.env.REACT_APP_API_URL);
+    console.log("File Sent in FormData:", file);
 
     setIsUploading(true);
 
@@ -50,13 +54,12 @@ function UploadDocument() {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the request
+            Authorization: `Bearer ${token}`,
           },
-          body: formData, // Attach form data
+          body: formData,
         }
       );
 
-      // Handle response
       const result = await response.json();
 
       if (response.ok) {
@@ -69,7 +72,7 @@ function UploadDocument() {
       }
     } catch (error) {
       console.error("Error uploading file:", error);
-      setSnackbarMessage("An unexpected error occurred.");
+      setSnackbarMessage("An unexpected error occurred. Please try again.");
       setSnackbarSeverity("error");
     } finally {
       setIsUploading(false);
