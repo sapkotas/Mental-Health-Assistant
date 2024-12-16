@@ -127,7 +127,7 @@ const VerifyDoctor = () => {
             <tbody>
               {doctors.map((doctor) => (
                 <tr key={doctor.id}>
-                  <td>{doctor.name || "N/A"}</td>
+                  <td>{doctor.fullName || "N/A"}</td>
                   <td>{doctor.email || "N/A"}</td>
                   <td>
                     <button

@@ -1,0 +1,131 @@
+/* VerifyDoctor.css */
+
+  
+  /* Container */
+  .verify-doctors-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading */
+  .verify-doctors-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  /* Error Message */
+  .error {
+    color: #e74c3c;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Table Styles */
+  .doctor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .doctor-table th,
+  .doctor-table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .doctor-table th {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .doctor-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .doctor-table tr:hover {
+    background-color: #e1e8f0;
+  }
+  
+  /* Table Cells */
+  .doctor-table td {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .doctor-table td button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .doctor-table td button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  /* Verify Button */
+  .verify-button {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .verify-button:hover {
+    background-color: #27ae60;
+  }
+  
+  /* Reject Button */
+  .reject-button {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .reject-button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Empty State */
+  .verify-doctors-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+  }
+  
+  /* Loading state */
+  .verify-doctors-container p.loading {
+    font-size: 18px;
+    color: #3498db;
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .verify-doctors-container {
+      padding: 15px;
+    }
+  
+    .doctor-table {
+      font-size: 14px;
+    }
+  
+    .doctor-table th, .doctor-table td {
+      padding: 10px;
+    }
+  
+    .doctor-table td button {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  }
+  

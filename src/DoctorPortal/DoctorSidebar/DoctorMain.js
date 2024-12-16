@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import './DoctorMain.css';
 import { useNavigate } from "react-router-dom";
 import DoctorSidebar from "./DoctorSidebar";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import axios from "axios"; // For making HTTP requests
 
 const DoctorMain = () => {
   const navigate = useNavigate();
@@ -11,103 +11,129 @@ const DoctorMain = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // "success" or "error"
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
-  // Check if user is logged in when the component loads
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    console.log("Access Token:", token); // Log the token
+    console.log("Access token:", token); // Log token for debugging
     if (!token) {
-      console.error("Access token is missing. Redirecting to login.");
-      navigate("/login");
+      setSnackbarMessage("Access token is missing. Redirecting to login.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      setTimeout(() => navigate("/login"), 2000);
     }
   }, [navigate]);
 
-  // Handle file selection
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0]; // Get the first selected file
+    console.log("File input triggered:", e.target.files); // Check the files object
+
+    if (selectedFile) {
+      console.log("Selected file type:", selectedFile.type); // Check file type
+      console.log("Selected file size:", selectedFile.size); // Check file size
+
+      // Only accept PDF files
+      if (selectedFile.type !== "application/pdf") {
+        setSnackbarMessage("Only PDF files are allowed.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        return;
+      }
+
+      // Store the selected file
+      setFile(selectedFile);
+      console.log("Selected file:", selectedFile); // Log the file details
+    }
   };
 
-  // Handle closing of the snackbar
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  // Function to upload the file
   const handleFileUpload = async (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
-      setSnackbarMessage("Access token is missing. Please log in again.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-      return;
-    }
-
+  
+    // Ensure file is selected
     if (!file) {
       setSnackbarMessage("Please select a file to upload.");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
-
+  
     const formData = new FormData();
-    formData.append("file", file);
-
-    setIsUploading(true);
-
+    formData.append("file", file); 
+  
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setSnackbarMessage("Access token is missing. Please log in again.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+  
+    setIsUploading(true); 
+  
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL || "https://mental-health-assistant-backend.onrender.com"}/api/doctor/UploadDoc`,
-        formData,
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL || "https://mental-health-assistant-backend.onrender.com"}/api/doctor/uploadDoc`,
         {
+          method: "POST",
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`, // Include token in the request
+            Authorization: `Bearer ${token}`,
           },
+          body: formData,
         }
       );
-
-      // If successful, show success message
-      setSnackbarMessage(response.data.message || "File uploaded successfully.");
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error response:", errorData);
+        setSnackbarMessage(errorData.message || "Error occurred during file upload.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        return;
+      }
+  
+      const data = await response.json();
+      console.log("Upload successful:", data);
+      setSnackbarMessage(data.message || "Document uploaded successfully.");
       setSnackbarSeverity("success");
-      setFile(null); // Clear the file input after successful upload
+      setFile(null); 
     } catch (error) {
-      console.error("Error uploading file:", error);
-      setSnackbarMessage(
-        error.response?.data?.message || "Failed to upload document."
-      );
+      console.error("Upload failed:", error);
+      setSnackbarMessage("An error occurred while uploading the document.");
       setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     } finally {
       setIsUploading(false);
-      setSnackbarOpen(true);
     }
   };
+  
+  
 
   return (
-    <>
+    <div className="doctor-main">
       <DoctorSidebar />
       <div className="upload-container">
         <h2>Upload Document</h2>
-        <form onSubmit={handleFileUpload}>
+        <form onSubmit={handleFileUpload} className="upload-form">
           <div className="form-group">
             <label htmlFor="file">Select PDF file:</label>
             <input
               type="file"
               id="file"
-              accept=".pdf"
-              onChange={handleFileChange}
-              disabled={isUploading}
+              accept=".pdf" // Only allow PDF files
+              onChange={handleFileChange} // Handle file selection
+              disabled={isUploading} // Disable input when uploading
             />
           </div>
-          <button type="submit" disabled={isUploading}>
+          <button type="submit" disabled={isUploading} className="upload-button">
             {isUploading ? "Uploading..." : "Upload"}
           </button>
         </form>
 
-        {/* Snackbar for notifications */}
+        {/* Snackbar to show success or error messages */}
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={6000}
@@ -119,7 +145,7 @@ const DoctorMain = () => {
           </Alert>
         </Snackbar>
       </div>
-    </>
+    </div>
   );
 };
 
