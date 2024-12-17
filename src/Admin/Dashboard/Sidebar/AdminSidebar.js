@@ -22,13 +22,16 @@ const AdminSidebar = () => {
       } catch (error) {
         console.error('Logout API call failed:', error);
       }
+      localStorage.removeItem('role');
+
     }
 
     // Clear tokens and other user data
     localStorage.removeItem('accessToken');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('role');
+
 
     // Redirect to login or home page
     navigate('/login');
@@ -55,12 +58,12 @@ const AdminSidebar = () => {
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/users" activeClassName="active">
+                <NavLink to="/admin/user" activeClassName="active">
                   <FaUser /> Users
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="admin/doctor" activeClassName="active">
+                <NavLink to="/admin/doctor" activeClassName="active">
                   <FaUserMd /> Doctors
                 </NavLink>
               </li>

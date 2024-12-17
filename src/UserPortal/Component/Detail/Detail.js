@@ -1,7 +1,7 @@
  import React from 'react'
 import './Detail.css'
 import { FaChild, FaComment, FaUser} from "react-icons/fa";
-import therapist from '../../assest/therapist.jpg';
+import therapist from '../../../assest/therapist.jpg';
 import { useNavigate } from 'react-router-dom';
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './DoctorMain.css';
+import "./DoctorMain.css";
 import { useNavigate } from "react-router-dom";
 import DoctorSidebar from "./DoctorSidebar";
 import Snackbar from "@mui/material/Snackbar";
@@ -15,7 +15,7 @@ const DoctorMain = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    console.log("Access token:", token); // Log token for debugging
+    console.log("Access token:", token); // Debugging token
     if (!token) {
       setSnackbarMessage("Access token is missing. Redirecting to login.");
       setSnackbarSeverity("error");
@@ -25,14 +25,14 @@ const DoctorMain = () => {
   }, [navigate]);
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0]; // Get the first selected file
-    console.log("File input triggered:", e.target.files); // Check the files object
+    const selectedFile = e.target.files[0];
+    console.log("File input triggered:", e.target.files);
 
     if (selectedFile) {
-      console.log("Selected file type:", selectedFile.type); // Check file type
-      console.log("Selected file size:", selectedFile.size); // Check file size
+      console.log("Selected file type:", selectedFile.type);
+      console.log("Selected file size:", selectedFile.size);
 
-      // Only accept PDF files
+      // Only allow PDF files
       if (selectedFile.type !== "application/pdf") {
         setSnackbarMessage("Only PDF files are allowed.");
         setSnackbarSeverity("error");
@@ -40,9 +40,8 @@ const DoctorMain = () => {
         return;
       }
 
-      // Store the selected file
-      setFile(selectedFile);
-      console.log("Selected file:", selectedFile); // Log the file details
+      setFile(selectedFile); // Store the selected file
+      console.log("Selected file:", selectedFile);
     }
   };
 
@@ -52,18 +51,17 @@ const DoctorMain = () => {
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
-  
-    // Ensure file is selected
+
     if (!file) {
       setSnackbarMessage("Please select a file to upload.");
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
       return;
     }
-  
+
     const formData = new FormData();
-    formData.append("file", file); 
-  
+    formData.append("pdf", file);
+
     const token = localStorage.getItem("accessToken");
     if (!token) {
       setSnackbarMessage("Access token is missing. Please log in again.");
@@ -71,9 +69,9 @@ const DoctorMain = () => {
       setSnackbarOpen(true);
       return;
     }
-  
-    setIsUploading(true); 
-  
+
+    setIsUploading(true);
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL || "https://mental-health-assistant-backend.onrender.com"}/api/doctor/uploadDoc`,
@@ -85,7 +83,7 @@ const DoctorMain = () => {
           body: formData,
         }
       );
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response:", errorData);
@@ -94,12 +92,16 @@ const DoctorMain = () => {
         setSnackbarOpen(true);
         return;
       }
-  
+
       const data = await response.json();
       console.log("Upload successful:", data);
+
+      // Show success message and clear the file input
       setSnackbarMessage(data.message || "Document uploaded successfully.");
       setSnackbarSeverity("success");
-      setFile(null); 
+      setSnackbarOpen(true);
+      setFile(null); // Reset file state
+      document.getElementById("file").value = ""; // Clear the input field
     } catch (error) {
       console.error("Upload failed:", error);
       setSnackbarMessage("An error occurred while uploading the document.");
@@ -109,8 +111,6 @@ const DoctorMain = () => {
       setIsUploading(false);
     }
   };
-  
-  
 
   return (
     <div className="doctor-main">
@@ -123,9 +123,9 @@ const DoctorMain = () => {
             <input
               type="file"
               id="file"
-              accept=".pdf" // Only allow PDF files
-              onChange={handleFileChange} // Handle file selection
-              disabled={isUploading} // Disable input when uploading
+              accept=".pdf"
+              onChange={handleFileChange}
+              disabled={isUploading}
             />
           </div>
           <button type="submit" disabled={isUploading} className="upload-button">

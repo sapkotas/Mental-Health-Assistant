@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import './Doctor.css'
-import Sidebar from '../../Dashboard/Sidebar';
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import "./Doctor.css";
+import Sidebar from "../../Dashboard/Sidebar";
 
 export const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [selectedDoctor, setSelectedDoctor] = useState(null); // To manage selected doctor for viewing info
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -36,12 +37,12 @@ export const Doctor = () => {
 
         const data = await response.json();
 
-        if (data.doctors) {
-          setDoctors(data.doctors); 
+        if (data.doctors && data.doctors.length > 0) {
+          setDoctors(data.doctors);
         } else {
           setError("No doctors data found.");
         }
-        setError(""); 
+        setError(""); // Clear error if successful
       } catch (err) {
         console.error("Error fetching doctors:", err.message);
         setError("Failed to load the list of doctors. Please try again.");
@@ -54,13 +55,15 @@ export const Doctor = () => {
   }, []);
 
   const handleDoctorClick = (doctor) => {
-    setSelectedDoctor(doctor); // Set the selected doctor for displaying details
+    navigate("/doctor-details", { state: { doctor } }); // Navigate to doctor details page
   };
 
-
+  if (loading) {
+    return <div>Loading...</div>; // Display a loading indicator
+  }
 
   if (error) {
-    return <div style={{ color: "red" }}>{error}</div>;
+    return <div style={{ color: "red" }}>{error}</div>; // Display error message
   }
 
   return (
@@ -76,7 +79,11 @@ export const Doctor = () => {
                 className="doctor-card"
                 onClick={() => handleDoctorClick(doctor)}
               >
-                <img src="https://cdn.vectorstock.com/i/1000v/36/61/doctor-logo-icon-design-vector-15613661.jpg" alt={`${doctor.fullName}'s logo`} className="doctor-logo" />
+                <img
+                  src="https://cdn.vectorstock.com/i/1000v/36/61/doctor-logo-icon-design-vector-15613661.jpg"
+                  alt={`${doctor.fullName}'s profile`}
+                  className="doctor-logo"
+                />
                 <h3>{doctor.fullName}</h3>
               </div>
             ))
@@ -84,15 +91,6 @@ export const Doctor = () => {
             <p>No doctors found.</p>
           )}
         </div>
-
-        {/* Display doctor details when one is selected */}
-        {selectedDoctor && (
-          <div className="doctor-info">
-            <h2>{selectedDoctor.fullName}</h2>
-            <p><strong>Role:</strong> {selectedDoctor.role}</p>
-            <p><strong>Email:</strong> {selectedDoctor.email}</p>
-          </div>
-        )}
       </div>
     </div>
   );

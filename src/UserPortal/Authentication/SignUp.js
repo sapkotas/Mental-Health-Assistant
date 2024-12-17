@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css';
-import logoforloginpage from '../assest/logoforloginpage.PNG';
-import login from '../assest/login.PNG';
+import logoforloginpage from '../../assest/logoforloginpage.PNG';
+import login from '../../assest/login.PNG';
 import { Link, useNavigate} from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Snackbar from '@mui/material/Snackbar';

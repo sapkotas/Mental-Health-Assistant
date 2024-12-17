@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Predict.css";
-import Footer from "../../Component/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Footer from "../Footer/Footer";
 
 export const Predict = () => {
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ export const Predict = () => {
         setTimerActive(false);
         setLoadingMessage("");
         console.error("Error submitting responses:", err.message);
-        setError(err.message || "An unexpected error occurred.");
+        setError( "Prediction only avaiable for one day Next prediction tommorrow.");
         setSnackbarOpen(true);
       });
   };

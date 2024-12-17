@@ -106,6 +106,7 @@ function DoctorLogin() {
         if (data.status === 'success') {
           localStorage.setItem('accessToken', data.token);  // Store token in localStorage
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('role', 'doctor');
           const redirectTo = localStorage.getItem('redirectPath') || '/doctor/dashboard';
           setSnackbarMessage('Login successful!');
           setSnackbarSeverity('success');
@@ -129,12 +130,8 @@ function DoctorLogin() {
     }
   };
 
-  // Handle logout (removes the token)
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.setItem('isLoggedIn', 'false');
-    navigate('/');
-  };
+
+
 
   return (
     <div className="login-container">

@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   padding: 30px;
-  background: url('../../assest/brain.png') no-repeat center center; 
+  background: url('../../../assest/brain.png') no-repeat center center; 
   background-size: cover; /* Ensures the image covers the entire container */
   background-attachment: fixed; /* Keeps the background fixed during scroll */
   background-blend-mode: overlay; /* Optional: Blend the image with a color for better readability */

@@ -1,7 +1,9 @@
 /* VerifyDoctor.css */
 
   
-  /* Container */
+ .verify-doctor-main{
+  display: flex;
+ }
   .verify-doctors-container {
     max-width: 1200px;
     margin: 30px auto;
@@ -107,6 +109,14 @@
     font-size: 18px;
     color: #3498db;
     text-align: center;
+  }
+  .download-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .download-link:hover {
+    text-decoration: underline;
   }
   
   /* Responsive Design */

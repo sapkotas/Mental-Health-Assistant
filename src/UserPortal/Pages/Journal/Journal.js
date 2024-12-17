@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Journal.css";
-import Navbar from "../../Component/Navbar/Navbar";
+import Navbar from "../../Component/Navbar/Navbar"
 import Footer from "../../Component/Footer/Footer";
 
 export const Journal = () => {

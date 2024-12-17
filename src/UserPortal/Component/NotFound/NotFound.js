@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NotFound.css';
-import error404 from '../../assest/error404.jpg';
+import error404 from '../../../assest/error404.jpg';
 
 export const NotFound = () => {
   const navigate = useNavigate();

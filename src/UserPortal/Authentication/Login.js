@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Login.css';
-import logoforloginpage from '../assest/logoforloginpage.PNG';
-import login from '../assest/login.PNG';
+import logoforloginpage from '../../assest/logoforloginpage.PNG';
+import login from '../../assest/login.PNG';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Eye icons from react-icons
 import Snackbar from "@mui/material/Snackbar";
@@ -96,6 +96,7 @@ function Login() {
         if (data.status === 'success') {
           localStorage.setItem('accessToken', data.accessToken);
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('role', 'user');
           const redirectTo = localStorage.getItem('redirectPath') || '/';
           setSnackbarMessage('Login successful!');
           setSnackbarSeverity('success');

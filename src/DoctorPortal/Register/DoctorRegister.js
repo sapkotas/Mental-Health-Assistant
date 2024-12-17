@@ -14,6 +14,7 @@ function DoctorRegister() {
     email: '',
     password: '',
     retypePassword: '',
+    subscriptionFee: '', // Add subscriptionFee to the state
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -55,6 +56,11 @@ function DoctorRegister() {
     if (formData.password !== formData.retypePassword) {
       newErrors.retypePassword = 'Passwords do not match.';
     }
+    if (!formData.subscriptionFee) {
+      newErrors.subscriptionFee = 'Subscription fee is required.';
+    } else if (isNaN(formData.subscriptionFee) || formData.subscriptionFee <= 0) {
+      newErrors.subscriptionFee = 'Please enter a valid subscription fee.';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -77,6 +83,7 @@ function DoctorRegister() {
             fullName: formData.fullName,
             email: formData.email,
             password: formData.password,
+            subscriptionFee: formData.subscriptionFee, // Include subscriptionFee in the request
           }),
         }
       );
@@ -92,12 +99,12 @@ function DoctorRegister() {
         });
         localStorage.setItem('accessToken', data.accessToken);
         setTimeout(() => {
-          navigate('/');
+          navigate('/doctor/login');
         }, 2000);
       } else {
         setSnackbar({
           open: true,
-          message: data || 'Signup failed. Please try again.',
+          message: data.message || 'Signup failed. Please try again.',
           severity: 'error',
         });
       }
@@ -200,6 +207,21 @@ function DoctorRegister() {
               </button>
             </div>
             {errors.retypePassword && <p className="error-text">{errors.retypePassword}</p>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="subscriptionFee">Subscription Fee</label>
+            <input
+              type="number"
+              id="subscriptionFee"
+              name="subscriptionFee"
+              value={formData.subscriptionFee}
+              onChange={handleInputChange}
+              required
+              placeholder="Subscription Fee"
+              className={errors.subscriptionFee ? 'input-error' : ''}
+            />
+            {errors.subscriptionFee && <p className="error-text">{errors.subscriptionFee}</p>}
           </div>
 
           <button type="submit" className="btn-primary" disabled={isLoading}>

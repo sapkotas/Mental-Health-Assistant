@@ -22,13 +22,14 @@ const DoctorSidebar = () => {
       } catch (error) {
         console.error('Logout API call failed:', error);
       }
+      localStorage.removeItem('role');
     }
 
     // Clear tokens and other user data
     localStorage.removeItem('accessToken');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('userRole');
+    
 
     // Redirect to login or home page
     navigate('/login');
@@ -55,13 +56,13 @@ const DoctorSidebar = () => {
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/users" activeClassName="active">
+                <NavLink to="/doctorUsers" activeClassName="active">
                   <FaUser /> Users
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="doctor/doctor" activeClassName="active">
-                  <FaUserMd /> Doctors
+                <NavLink to="/doctorprofile" activeClassName="active">
+                  <FaUserMd /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">

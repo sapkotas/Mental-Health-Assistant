@@ -1,116 +1,148 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home/Home';
-import { Predict } from './Component/Predict/Predict';
-import Login from './Authentication/Login';
-import  {Profile}  from './Pages/Profile/Profile';
-import { Doctor } from './Pages/Doctor/Doctor';
-import { History } from './Pages/History/History';
+import Home from './UserPortal/Pages/Home/Home';
+import { NotFound } from './UserPortal/Component/NotFound/NotFound';
 import ProtectedRoute from './ProtectedRoute';
-import { Journal } from './Pages/Journal/Journal';
-import SignUp from './Authentication/SignUp';
-import { NotFound } from './Component/NotFound/NotFound';
-import Dashboard from './Dashboard/Dashboard';
-import DoctorRegister from './DoctorPortal/Register/DoctorRegister';
+
+// User Components
+import { Predict } from './UserPortal/Component/Predict/Predict';
+import Login from './UserPortal/Authentication/Login';
+import SignUp from './UserPortal/Authentication/SignUp';
+import { Profile } from './UserPortal/Pages/Profile/Profile';
+import { History } from './UserPortal/Pages/History/History';
+import { Journal } from './UserPortal/Pages/Journal/Journal';
+import Dashboard from './UserPortal/Dashboard/Dashboard';
+import { Doctor } from './UserPortal/Pages/Doctor/Doctor';
+
+// Doctor Components
 import DoctorLogin from './DoctorPortal/Login/DoctorLogin';
-import AdminLogin from './Admin/AdminLogin/AdminLogin';
+import DoctorRegister from './DoctorPortal/Register/DoctorRegister';
+import DoctorMain from './DoctorPortal/DoctorSidebar/DoctorMain'; 
+import DoctorDahboard from './DoctorPortal/DoctorDashboard/DoctorDahboard';
+import { DoctorUser } from './DoctorPortal/DoctorUser/DoctorUser';
+
+// Admin Components
 import AdminDashboard from './Admin/Dashboard/AdminDashboard';
-import DoctorProfile from './DoctorPortal/DoctorProfile';
-import  VerifyDoctor  from './Admin/VerifyDoctor/VerifyDoctor';
-import  DoctorMain  from './DoctorPortal/DoctorSidebar/DoctorMain';
-import KhaltiPayment from './Payment/Payment';
+import AdminLogin from './Admin/AdminLogin/AdminLogin';
+import VerifyDoctor from './Admin/VerifyDoctor/VerifyDoctor';
+import { AdminUsers } from './Admin/Users/AdminUsers';
+
 const App = () => {
   return (
-    <>
-
     <Router>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/check_your_condition" element={
-           <ProtectedRoute>
-           <Predict />
-         </ProtectedRoute>
-          } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/doctor/register" element={<DoctorRegister />} />
         <Route path="/doctor/login" element={<DoctorLogin />} />
+        <Route path="/doctor/register" element={<DoctorRegister />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/doctor/profile" element={<DoctorProfile />} />
-        <Route path="/payment" element={<KhaltiPayment />} />
+        <Route path="*" element={<NotFound />} />
 
-        {/* Protected Routes */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin/dashboard/admin/doctor"
-          element={
-            <ProtectedRoute>
-              <VerifyDoctor/>
-            </ProtectedRoute>
-          }
-        />
+        {/* Doctor-Specific Routes */}
         <Route
           path="/doctor/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute doctorOnly={true}>
+              <DoctorDahboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctorUsers"
+          element={
+            <ProtectedRoute doctorOnly={true}>
+              <DoctorUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctorProfile"
+          element={
+            <ProtectedRoute doctorOnly={true}>
               <DoctorMain />
             </ProtectedRoute>
           }
         />
 
+        {/* User-Specific Routes */}
         <Route
-          path="/doctor"
+          path="/check_your_condition"
           element={
-            <ProtectedRoute>
-              <Doctor />
+            <ProtectedRoute userOnly={true}>
+              <Predict />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute userOnly={true}>
+              <Profile />
             </ProtectedRoute>
           }
         />
         <Route
           path="/history"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userOnly={true}>
               <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor"
+          element={
+            <ProtectedRoute userOnly={true}>
+              <Doctor />
             </ProtectedRoute>
           }
         />
         <Route
           path="/overview/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userOnly={true}>
               <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
             </ProtectedRoute>
           }
         />
         <Route
           path="/journal"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userOnly={true}>
               <Journal />
             </ProtectedRoute>
           }
         />
+
+        {/* Admin-Specific Routes */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/User"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <AdminUsers />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/doctor"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <VerifyDoctor />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-      </Router>
-    </>
+    </Router>
   );
 };
 

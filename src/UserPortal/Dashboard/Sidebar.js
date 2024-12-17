@@ -1,7 +1,7 @@
 import React from 'react';
 import './Sidebar.css';
 import { FaUser, FaClipboardList, FaUserMd, FaHistory, FaHome, FaSignOutAlt } from 'react-icons/fa';
-import innerpeace from '../../src/assest/innerpeace.png';
+import innerpeace from '../../../src/assest/innerpeace.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -29,7 +29,9 @@ const Sidebar = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('role');
+
+
 
     // Redirect to login or home page
     navigate('/login');

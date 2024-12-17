@@ -3,22 +3,22 @@ import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa"; 
 // some components below 
-import Navbar from "../../Component/Navbar/Navbar";
-import Footer from  "../../Component/Footer/Footer"
-import Steps from "../../Component/Steps/Steps";
+import Navbar from '../../Component/Navbar/Navbar'
+import Footer from  '../../Component/Steps/Steps'
+import Steps from "../../Component/Steps/Steps"
 import { Detail } from "../../Component/Detail/Detail";
 // images below 
-import rohan from '../../assest/rohan.jpg';
-import shashank from '../../assest/shashank.jpg';
-import sunav from '../../assest/sunav.jpg';
-import hero from '../../assest/hero.png';
-import personalized from '../../assest/personalized.png'
-import secure from '../../assest/secure.png'
-import professional from '../../assest/professional.png'
-import service from '../../assest/schedule.png'
-import accept from '../../assest/accept.png'
-import modification from '../../assest/modification.png'
-import contact from '../../assest/contact.png'
+import rohan from '../../../assest/rohan.jpg';
+import shashank from '../../../assest/shashank.jpg';
+import sunav from '../../../assest/sunav.jpg';
+import hero from '../../../assest/hero.png';
+import personalized from '../../../assest/personalized.png'
+import secure from '../../../assest/secure.png'
+import professional from '../../../assest/professional.png'
+import service from '../../../assest/schedule.png'
+import accept from '../../../assest/accept.png'
+import modification from '../../../assest/modification.png'
+import contact from '../../../assest/contact.png'
 
 const teamMembers = [
   {
@@ -41,8 +41,22 @@ const teamMembers = [
 },
 ];
 
+
 const Home = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
+  const getrole =()=>{
+    if (role === "user") {
+      navigate("/overview/dashboard");
+    } else if (role === "doctor") {
+      navigate("/doctor/dashboard");
+    } else if (role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      alert("Role not defined. Please log in.");
+    }
+  }
+
    const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,6 +73,8 @@ const Home = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,7 +125,8 @@ const Home = () => {
           to emotional wellbeing begins with us, right here.
         </p>
         <div class="dashboard-button-container">
-  <button class="dashboard-button" onClick={()=>navigate("/overview/dashboard")}> visit your Dashboard</button>
+        <button className="dashboard-button"onClick={getrole}>Visit Your Dashboard</button>
+
 </div>
 
       </div>

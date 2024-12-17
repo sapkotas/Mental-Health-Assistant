@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Eye icons from react-icon
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-function DoctorLogin() {
+function AdminLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -106,6 +106,7 @@ function DoctorLogin() {
         if (data.status === 'success') {
           localStorage.setItem('accessToken', data.token);  // Store token in localStorage
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('role', 'admin');
           const redirectTo = localStorage.getItem('redirectPath') || '/admin/dashboard';
           setSnackbarMessage('Login successful!');
           setSnackbarSeverity('success');
@@ -130,11 +131,7 @@ function DoctorLogin() {
   };
 
   // Handle logout (removes the token)
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.setItem('isLoggedIn', 'false');
-    navigate('/');
-  };
+
 
   return (
     <div className="login-container">
@@ -220,4 +217,4 @@ function DoctorLogin() {
   );
 }
 
-export default DoctorLogin;
+export default AdminLogin;

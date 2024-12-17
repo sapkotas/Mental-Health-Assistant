@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./VerifyDoctor.css"; 
+import AdminSidebar from "../Dashboard/Sidebar/AdminSidebar";
 
 const VerifyDoctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -104,13 +105,13 @@ const VerifyDoctor = () => {
     return token;
   };
 
-
-
   if (loading) return <p>Loading pending doctors...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
     <>
+    <div className="verify-doctor-main">
+    <AdminSidebar/>
       <div className="verify-doctors-container">
         <h2>Pending Doctors</h2>
         {doctors.length === 0 ? (
@@ -121,6 +122,7 @@ const VerifyDoctor = () => {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Document</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -129,6 +131,15 @@ const VerifyDoctor = () => {
                 <tr key={doctor.id}>
                   <td>{doctor.fullName || "N/A"}</td>
                   <td>{doctor.email || "N/A"}</td>
+                  <td>
+                    <a
+                      href={doctor.documentUrl}
+                      download
+                      className="download-link"
+                    >
+                      Download Document
+                    </a>
+                  </td>
                   <td>
                     <button
                       className="verify-button"
@@ -148,6 +159,7 @@ const VerifyDoctor = () => {
             </tbody>
           </table>
         )}
+      </div>
       </div>
     </>
   );

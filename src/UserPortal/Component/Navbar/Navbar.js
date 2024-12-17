@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
-import innerpeace from '../../assest/innerpeace.png';
-import user from '../../assest/user.png';
+import innerpeace from '../../../assest/innerpeace.png';
+import user from '../../../assest/user.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 
@@ -18,6 +18,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('role');
     setIsLoggedIn(false);
     navigate('/');
   };
