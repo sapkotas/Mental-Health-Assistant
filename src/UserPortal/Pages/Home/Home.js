@@ -4,7 +4,6 @@ import "./Home.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa"; 
 // some components below 
 import Navbar from '../../Component/Navbar/Navbar'
-import Footer from  '../../Component/Steps/Steps'
 import Steps from "../../Component/Steps/Steps"
 import { Detail } from "../../Component/Detail/Detail";
 // images below 
@@ -19,6 +18,7 @@ import service from '../../../assest/schedule.png'
 import accept from '../../../assest/accept.png'
 import modification from '../../../assest/modification.png'
 import contact from '../../../assest/contact.png'
+import Footer from "../../Component/Footer/Footer";
 
 const teamMembers = [
   {
