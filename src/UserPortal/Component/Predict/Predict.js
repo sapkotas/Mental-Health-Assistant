@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import Footer from "../Footer/Footer";
+import innerpeace from '../../../assest/innerpeace.png'
 
 export const Predict = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export const Predict = () => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // New loading state
 
   // Timer logic
   useEffect(() => {
@@ -42,11 +44,13 @@ export const Predict = () => {
         setQuestions(data);
         setResponses(new Array(data.length).fill(""));
         setError("");
+        setLoading(false); // Set loading to false once questions are fetched
       })
       .catch((err) => {
         console.error("Error fetching questions:", err);
         setError("Failed to load questions. Please try again later.");
         setSnackbarOpen(true);
+        setLoading(false); // Stop loading on error
       });
   }, []);
 
@@ -103,7 +107,7 @@ export const Predict = () => {
         setTimerActive(false);
         setLoadingMessage("");
         console.error("Error submitting responses:", err.message);
-        setError( "Prediction is available tommorrow.");
+        setError("Prediction is available tomorrow.");
         setSnackbarOpen(true);
       });
   };
@@ -113,29 +117,41 @@ export const Predict = () => {
       <div className="prediction-body">
         <div className="predict-container">
           <div className="questions-container">
+          <div className="logo" onClick={()=>navigate("/")}>
+          <img src={innerpeace} alt="Inner Peace Logo" className="logo-image"  style={{height:"33px", width:"33px"}}/>
+          <span className="logo-text">InnerPeace</span>
+        </div>
+        <p></p>
             <h1>Mental Health Assessment</h1>
-            <form onSubmit={handleSubmit}>
-              {questions.map((question, index) => (
-                <div key={question.id} className="question-block">
-                  <h3>{question.question}</h3>
-                  {question.options.map((option, optIndex) => (
-                    <label key={optIndex} className="option-label">
-                      <input
-                        type="radio"
-                        name={`question-${index}`}
-                        value={option}
-                        checked={responses[index] === option}
-                        onChange={() => handleOptionChange(index, option)}
-                      />
-                      {option}
-                    </label>
-                  ))}
-                </div>
-              ))}
-              <button type="submit" className="submit-button">
-                Find Your Condition
-              </button>
-            </form>
+            {loading ? ( // Show loading spinner if still loading
+              <div className="loading-container">
+                <p>Loading questions, please wait...</p>
+                <div className="spinner"></div> {/* Optional spinner */}
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                {questions.map((question, index) => (
+                  <div key={question.id} className="question-block">
+                    <h3>{question.question}</h3>
+                    {question.options.map((option, optIndex) => (
+                      <label key={optIndex} className="option-label">
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          value={option}
+                          checked={responses[index] === option}
+                          onChange={() => handleOptionChange(index, option)}
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                ))}
+                <button type="submit" className="submit-button">
+                  Find Your Condition
+                </button>
+              </form>
+            )}
             {loadingMessage && (
               <div className="loading-message">
                 {loadingMessage} ({elapsedTime}s elapsed)
