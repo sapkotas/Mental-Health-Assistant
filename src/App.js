@@ -26,6 +26,7 @@ import AdminDashboard from './Admin/Dashboard/AdminDashboard';
 import AdminLogin from './Admin/AdminLogin/AdminLogin';
 import VerifyDoctor from './Admin/VerifyDoctor/VerifyDoctor';
 import { AdminUsers } from './Admin/Users/AdminUsers';
+import DoctorDetails from './UserPortal/DoctorDetails/DoctorDetails';
 
 const App = () => {
   return (
@@ -90,12 +91,20 @@ const App = () => {
               <History />
             </ProtectedRoute>
           }
-        />
+        />  
         <Route
           path="/doctor"
           element={
             <ProtectedRoute userOnly={true}>
               <Doctor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor-details"
+          element={
+            <ProtectedRoute userOnly={true}>
+              <DoctorDetails />
             </ProtectedRoute>
           }
         />

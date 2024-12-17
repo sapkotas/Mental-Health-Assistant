@@ -103,7 +103,7 @@ export const Predict = () => {
         setTimerActive(false);
         setLoadingMessage("");
         console.error("Error submitting responses:", err.message);
-        setError( "Prediction only avaiable for one day Next prediction tommorrow.");
+        setError( "Prediction is available tommorrow.");
         setSnackbarOpen(true);
       });
   };
