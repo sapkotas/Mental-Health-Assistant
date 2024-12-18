@@ -6,7 +6,20 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const role = localStorage.getItem("role");
+    const getprofile =()=>{
+      if (role === "user") {
+        navigate("/profile");
+      } else if (role === "doctor") {
+        navigate("/doctorprofile");
+      } else if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        alert("Role not defined. Please log in.");
+      }
+    }
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -109,7 +122,7 @@ const Navbar = () => {
                 <div className="dropdown-menu">
                   <button
                     className="dropdown-item"
-                    onClick={() => navigate('/profile')}
+                    onClick={getprofile}
                   >
                     <FaUser /> Profile
                   </button>
