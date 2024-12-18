@@ -192,9 +192,6 @@ function AdminLogin() {
             {isLoading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
-        <p className="signup-link">
-          Don't have an account? <Link to="/doctor/register">Register</Link>
-        </p>
       </div>
       <div className="login-right">
         <div className="illustration-container">
