@@ -27,6 +27,7 @@ import AdminLogin from './Admin/AdminLogin/AdminLogin';
 import VerifyDoctor from './Admin/VerifyDoctor/VerifyDoctor';
 import { AdminUsers } from './Admin/Users/AdminUsers';
 import DoctorDetails from './UserPortal/DoctorDetails/DoctorDetails';
+import ChatPage from './UserPortal/Component/Chat/Chatpage';
 
 const App = () => {
   return (
@@ -40,6 +41,8 @@ const App = () => {
         <Route path="/doctor/register" element={<DoctorRegister />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/doctor-details" element={<DoctorDetails />} />
+        <Route path="/chat" element={<ChatPage />} /> {/* Chat page route */}
 
         {/* Doctor-Specific Routes */}
         <Route

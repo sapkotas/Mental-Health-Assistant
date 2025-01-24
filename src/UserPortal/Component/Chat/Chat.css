@@ -1,0 +1,121 @@
+/* Chat Container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 600px;
+  width: 100%;
+  background-color: #f7f7f8;
+  box-shadow: 0 4px 12px rgb(30, 29, 29);
+  border-radius: 8px;
+  margin: 20px auto;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Header Section */
+.chat-header {
+  background-color: #0078f7;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat History */
+.chat-history {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 75%;
+}
+
+/* Message Styling */
+.message {
+  max-width: 75%;
+  padding: 12px;
+  border-radius: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  line-height: 1.4;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.message.sent {
+  align-self: flex-end;
+  background-color: #0078f7;
+  color: white;
+}
+
+.message.received {
+  align-self: flex-start;
+  background-color: #f1f0f0;
+  color: #333;
+}
+
+.message p {
+  margin: 0;
+}
+
+.timestamp {
+  font-size: 0.75em;
+  color: #bbb;
+  margin-top: 5px;
+  text-align: right;
+}
+
+/* Input Container */
+.input-container {
+  display: flex;
+  padding: 12px;
+  background-color: white;
+  border-top: 1px solid #e5e5e5;
+  align-items: center;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Input Field */
+.input {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 1em;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  background-color: #fafafa;
+  margin-right: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #0078f7;
+}
+
+/* Send Button */
+.send-button {
+  padding: 12px 18px;
+  background-color: #0078f7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #005bb5;
+}
+
+/* Font Awesome Icon */
+.send-button i {
+  font-size: 1.2em;
+}

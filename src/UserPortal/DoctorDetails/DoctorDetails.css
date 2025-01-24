@@ -21,6 +21,7 @@
   .doctor-image {
     display: flex;
     justify-content: center;
+    height: 159px;
   }
   
   .doctor-profile-img {
@@ -35,13 +36,16 @@
     width: 60%;
   }
   
-  .doctor-details-right h1 {
+  /* .doctor-details-right h1 {
     font-size: 28px;
     font-weight: bold;
     color: #333;
-  }
+    display: flex;
+
+  } */
   
   .doctor-details-right p {
+    padding: 1px;
     font-size: 18px;
     margin-top: 10px;
     color: #555;
