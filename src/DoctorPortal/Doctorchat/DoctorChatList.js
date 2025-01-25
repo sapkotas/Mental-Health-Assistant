@@ -7,7 +7,7 @@ const DoctorChatList = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const { doctor } = location.state || {}; // Ensure doctor is passed correctly
 
   // Helper function to format the timestamp
@@ -36,15 +36,15 @@ const DoctorChatList = () => {
   };
 
   // Fetch chats from the backend API
-  const fetchChats = async () => {
+  const fetchChats = async (showLoading = true) => {
     try {
-      setLoading(true);
+      if (showLoading) setLoading(true);
       setError("");
 
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         setError("You are not authorized. Please log in.");
-        setLoading(false);
+        if (showLoading) setLoading(false);
         return;
       }
 
@@ -70,13 +70,19 @@ const DoctorChatList = () => {
       console.error("Error fetching chats:", err);
       setError("Failed to fetch chats. Please try again later.");
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
-  // Fetch chats when the component mounts
+  // Fetch chats when the component mounts and periodically every 10 seconds
   useEffect(() => {
-    fetchChats();
+    fetchChats(); // Initial fetch with loading state
+
+    const intervalId = setInterval(() => {
+      fetchChats(false); // Periodic fetch without showing loading
+    }, 2000);
+
+    return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
   // Handle consultation click for a chat (navigate to the chat page)

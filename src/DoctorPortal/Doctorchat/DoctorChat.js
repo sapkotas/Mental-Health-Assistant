@@ -139,7 +139,7 @@ const DoctorChat = () => {
       // Set up periodic fetching
       const intervalId = setInterval(() => {
         fetchChatHistoryWithoutLoading();
-      }, 10000);
+      }, 6000);
 
       // Clear interval when component unmounts
       return () => clearInterval(intervalId);

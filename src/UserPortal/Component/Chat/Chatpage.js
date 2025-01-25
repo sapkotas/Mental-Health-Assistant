@@ -16,10 +16,7 @@ const ChatPage = () => {
 
   console.log(user.fullName);
 
-  // Function to trigger soft refresh
-  const handleRefresh = () => {
-    setRefreshKey((prevKey) => prevKey + 1); // Increment the refresh key
-  };
+
 
   return (
     <>
@@ -30,9 +27,7 @@ const ChatPage = () => {
           <Chat key={refreshKey} receiverId={doctor.id} user={user} /> {/* Pass refreshKey */}
         </div>
       </div>
-      <button onClick={handleRefresh} className="refresh-button">
-        Refresh
-      </button>
+ 
     </>
   );
 };

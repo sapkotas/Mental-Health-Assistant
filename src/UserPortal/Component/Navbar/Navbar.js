@@ -2,25 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import innerpeace from '../../../assest/innerpeace.png';
 import user from '../../../assest/user.png';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';  // Import useLocation here
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = () => {
-    const navigate = useNavigate();
-    const role = localStorage.getItem("role");
-    const getprofile =()=>{
-      if (role === "user") {
-        navigate("/profile");
-      } else if (role === "doctor") {
-        navigate("/doctorprofile");
-      } else if (role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        alert("Role not defined. Please log in.");
-      }
+  const navigate = useNavigate();
+  const location = useLocation();  // Get location hook
+  const role = localStorage.getItem("role");
+
+  // Get profile based on role
+  const getprofile = () => {
+    if (role === "user") {
+      navigate("/profile");
+    } else if (role === "doctor") {
+      navigate("/doctorprofile");
+    } else if (role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      alert("Role not defined. Please log in.");
     }
+  };
+
+  const { chat } = location.state || {}; // Ensure chat is passed correctly
+  const receiverId = chat?.id;
   const userId = localStorage.getItem("userId");
-  console.log(userId)
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -82,7 +88,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className="nav-item">
-          <a
+            <a
               href="#service"
               onClick={(e) => {
                 e.preventDefault();
@@ -95,7 +101,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className="nav-item">
-          <a
+            <a
               href="#contact"
               onClick={(e) => {
                 e.preventDefault();
@@ -104,7 +110,7 @@ const Navbar = () => {
                 });
               }}
             >
-              contact
+              Contact
             </a>
           </li>
         </ul>

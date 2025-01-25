@@ -51,6 +51,11 @@ const DoctorSidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
               <li className="sidebar-items">
+                <NavLink to="/doctorprofile" activeClassName="active">
+                  <FaUserMd /> Profile
+                </NavLink>
+              </li>
+              <li className="sidebar-items">
                 <NavLink to="/doctor/dashboard" activeClassName="active">
                   <FaClipboardList /> Dashboard
                 </NavLink>
@@ -58,11 +63,6 @@ const DoctorSidebar = () => {
               <li className="sidebar-items">
                 <NavLink to="/doctorchatlist" activeClassName="active">
                   <FaFacebookMessenger/> Chat
-                </NavLink>
-              </li>
-              <li className="sidebar-items">
-                <NavLink to="/doctorprofile" activeClassName="active">
-                  <FaUserMd /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">

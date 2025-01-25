@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import './ChatList.css';
+import "./ChatList.css";
 
 const ChatList = () => {
   const [chats, setChats] = useState([]);
@@ -8,45 +8,42 @@ const ChatList = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Get doctor from location.state (passed from the previous page)
-  const { doctor } = location.state || {}; // Destructure to get the doctor
+  const { doctor } = location.state || {};
 
   // Helper function to format the timestamp
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "Unknown time";
 
-    // Check if the timestamp has seconds field (Firebase Timestamp)
     if (timestamp.seconds) {
       const date = new Date(timestamp.seconds * 1000);
       return date.toLocaleString();
     }
 
-    // Check if the timestamp has _seconds field
     if (timestamp._seconds) {
       const date = new Date(timestamp._seconds * 1000);
       return date.toLocaleString();
     }
 
-    // Check for nanoseconds field
     if (timestamp.nanoseconds) {
       const date = new Date(timestamp.nanoseconds / 1000000); // Convert nanoseconds to ms
       return date.toLocaleString();
     }
 
-    return "Invalid timestamp format"; // Return an error message if it's unrecognized
+    return "Invalid timestamp format";
   };
 
   // Fetch chats from the backend API
-  const fetchChats = async () => {
+  const fetchChats = async (showLoading = true) => {
     try {
-      setLoading(true);
+      if (showLoading) setLoading(true);
       setError("");
 
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         setError("You are not authorized. Please log in.");
-        setLoading(false);
+        if (showLoading) setLoading(false);
         return;
       }
 
@@ -72,13 +69,19 @@ const ChatList = () => {
       console.error("Error fetching chats:", err);
       setError("Failed to fetch chats. Please try again later.");
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
-  // Fetch chats when the component mounts
+  // Fetch chats when the component mounts and periodically every 10 seconds
   useEffect(() => {
-    fetchChats();
+    fetchChats(); // Initial fetch with loading state
+
+    const intervalId = setInterval(() => {
+      fetchChats(false); // Periodic fetch without showing loading
+    }, 2000);
+
+    return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
   // Handle the consultation click for a chat (initiate conversation)
@@ -96,7 +99,7 @@ const ChatList = () => {
     navigate("/chat", {
       state: {
         chat,
-        doctor, 
+        doctor,
         user: {
           id: userId,
           token: localStorage.getItem("accessToken"),

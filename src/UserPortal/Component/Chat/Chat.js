@@ -8,7 +8,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
-  const { chat, doctor } = location.state || {};
+  const { chat } = location.state || {};
 
   const receiverId = chat?.id;
   const userId = localStorage.getItem("userId");
@@ -141,7 +141,7 @@ const Chat = () => {
       // Fetch messages every 10 seconds
       const intervalId = setInterval(() => {
         fetchChatHistoryWithoutLoading();
-      }, 10000);
+      }, 6000);
 
       // Cleanup interval on component unmount
       return () => clearInterval(intervalId);
