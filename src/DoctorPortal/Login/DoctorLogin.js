@@ -107,7 +107,7 @@ function DoctorLogin() {
           localStorage.setItem('accessToken', data.token);  // Store token in localStorage
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('role', 'doctor');
-          const redirectTo = localStorage.getItem('redirectPath') || '/doctor/dashboard';
+          const redirectTo = localStorage.getItem('redirectPath') || '/doctorprofile';
           setSnackbarMessage('Login successful!');
           setSnackbarSeverity('success');
           setSnackbarOpen(true);

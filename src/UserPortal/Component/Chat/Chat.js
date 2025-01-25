@@ -10,9 +10,9 @@ const Chat = () => {
   const location = useLocation();
   const { chat, doctor } = location.state || {};
 
-  const receiverId = chat?.id;  
-  const userId = localStorage.getItem("userId");  // User is the sender
-  const messagesEndRef = useRef(null);  // Ref to scroll to the bottom of the chat
+  const receiverId = chat?.id;
+  const userId = localStorage.getItem("userId");
+  const messagesEndRef = useRef(null);
 
   // Fetch chat history from the backend
   const fetchChatHistory = async () => {
@@ -52,6 +52,41 @@ const Chat = () => {
     }
   };
 
+  // A version of fetchChatHistory without loading state
+  const fetchChatHistoryWithoutLoading = async () => {
+    if (!accessToken || !receiverId || !userId) {
+      console.error("Access token or userId or receiverId is missing.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://mental-health-assistant-backend.onrender.com/api/chat/receive/${receiverId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        const normalizedMessages = (data.data || []).map((msg) => ({
+          ...msg,
+          timestamp: msg.timestamp && msg.timestamp._seconds
+            ? new Date(msg.timestamp._seconds * 1000)
+            : null,
+        }));
+        setMessages(normalizedMessages);
+      } else {
+        console.error("Failed to fetch messages:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
+
   // Send a new message to the doctor
   const sendMessage = async () => {
     if (!accessToken || !receiverId || !userId) {
@@ -63,7 +98,7 @@ const Chat = () => {
 
     try {
       const response = await fetch(
-        "https://mental-health-assistant-backend.onrender.com/api/chat/send", 
+        "https://mental-health-assistant-backend.onrender.com/api/chat/send",
         {
           method: "POST",
           headers: {
@@ -72,7 +107,7 @@ const Chat = () => {
           },
           body: JSON.stringify({
             receiverId,
-            senderId: userId,  // User is the sender
+            senderId: userId,
             message: newMessage,
           }),
         }
@@ -89,7 +124,7 @@ const Chat = () => {
             timestamp: new Date(),
           },
         ]);
-        setNewMessage("");  // Clear the input field
+        setNewMessage("");
       } else {
         console.error("Failed to send message:", data.message);
       }
@@ -100,7 +135,16 @@ const Chat = () => {
 
   useEffect(() => {
     if (receiverId) {
-      fetchChatHistory();  // Fetch messages when the component mounts
+      // Initial fetch when component mounts
+      fetchChatHistory();
+
+      // Fetch messages every 10 seconds
+      const intervalId = setInterval(() => {
+        fetchChatHistoryWithoutLoading();
+      }, 10000);
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(intervalId);
     }
   }, [receiverId]);
 
@@ -112,7 +156,7 @@ const Chat = () => {
   return (
     <div className="chat-container">
       <div className="chat-header">
-      <h2>Chat with Dr. {chat?.name|| "unknown" }</h2>
+        <h2>Chat with Dr. {chat?.name || "unknown"}</h2>
       </div>
 
       <div className="chat-history">
@@ -124,7 +168,9 @@ const Chat = () => {
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.senderId === userId ? "sent" : "received"}`}
+              className={`message ${
+                msg.senderId === userId ? "sent" : "received"
+              }`}
             >
               <p>{msg.message}</p>
               <span className="timestamp">

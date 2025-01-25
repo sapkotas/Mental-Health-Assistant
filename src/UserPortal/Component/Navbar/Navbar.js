@@ -19,7 +19,8 @@ const Navbar = () => {
         alert("Role not defined. Please log in.");
       }
     }
-  
+  const userId = localStorage.getItem("userId");
+  console.log(userId)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);

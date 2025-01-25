@@ -10,8 +10,8 @@ const DoctorChat = () => {
   const { chat, doctor } = location.state || {}; // Get chat info and doctor info
 
   const receiverId = chat?.id; // The ID of the user (receiver)
-  const userId = localStorage.getItem("userId");  // Doctor is the sender
-  const messagesEndRef = useRef(null);  // Ref to scroll to the bottom of the chat
+  const userId = localStorage.getItem("userId"); // Doctor is the sender
+  const messagesEndRef = useRef(null); // Ref to scroll to the bottom of the chat
 
   // Fetch chat history from the backend
   const fetchChatHistory = async () => {
@@ -51,6 +51,41 @@ const DoctorChat = () => {
     }
   };
 
+  // Fetch chat history periodically without showing loading indicator
+  const fetchChatHistoryWithoutLoading = async () => {
+    if (!accessToken || !receiverId || !userId) {
+      console.error("Access token or userId or receiverId is missing.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://mental-health-assistant-backend.onrender.com/api/chat/receive/${receiverId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        const normalizedMessages = (data.data || []).map((msg) => ({
+          ...msg,
+          timestamp: msg.timestamp && msg.timestamp._seconds
+            ? new Date(msg.timestamp._seconds * 1000)
+            : null,
+        }));
+        setMessages(normalizedMessages);
+      } else {
+        console.error("Failed to fetch messages:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
+
   // Send a new message to the user
   const sendMessage = async () => {
     if (!accessToken || !receiverId || !userId) {
@@ -62,7 +97,7 @@ const DoctorChat = () => {
 
     try {
       const response = await fetch(
-        "https://mental-health-assistant-backend.onrender.com/api/chat/send", 
+        "https://mental-health-assistant-backend.onrender.com/api/chat/send",
         {
           method: "POST",
           headers: {
@@ -71,7 +106,7 @@ const DoctorChat = () => {
           },
           body: JSON.stringify({
             receiverId,
-            senderId: userId,  // Doctor is the sender
+            senderId: userId, // Doctor is the sender
             message: newMessage,
           }),
         }
@@ -88,7 +123,7 @@ const DoctorChat = () => {
             timestamp: new Date(),
           },
         ]);
-        setNewMessage("");  // Clear the input field
+        setNewMessage(""); // Clear the input field
       } else {
         console.error("Failed to send message:", data.message);
       }
@@ -99,7 +134,15 @@ const DoctorChat = () => {
 
   useEffect(() => {
     if (receiverId) {
-      fetchChatHistory();  // Fetch messages when the component mounts
+      fetchChatHistory(); // Fetch messages when the component mounts
+
+      // Set up periodic fetching
+      const intervalId = setInterval(() => {
+        fetchChatHistoryWithoutLoading();
+      }, 10000);
+
+      // Clear interval when component unmounts
+      return () => clearInterval(intervalId);
     }
   }, [receiverId]);
 
@@ -123,7 +166,9 @@ const DoctorChat = () => {
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.senderId === userId ? "sent" : "received"}`}
+              className={`message ${
+                msg.senderId === userId ? "sent" : "received"
+              }`}
             >
               <p>{msg.message}</p>
               <span className="timestamp">
