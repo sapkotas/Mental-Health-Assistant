@@ -56,7 +56,7 @@ const DoctorSidebar = () => {
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/doctorUsers" activeClassName="active">
+                <NavLink to="/doctorchatlist" activeClassName="active">
                   <FaFacebookMessenger/> Chat
                 </NavLink>
               </li>

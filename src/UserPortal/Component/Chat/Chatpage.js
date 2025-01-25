@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Chat from "../Chat/Chat"; 
 import Sidebar from "../../Dashboard/Sidebar";
 import './Chatpage.css'
+import ChatList from "./ChatList";
 
 const ChatPage = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const ChatPage = () => {
     <>
     <div className= "chatpage-container">
       <Sidebar/>
+      <ChatList/>
     <div className="chat-chat">
     <Chat receiverId={doctor.id} user={user} />
     </div>

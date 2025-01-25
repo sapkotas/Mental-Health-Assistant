@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 const DoctorChat = () => {
@@ -6,12 +6,14 @@ const DoctorChat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
-
   const location = useLocation();
-  const { user, doctor } = location.state || {}; 
+  const { chat, doctor } = location.state || {}; // Get chat info and doctor info
 
-  const receiverId = user?.userId;
-  const userId = localStorage.getItem("userId"); 
+  const receiverId = chat?.id; // The ID of the user (receiver)
+  const userId = localStorage.getItem("userId");  // Doctor is the sender
+  const messagesEndRef = useRef(null);  // Ref to scroll to the bottom of the chat
+
+  // Fetch chat history from the backend
   const fetchChatHistory = async () => {
     if (!accessToken || !receiverId || !userId) {
       console.error("Access token or userId or receiverId is missing.");
@@ -49,7 +51,7 @@ const DoctorChat = () => {
     }
   };
 
-  // Send a new message
+  // Send a new message to the user
   const sendMessage = async () => {
     if (!accessToken || !receiverId || !userId) {
       console.error("Access token or userId or receiverId is missing.");
@@ -60,7 +62,7 @@ const DoctorChat = () => {
 
     try {
       const response = await fetch(
-        "https://mental-health-assistant-backend.onrender.com/api/chat/send",
+        "https://mental-health-assistant-backend.onrender.com/api/chat/send", 
         {
           method: "POST",
           headers: {
@@ -69,7 +71,7 @@ const DoctorChat = () => {
           },
           body: JSON.stringify({
             receiverId,
-            senderId: userId,
+            senderId: userId,  // Doctor is the sender
             message: newMessage,
           }),
         }
@@ -86,7 +88,7 @@ const DoctorChat = () => {
             timestamp: new Date(),
           },
         ]);
-        setNewMessage("");
+        setNewMessage("");  // Clear the input field
       } else {
         console.error("Failed to send message:", data.message);
       }
@@ -97,26 +99,31 @@ const DoctorChat = () => {
 
   useEffect(() => {
     if (receiverId) {
-      fetchChatHistory();
+      fetchChatHistory();  // Fetch messages when the component mounts
     }
   }, [receiverId]);
+
+  // Scroll to the bottom of the chat every time messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Chat with Dr. {doctor?.fullName || "Unknown"}</h2>
+        <h2>Chat with {chat?.name || "Unknown"}</h2>
       </div>
 
       <div className="chat-history">
         {loading ? (
           <p>Loading...</p>
+        ) : messages.length === 0 ? (
+          <p>No messages yet. Start a conversation!</p>
         ) : (
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${
-                msg.senderId === userId ? "sent" : "received"
-              }`}
+              className={`message ${msg.senderId === userId ? "sent" : "received"}`}
             >
               <p>{msg.message}</p>
               <span className="timestamp">
@@ -131,6 +138,7 @@ const DoctorChat = () => {
             </div>
           ))
         )}
+        <div ref={messagesEndRef} /> {/* For auto-scrolling */}
       </div>
 
       <div className="input-container">
