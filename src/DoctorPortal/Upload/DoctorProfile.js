@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import './Profile.css'
-import Sidebar from "../../Dashboard/Sidebar";
-import { useUser } from "../../UserContext";
+import DoctorSidebar from "../DoctorSidebar/DoctorSidebar";
+import DoctorMain from "../DoctorSidebar/DoctorMain";
+import { useUser } from "../../UserPortal/UserContext";
 
-export const Profile = () => {
+export const DoctorProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const { setUserId } = useUser();
+  const { setUserId } = useUser(); // Using Context for global userId management
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -40,8 +40,8 @@ export const Profile = () => {
         const data = await response.json();
         if (data.status === "success") {
           setProfileData(data.data);
-          localStorage.setItem("user", JSON.stringify(data.data.user)); 
-          localStorage.setItem("userId", data.data.user.userId); 
+          localStorage.setItem("user", JSON.stringify(data.data.user)); // Save full user object to localStorage
+          localStorage.setItem("userId", data.data.user.userId); // Save userId to localStorage
           setUserId(data.data.user.userId); // Store userId in Context
           setError("");
         } else {
@@ -58,7 +58,6 @@ export const Profile = () => {
     fetchProfileData();
   }, [setUserId]);
 
-
   if (loading) {
     return (
       <div className="loading-container">
@@ -74,11 +73,9 @@ export const Profile = () => {
 
   const { user } = profileData;
 
-
   return (
     <div className="profile-container">
-      
-      <Sidebar />
+      <DoctorSidebar />
       <div className="profile-content">
         <div className="user-details">
           <h2>{user.fullName}</h2>
@@ -96,6 +93,7 @@ export const Profile = () => {
             {new Date(user.createdAt._seconds * 1000).toLocaleDateString()}
           </p>
         </div>
+        <DoctorMain />
       </div>
     </div>
   );

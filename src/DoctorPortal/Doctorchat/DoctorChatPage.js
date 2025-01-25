@@ -1,9 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Chat from "../Chat/Chat"; 
-import Sidebar from "../../Dashboard/Sidebar";
-import './Chatpage.css'
-
+import DoctorSidebar from '../DoctorSidebar/DoctorSidebar'
+import DoctorChat from "./DoctorChat";
 const ChatPage = () => {
   const location = useLocation();
   const { doctor, user } = location.state || {}; 
@@ -15,9 +13,9 @@ const ChatPage = () => {
   return (
     <>
     <div className= "chatpage-container">
-      <Sidebar/>
+      <DoctorSidebar/>
     <div className="chat-chat">
-    <Chat receiverId={doctor.id} user={user} />
+    <DoctorChat receiverId={user.id}/>
     </div>
     </div>
       </>

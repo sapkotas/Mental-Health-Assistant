@@ -5,9 +5,9 @@ import './DoctorDetails.css';
 
 const DoctorDetails = () => {
   const location = useLocation();
-  const { doctor } = location.state || {}; // Get the doctor data passed through location.state
+  const { doctor, } = location.state || {}; // Get the doctor data passed through location.state
   const navigate = useNavigate();
-
+  const userId = localStorage.getItem("userId"); 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Check login status
 
   useEffect(() => {
@@ -28,11 +28,10 @@ const DoctorDetails = () => {
     // Navigate to the chat page and pass the doctor's details
     navigate("/chat", {
       state: {
-        doctor, // Pass the doctor details
+        doctor, 
         user: {
-          id: "currentUserId", // Replace with actual user ID
-          name: "John Doe", // Replace with actual user name
-          token: localStorage.getItem("accessToken"), // User token
+          id: userId,
+          token: localStorage.getItem("accessToken"), 
         },
       },
     });

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./DoctorMain.css";
 import { useNavigate } from "react-router-dom";
-import DoctorSidebar from "./DoctorSidebar";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -114,7 +113,6 @@ const DoctorMain = () => {
 
   return (
     <div className="doctor-main">
-      <DoctorSidebar />
       <div className="upload-container">
         <h2>Upload Document</h2>
         <form onSubmit={handleFileUpload} className="upload-form">
@@ -126,8 +124,8 @@ const DoctorMain = () => {
               accept=".pdf"
               onChange={handleFileChange}
               disabled={isUploading}
-            />
-          </div>
+              />
+              </div>
           <button type="submit" disabled={isUploading} className="upload-button">
             {isUploading ? "Uploading..." : "Upload"}
           </button>

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./Chat.css";
 import { useLocation } from "react-router-dom";
 
-const Chat = () => {
+const DoctorChat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
 
   const location = useLocation();
-  const { doctor } = location.state || {}; 
+  const { user, doctor } = location.state || {}; 
 
-  const receiverId = doctor?.userId; // Doctor's userId
+  const receiverId = user?.userId;
   const userId = localStorage.getItem("userId"); 
-  // Fetch chat history
   const fetchChatHistory = async () => {
     if (!accessToken || !receiverId || !userId) {
       console.error("Access token or userId or receiverId is missing.");
@@ -71,7 +69,7 @@ const Chat = () => {
           },
           body: JSON.stringify({
             receiverId,
-            senderId: userId, // Use the logged-in user's userId as senderId
+            senderId: userId,
             message: newMessage,
           }),
         }
@@ -151,4 +149,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default DoctorChat;

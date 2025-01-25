@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./VerifyDoctor.css"; 
+import "./VerifyDoctor.css";
 import AdminSidebar from "../Dashboard/Sidebar/AdminSidebar";
 
 const VerifyDoctor = () => {
@@ -9,10 +9,9 @@ const VerifyDoctor = () => {
   const base = process.env.REACT_APP_API_URL || "https://mental-health-assistant-backend.onrender.com";
 
   useEffect(() => {
-    // Fetch pending doctors on component mount
     const fetchDoctors = async () => {
       try {
-        const token = await getValidAccessToken(); // Get a valid token
+        const token = await getValidAccessToken();
 
         if (!token) {
           setError("You are not authorized. Please log in again.");
@@ -32,11 +31,18 @@ const VerifyDoctor = () => {
         }
 
         const data = await response.json();
-        setDoctors(data.data);
-        setLoading(false);
+
+        // Check if data is valid and contains doctors
+        if (data.data && Array.isArray(data.data)) {
+          setDoctors(data.data);
+          setError(""); // Clear error on successful fetch
+        } else {
+          setDoctors([]); // No doctors available
+        }
       } catch (err) {
         console.error(err);
-        setError(`Failed to fetch pending doctors: ${err.message}`);
+        setError("");
+      } finally {
         setLoading(false);
       }
     };
@@ -46,7 +52,7 @@ const VerifyDoctor = () => {
 
   const handleVerify = async (doctorId) => {
     try {
-      const token = await getValidAccessToken(); // Get a valid token
+      const token = await getValidAccessToken();
       if (!token) {
         setError("You are not authorized. Please log in again.");
         return;
@@ -63,7 +69,6 @@ const VerifyDoctor = () => {
         throw new Error("Failed to verify doctor.");
       }
 
-      // Functional update form of setDoctors to avoid direct mutation of state
       setDoctors((prevDoctors) => prevDoctors.filter((doc) => doc.id !== doctorId));
       alert("Doctor verified successfully.");
     } catch (err) {
@@ -74,7 +79,7 @@ const VerifyDoctor = () => {
 
   const handleReject = async (doctorId) => {
     try {
-      const token = await getValidAccessToken(); // Get a valid token
+      const token = await getValidAccessToken();
       if (!token) {
         setError("You are not authorized. Please log in again.");
         return;
@@ -91,7 +96,6 @@ const VerifyDoctor = () => {
         throw new Error("Failed to reject doctor.");
       }
 
-      // Functional update form of setDoctors to avoid direct mutation of state
       setDoctors((prevDoctors) => prevDoctors.filter((doc) => doc.id !== doctorId));
       alert("Doctor rejected successfully.");
     } catch (err) {
@@ -109,13 +113,12 @@ const VerifyDoctor = () => {
   if (error) return <p className="error">{error}</p>;
 
   return (
-    <>
     <div className="verify-doctor-main">
-    <AdminSidebar/>
+      <AdminSidebar />
       <div className="verify-doctors-container">
         <h2>Pending Doctors</h2>
         {doctors.length === 0 ? (
-          <p>No pending doctors found.</p>
+          <p>No pending doctors available.</p> // Correctly handled empty state
         ) : (
           <table className="doctor-table">
             <thead>
@@ -160,8 +163,7 @@ const VerifyDoctor = () => {
           </table>
         )}
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 

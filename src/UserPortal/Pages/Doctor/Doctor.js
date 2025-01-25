@@ -59,8 +59,14 @@ export const Doctor = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading indicator
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading, please wait...</p>
+      </div>
+    );
   }
+
 
   if (error) {
     return <div style={{ color: "red" }}>{error}</div>; // Display error message

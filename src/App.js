@@ -17,9 +17,10 @@ import { Doctor } from './UserPortal/Pages/Doctor/Doctor';
 // Doctor Components
 import DoctorLogin from './DoctorPortal/Login/DoctorLogin';
 import DoctorRegister from './DoctorPortal/Register/DoctorRegister';
-import DoctorMain from './DoctorPortal/DoctorSidebar/DoctorMain'; 
 import DoctorDahboard from './DoctorPortal/DoctorDashboard/DoctorDahboard';
-import { DoctorUser } from './DoctorPortal/DoctorUser/DoctorUser';
+import  {DoctorUser}  from './DoctorPortal/DoctorUser/DoctorUser';
+import { DoctorProfile } from './DoctorPortal/Upload/DoctorProfile';
+
 
 // Admin Components
 import AdminDashboard from './Admin/Dashboard/AdminDashboard';
@@ -28,6 +29,10 @@ import VerifyDoctor from './Admin/VerifyDoctor/VerifyDoctor';
 import { AdminUsers } from './Admin/Users/AdminUsers';
 import DoctorDetails from './UserPortal/DoctorDetails/DoctorDetails';
 import ChatPage from './UserPortal/Component/Chat/Chatpage';
+import DoctorChatPage from './DoctorPortal/Doctorchat/DoctorChatPage';
+import EsewaPayment from './UserPortal/Payment/EsewaPayment';
+import ChatList from './UserPortal/Component/Chat/ChatList';
+import DoctorChatList from './DoctorPortal/Doctorchat/DoctorChatList';
 
 const App = () => {
   return (
@@ -35,6 +40,7 @@ const App = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/payment" element={<EsewaPayment />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/doctor/login" element={<DoctorLogin />} />
@@ -43,6 +49,9 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
         <Route path="/doctor-details" element={<DoctorDetails />} />
         <Route path="/chat" element={<ChatPage />} /> {/* Chat page route */}
+        <Route path="/doctorchat" element={<DoctorChatPage />} /> {/* Chat page route */}
+        <Route path="/chatlist" element={<ChatList />} /> {/* Chat page route */}
+        <Route path="/dchatlist" element={<DoctorChatList />} /> {/* Chat page route */}
 
         {/* Doctor-Specific Routes */}
         <Route
@@ -65,7 +74,7 @@ const App = () => {
           path="/doctorProfile"
           element={
             <ProtectedRoute doctorOnly={true}>
-              <DoctorMain />
+              <DoctorProfile />
             </ProtectedRoute>
           }
         />

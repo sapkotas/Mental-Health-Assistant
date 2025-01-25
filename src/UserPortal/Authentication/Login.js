@@ -102,7 +102,6 @@ function Login() {
           setSnackbarSeverity('success');
           setSnackbarOpen(true);
           setTimeout(() => navigate(redirectTo), 2000);
-        
         } else {
           setFormError(data.message || 'Login failed. Please check your credentials.');
           setSnackbarMessage(data.message || 'Login failed. Please check your credentials.');

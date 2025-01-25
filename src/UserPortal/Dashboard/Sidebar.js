@@ -73,11 +73,6 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/history" activeClassName="active">
-                  <FaHistory /> History
-                </NavLink>
-              </li>
-              <li className="sidebar-items">
                 <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout
                 </NavLink>
