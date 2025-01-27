@@ -8,9 +8,9 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
-  const { chat } = location.state || {};
-
-  const receiverId = chat?.id;
+  const { chat,doctor } = location.state || {};
+  
+  const receiverId = chat?.id || doctor?.id
   const userId = localStorage.getItem("userId");
   const messagesEndRef = useRef(null);
 
@@ -52,42 +52,6 @@ const Chat = () => {
     }
   };
 
-  // A version of fetchChatHistory without loading state
-  const fetchChatHistoryWithoutLoading = async () => {
-    if (!accessToken || !receiverId || !userId) {
-      console.error("Access token or userId or receiverId is missing.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `https://mental-health-assistant-backend.onrender.com/api/chat/receive/${receiverId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      const data = await response.json();
-
-      if (response.ok) {
-        const normalizedMessages = (data.data || []).map((msg) => ({
-          ...msg,
-          timestamp: msg.timestamp && msg.timestamp._seconds
-            ? new Date(msg.timestamp._seconds * 1000)
-            : null,
-        }));
-        setMessages(normalizedMessages);
-      } else {
-        console.error("Failed to fetch messages:", data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching chat history:", error);
-    }
-  };
-
-  // Send a new message to the doctor
   const sendMessage = async () => {
     if (!accessToken || !receiverId || !userId) {
       console.error("Access token or userId or receiverId is missing.");
@@ -139,24 +103,37 @@ const Chat = () => {
       fetchChatHistory();
 
       // Fetch messages every 10 seconds
-      const intervalId = setInterval(() => {
-        fetchChatHistoryWithoutLoading();
-      }, 6000);
+      // const intervalId = setInterval(() => {
+      //   fetchChatHistory();
+      // }, 10000); // Reduced interval to 10 seconds for auto-updating chat
 
       // Cleanup interval on component unmount
-      return () => clearInterval(intervalId);
+      // return () => clearInterval(intervalId);
     }
   }, [receiverId]);
 
-  // Scroll to the bottom of the chat every time messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      // Check if the user is at the bottom before scrolling
+      const isAtBottom =
+        messagesEndRef.current.getBoundingClientRect().top <= window.innerHeight;
+      if (isAtBottom) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }, [messages]);
+
+  // Handle enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
 
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Chat with Dr. {chat?.name || "unknown"}</h2>
+        <h2>Chat with Dr. {chat?.name || doctor?.fullName}</h2>
       </div>
 
       <div className="chat-history">
@@ -168,9 +145,7 @@ const Chat = () => {
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${
-                msg.senderId === userId ? "sent" : "received"
-              }`}
+              className={`message ${msg.senderId === userId ? "sent" : "received"}`}
             >
               <p>{msg.message}</p>
               <span className="timestamp">
@@ -185,7 +160,7 @@ const Chat = () => {
             </div>
           ))
         )}
-        <div ref={messagesEndRef} /> {/* For auto-scrolling */}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="input-container">
@@ -194,6 +169,7 @@ const Chat = () => {
           placeholder="Type a message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyPress={handleKeyPress} // Listen for Enter key
           className="input"
         />
         <button onClick={sendMessage} className="send-button">

@@ -132,17 +132,24 @@ const DoctorChat = () => {
     }
   };
 
+  // Handle the Enter key press to send the message
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  };
+
   useEffect(() => {
     if (receiverId) {
       fetchChatHistory(); // Fetch messages when the component mounts
 
       // Set up periodic fetching
-      const intervalId = setInterval(() => {
-        fetchChatHistoryWithoutLoading();
-      }, 6000);
+      // const intervalId = setInterval(() => {
+      //   fetchChatHistoryWithoutLoading();
+      // }, 10000);
 
-      // Clear interval when component unmounts
-      return () => clearInterval(intervalId);
+      // // Clear interval when component unmounts
+      // return () => clearInterval(intervalId);
     }
   }, [receiverId]);
 
@@ -166,9 +173,7 @@ const DoctorChat = () => {
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${
-                msg.senderId === userId ? "sent" : "received"
-              }`}
+              className={`message ${msg.senderId === userId ? "sent" : "received"}`}
             >
               <p>{msg.message}</p>
               <span className="timestamp">
@@ -192,6 +197,7 @@ const DoctorChat = () => {
           placeholder="Type a message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={handleKeyDown} // Listen for the Enter key
           className="input"
         />
         <button onClick={sendMessage} className="send-button">

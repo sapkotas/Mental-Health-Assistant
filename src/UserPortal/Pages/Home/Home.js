@@ -47,7 +47,7 @@ const Home = () => {
   const role = localStorage.getItem("role");
   const getrole =()=>{
     if (role === "user") {
-      navigate("/overview/dashboard");
+      navigate("/profile");
     } else if (role === "doctor") {
       navigate("/doctor/dashboard");
     } else if (role === "admin") {

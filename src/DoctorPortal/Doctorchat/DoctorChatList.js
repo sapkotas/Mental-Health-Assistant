@@ -78,11 +78,11 @@ const DoctorChatList = () => {
   useEffect(() => {
     fetchChats(); // Initial fetch with loading state
 
-    const intervalId = setInterval(() => {
-      fetchChats(false); // Periodic fetch without showing loading
-    }, 2000);
+    // const intervalId = setInterval(() => {
+    //   fetchChats(false); // Periodic fetch without showing loading
+    // }, 10000);
 
-    return () => clearInterval(intervalId); // Clear interval on component unmount
+    // return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
   // Handle consultation click for a chat (navigate to the chat page)

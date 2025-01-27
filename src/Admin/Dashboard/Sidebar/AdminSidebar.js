@@ -59,7 +59,7 @@ const AdminSidebar = () => {
               </li>
               <li className="sidebar-items">
                 <NavLink to="/admin/user" activeClassName="active">
-                  <FaUser /> Users
+                  <FaUser /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">

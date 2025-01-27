@@ -53,6 +53,11 @@ const Sidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
               <li className="sidebar-items">
+                <NavLink to="/profile" activeClassName="active">
+                  <FaUser /> Profile
+                </NavLink>
+              </li>
+              <li className="sidebar-items">
                 <NavLink to="/overview/dashboard" activeClassName="active">
                   <FaClipboardList /> Dashboard
                 </NavLink>
@@ -63,13 +68,13 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/profile" activeClassName="active">
-                  <FaUser /> Profile
+                <NavLink to="/doctor" activeClassName="active">
+                  <FaUserMd /> Doctors
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/doctor" activeClassName="active">
-                  <FaUserMd /> Doctors
+                <NavLink to="/history" activeClassName="active">
+                  <FaHistory /> History
                 </NavLink>
               </li>
               <li className="sidebar-items">

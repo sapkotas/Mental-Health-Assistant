@@ -58,6 +58,16 @@ export const Profile = () => {
     fetchProfileData();
   }, [setUserId]);
 
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading, please wait...</p>
+      </div>
+    );
+  }
+
   if (error) {
     return <div style={{ color: "red" }}>{error}</div>;
   }

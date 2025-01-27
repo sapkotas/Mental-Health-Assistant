@@ -54,7 +54,8 @@
   }
   
   .consult-now-button {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     padding: 12px 25px;
     background-color: #007bff;
     color: white;
@@ -64,6 +65,21 @@
     cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s;
+  }
+  
+  .payment-now-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+    padding-left: 10px;
   }
   
   .consult-now-button:hover {

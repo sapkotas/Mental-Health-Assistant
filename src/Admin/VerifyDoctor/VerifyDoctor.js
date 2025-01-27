@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./VerifyDoctor.css";
 import AdminSidebar from "../Dashboard/Sidebar/AdminSidebar";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const VerifyDoctor = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" }); // For Snackbar
   const base = process.env.REACT_APP_API_URL || "https://mental-health-assistant-backend.onrender.com";
 
   useEffect(() => {
@@ -32,12 +35,11 @@ const VerifyDoctor = () => {
 
         const data = await response.json();
 
-        // Check if data is valid and contains doctors
         if (data.data && Array.isArray(data.data)) {
           setDoctors(data.data);
-          setError(""); // Clear error on successful fetch
+          setError("");
         } else {
-          setDoctors([]); // No doctors available
+          setDoctors([]);
         }
       } catch (err) {
         console.error(err);
@@ -54,7 +56,7 @@ const VerifyDoctor = () => {
     try {
       const token = await getValidAccessToken();
       if (!token) {
-        setError("You are not authorized. Please log in again.");
+        setSnackbar({ open: true, message: "You are not authorized. Please log in again.", severity: "error" });
         return;
       }
 
@@ -70,10 +72,10 @@ const VerifyDoctor = () => {
       }
 
       setDoctors((prevDoctors) => prevDoctors.filter((doc) => doc.id !== doctorId));
-      alert("Doctor verified successfully.");
+      setSnackbar({ open: true, message: "Doctor verified successfully.", severity: "success" });
     } catch (err) {
       console.error(err);
-      alert(`Failed to verify doctor: ${err.message}`);
+      setSnackbar({ open: true, message: `Failed to verify doctor: ${err.message}`, severity: "error" });
     }
   };
 
@@ -81,7 +83,7 @@ const VerifyDoctor = () => {
     try {
       const token = await getValidAccessToken();
       if (!token) {
-        setError("You are not authorized. Please log in again.");
+        setSnackbar({ open: true, message: "You are not authorized. Please log in again.", severity: "error" });
         return;
       }
 
@@ -97,16 +99,20 @@ const VerifyDoctor = () => {
       }
 
       setDoctors((prevDoctors) => prevDoctors.filter((doc) => doc.id !== doctorId));
-      alert("Doctor rejected successfully.");
+      setSnackbar({ open: true, message: "Doctor rejected successfully.", severity: "success" });
     } catch (err) {
       console.error(err);
-      alert(`Failed to reject doctor: ${err.message}`);
+      setSnackbar({ open: true, message: `Failed to reject doctor: ${err.message}`, severity: "error" });
     }
   };
 
   const getValidAccessToken = async () => {
     let token = localStorage.getItem("accessToken");
     return token;
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   if (loading) return <p>Loading pending doctors...</p>;
@@ -118,7 +124,7 @@ const VerifyDoctor = () => {
       <div className="verify-doctors-container">
         <h2>Pending Doctors</h2>
         {doctors.length === 0 ? (
-          <p>No pending doctors available.</p> // Correctly handled empty state
+          <p>No pending doctors available.</p>
         ) : (
           <table className="doctor-table">
             <thead>
@@ -135,25 +141,15 @@ const VerifyDoctor = () => {
                   <td>{doctor.fullName || "N/A"}</td>
                   <td>{doctor.email || "N/A"}</td>
                   <td>
-                    <a
-                      href={doctor.documentUrl}
-                      download
-                      className="download-link"
-                    >
+                    <a href={doctor.documentUrl} download className="download-link">
                       Download Document
                     </a>
                   </td>
                   <td>
-                    <button
-                      className="verify-button"
-                      onClick={() => handleVerify(doctor.id)}
-                    >
+                    <button className="verify-button" onClick={() => handleVerify(doctor.id)}>
                       Verify
                     </button>
-                    <button
-                      className="reject-button"
-                      onClick={() => handleReject(doctor.id)}
-                    >
+                    <button className="reject-button" onClick={() => handleReject(doctor.id)}>
                       Reject
                     </button>
                   </td>
@@ -163,6 +159,18 @@ const VerifyDoctor = () => {
           </table>
         )}
       </div>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

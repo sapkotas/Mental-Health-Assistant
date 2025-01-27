@@ -8,7 +8,6 @@ import ChatList from "./ChatList";
 const ChatPage = () => {
   const location = useLocation();
   const { doctor, user } = location.state || {}; 
-  const [refreshKey, setRefreshKey] = useState(0); // State to trigger refresh
 
   if (!doctor || !user) {
     return <div>Error: Missing doctor or user information.</div>;
@@ -22,9 +21,9 @@ const ChatPage = () => {
     <>
       <div className="chatpage-container">
         <Sidebar />
-        <ChatList key={refreshKey} /> {/* Pass refreshKey to trigger rerender */}
+        <ChatList/> {/* Pass refreshKey to trigger rerender */}
         <div className="chat-chat">
-          <Chat key={refreshKey} receiverId={doctor.id} user={user} /> {/* Pass refreshKey */}
+          <Chat/> 
         </div>
       </div>
  

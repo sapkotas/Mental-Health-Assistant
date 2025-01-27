@@ -33,6 +33,9 @@ import ChatList from './UserPortal/Component/Chat/ChatList';
 import DoctorChatList from './DoctorPortal/Doctorchat/DoctorChatList';
 import DoctorChatPage from './DoctorPortal/Doctorchat/DoctorChatPage';
 import DoctorChat from './DoctorPortal/Doctorchat/DoctorChat';
+import PaymentSuccess from './UserPortal/Payment/PaymentSucess';
+import PaymentFailure from './UserPortal/Payment/PaymentFailure';
+
 
 const App = () => {
   return (
@@ -50,6 +53,8 @@ const App = () => {
         <Route path="/doctor-details" element={<DoctorDetails />} />
         <Route path="/chat" element={<ChatPage />} /> 
         <Route path="/chatlist" element={<ChatList />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failure" element={<PaymentFailure />} />
 
         {/* Doctor-Specific Routes */}
         <Route

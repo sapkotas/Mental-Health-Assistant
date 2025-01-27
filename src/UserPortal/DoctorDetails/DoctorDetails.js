@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Snackbar } from "@mui/material";  // Import Snackbar
 import Sidebar from "../Dashboard/Sidebar";
-import './DoctorDetails.css';
+import "./DoctorDetails.css";
 
 const DoctorDetails = () => {
   const location = useLocation();
-  const { doctor, } = location.state || {}; // Get the doctor data passed through location.state
+  const { doctor } = location.state || {}; 
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId"); 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Check login status
+  const userId = localStorage.getItem("userId");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);  
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
-    // Check if user is logged in by checking token in local storage
-    const token = localStorage.getItem("accessToken");
-    if (token) {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken)
+    if (accessToken) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -37,8 +40,64 @@ const DoctorDetails = () => {
     });
   };
 
+  const handlePaymentClick = () => {
+    const accessToken = localStorage.getItem("accessToken");  
+    fetch("https://mental-health-assistant-backend.onrender.com/api/payment/check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`, 
+      },
+      body: JSON.stringify({ doctorId: doctor.id }),
+    })
+      .then((response) => {
+        // Parse JSON response
+        return response.json().then((data) => ({ data, ok: response.ok }));
+      })
+      .then(({ data, ok }) => {
+        if (ok) {
+          if (data.paymentUrl && data.esewaConfig) {
+            // Handle eSewa payment redirection
+            const esewaConfig = data.esewaConfig;
+            const esewaParams = new URLSearchParams();
+            esewaParams.append("amt", esewaConfig.amt);
+            esewaParams.append("tAmt", esewaConfig.tAmt);
+            esewaParams.append("txAmt", esewaConfig.txAmt);
+            esewaParams.append("psc", esewaConfig.psc);
+            esewaParams.append("pdc", esewaConfig.pdc);
+            esewaParams.append("scd", esewaConfig.scd);
+            esewaParams.append("pid", esewaConfig.pid);
+            esewaParams.append("su", esewaConfig.su);
+            esewaParams.append("fu", esewaConfig.fu);
+  
+            const paymentUrl = data.paymentUrl + "?" + esewaParams.toString();
+  
+            window.location.href = paymentUrl;
+            setSnackbarMessage("Redirecting to eSewa for payment...");
+            setOpenSnackbar(true);
+          } else {
+            setSnackbarMessage(data.message || "Something went wrong.");
+            setOpenSnackbar(true);
+          }
+        } else {
+          setSnackbarMessage(data.error || "Failed to check subscription status.");
+          setOpenSnackbar(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        setSnackbarMessage("An error occurred while verifying subscription. Please try again.");
+        setOpenSnackbar(true);
+      });
+  };
+  
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   if (!doctor) {
-    return <div>No doctor data found.</div>; // If no doctor data is found, show an error
+    return <div>No doctor data found.</div>;
   }
 
   return (
@@ -69,9 +128,27 @@ const DoctorDetails = () => {
             >
               Try Consultation
             </button>
+            <button
+              className="consult-now-button"
+              onClick={handlePaymentClick}
+            >
+              Payment
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Snackbar component */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        message={snackbarMessage}
+      />
     </>
   );
 };
