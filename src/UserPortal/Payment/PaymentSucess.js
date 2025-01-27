@@ -20,7 +20,7 @@ const PaymentSuccess = ({ loading }) => {
       {loading ? (
         <h2>Processing your payment...</h2>
       ) : (
-        <h2>Payment Successful! Redirecting....</h2>
+        <h2>Payment Successful! Redirecting.....</h2>
       )}
     </div>
   );
