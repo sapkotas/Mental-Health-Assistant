@@ -53,22 +53,22 @@ const AdminSidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
               <li className="sidebar-items">
-                <NavLink to="/admin/dashboard" activeClassName="active">
+                <NavLink to="/admin/dashboard" activeClassname="active">
                   <FaClipboardList /> Dashboard
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/admin/user" activeClassName="active">
+                <NavLink to="/admin/user" activeClassname="active">
                   <FaUser /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/admin/doctor" activeClassName="active">
+                <NavLink to="/admin/doctor" activeClassname="active">
                   <FaUserMd /> Doctors
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
+                <NavLink to="/login" activeClassname="active" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout
                 </NavLink>
               </li>

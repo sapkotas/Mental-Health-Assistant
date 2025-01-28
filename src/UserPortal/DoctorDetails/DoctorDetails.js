@@ -131,8 +131,7 @@ const DoctorDetails = () => {
             <button
               className="consult-now-button"
               onClick={handlePaymentClick}
-            >
-              Payment
+            > Payment
             </button>
           </div>
         </div>

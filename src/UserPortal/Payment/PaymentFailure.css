@@ -1,0 +1,40 @@
+/* styles.css */
+.payment-failure-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fbeaea; /* Light red background for error */
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .payment-failure-container h1 {
+    font-size: 2rem;
+    color: #d32f2f; /* Red for the error heading */
+    margin-bottom: 1rem;
+  }
+  
+  .payment-failure-container p {
+    font-size: 1.2rem;
+    color: #555; /* Gray for the message text */
+    margin-bottom: 1.5rem;
+  }
+  
+  .retry-button {
+    padding: 10px 20px;
+    background-color: #d32f2f; /* Red for the retry button */
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .retry-button:hover {
+    background-color: #b71c1c; /* Darker red on hover */
+  }
+  

@@ -176,10 +176,10 @@ function Login() {
             {errors.password && <p className="error-text">{errors.password}</p>}
           </div>
           <div className="options">
-            <div>
+            {/* <div>
               <input type="checkbox" id="remember" onChange={handleRememberMe} />
-              <label htmlFor="remember">Remember me</label>
-            </div>
+              <label htmlFor="remember">Remembe</label>
+            </div> */}
           </div>
           <button type="submit" className="btn-primary" disabled={isLoading}>
             {isLoading ? 'Signing in...' : 'Sign in'}

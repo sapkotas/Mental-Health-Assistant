@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import Footer from "../Footer/Footer";
-import innerpeace from '../../../assest/innerpeace.png'
+import innerpeace from "../../../assest/innerpeace.png";
 
 export const Predict = () => {
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ export const Predict = () => {
         setTimerActive(false);
         setLoadingMessage("");
         console.error("Error submitting responses:", err.message);
-        setError("Prediction is available tomorrow.");
+        setError("Plesae answer all the questions",err.message); 
         setSnackbarOpen(true);
       });
   };
@@ -117,13 +117,18 @@ export const Predict = () => {
       <div className="prediction-body">
         <div className="predict-container">
           <div className="questions-container">
-          <div className="logo" onClick={()=>navigate("/")}>
-          <img src={innerpeace} alt="Inner Peace Logo" className="logo-image"  style={{height:"33px", width:"33px"}}/>
-          <span className="logo-text">InnerPeace</span>
-        </div>
-        <p></p>
+            <div className="logo" onClick={() => navigate("/")}>
+              <img
+                src={innerpeace}
+                alt="Inner Peace Logo"
+                className="logo-image"
+                style={{ height: "33px", width: "33px" }}
+              />
+              <span className="logo-text">InnerPeace</span>
+            </div>
+            <p></p>
             <h1>Mental Health Assessment</h1>
-            {loading ? ( // Show loading spinner if still loading
+            {loading ? (
               <div className="loading-container">
                 <p>Loading questions, please wait...</p>
                 <div className="spinner"></div> {/* Optional spinner */}
@@ -172,6 +177,9 @@ export const Predict = () => {
                   </button>
                   <button onClick={() => navigate("/doctor")}>Visit Doctor</button>
                   <button onClick={() => navigate("/journal")}>Journal</button>
+                  <button onClick={() => navigate("/history")}>
+                    Previous prediction
+                  </button>
                 </div>
               </div>
             )}
@@ -192,7 +200,7 @@ export const Predict = () => {
           severity={prediction ? "success" : "error"}
           sx={{ width: "100%" }}
         >
-          {prediction || error}
+          {error || prediction}
         </Alert>
       </Snackbar>
     </>

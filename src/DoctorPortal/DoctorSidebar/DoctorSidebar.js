@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaUser, FaClipboardList, FaUserMd, FaSignOutAlt, FaFacebookMessenger } from 'react-icons/fa';
+import {  FaClipboardList, FaUserMd, FaSignOutAlt, FaFacebookMessenger, FaHistory } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
 import innerpeace from '../../assest/innerpeace.png'
 
@@ -51,22 +51,27 @@ const DoctorSidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
               <li className="sidebar-items">
-                <NavLink to="/doctorprofile" activeClassName="active">
+                <NavLink to="/doctorprofile" activeClassname="active">
                   <FaUserMd /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/doctor/dashboard" activeClassName="active">
+                <NavLink to="/doctor/dashboard" activeClassname="active">
                   <FaClipboardList /> Dashboard
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/doctorchatlist" activeClassName="active">
+                <NavLink to="/doctorchatlist" activeClassname="active">
                   <FaFacebookMessenger/> Chat
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
+                <NavLink to="/doctorhistory" activeClassname="active">
+                  <FaHistory/> History
+                </NavLink>
+              </li>
+              <li className="sidebar-items">
+                <NavLink to="/login" activeClassname="active" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout
                 </NavLink>
               </li>

@@ -21,7 +21,7 @@ const ChatPage = () => {
     <>
       <div className="chatpage-container">
         <Sidebar />
-        <ChatList/> {/* Pass refreshKey to trigger rerender */}
+        <ChatList/> 
         <div className="chat-chat">
           <Chat/> 
         </div>

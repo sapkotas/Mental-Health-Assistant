@@ -1,42 +1,194 @@
-import React, { useState } from "react";
-import "./Journal.css";
-import Navbar from "../../Component/Navbar/Navbar"
-import Footer from "../../Component/Footer/Footer";
+import React, { useState, useEffect } from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import './Journal.css';
+import Sidebar from '../../Dashboard/Sidebar';
 
-export const Journal = () => {
-  const [journalEntry, setJournalEntry] = useState("");
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-  const handleSave = () => {
-    alert("Your journal entry has been saved!");
-    setJournalEntry("");
+const Journal = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [journalList, setJournalList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [singleJournal, setSingleJournal] = useState(null);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: '' });
+
+  const handleSnackbarClose = () => {
+    setSnackbar({ open: false, message: '', severity: '' });
   };
 
-  const handleClear = () => {
-    setJournalEntry("");
+  const fetchJournalList = async () => {
+    setLoading(true);
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await fetch('https://mental-health-assistant-backend.onrender.com/api/journal/list', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setJournalList(data.journals || []);
+      } else {
+        setSnackbar({ open: true, message: data.message || 'Failed to fetch journal list.', severity: 'error' });
+      }
+    } catch (err) {
+      setSnackbar({ open: true, message: 'Error fetching journal list.', severity: 'error' });
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSingleJournal = async (journalId) => {
+    setLoading(true);
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await fetch(`https://mental-health-assistant-backend.onrender.com/api/journal/single/${journalId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSingleJournal(data.journal);
+      } else {
+        setSnackbar({ open: true, message: data.message || 'Failed to fetch journal details.', severity: 'error' });
+      }
+    } catch (err) {
+      setSnackbar({ open: true, message: 'Error fetching journal details.', severity: 'error' });
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJournalList();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!title || !content) {
+      setSnackbar({ open: true, message: 'Title and content are required.', severity: 'warning' });
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await fetch('https://mental-health-assistant-backend.onrender.com/api/journal/write', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ title, content }),
+      });
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        setSnackbar({ open: true, message: data.message || 'Journal saved successfully!', severity: 'success' });
+        setTitle('');
+        setContent('');
+        fetchJournalList();
+      } else {
+        setSnackbar({ open: true, message: data.message || 'Error saving journal.', severity: 'error' });
+      }
+    } catch (err) {
+      setSnackbar({ open: true, message: 'Error saving journal.', severity: 'error' });
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <>
-    <Navbar/>
-    <div className="journal-container">
-      <h1 className="journal-header">Daily Journal</h1>
-      <p className="journal-subtext">Express your thoughts and feelings here:</p>
-      <textarea
-        className="journal-textarea"
-        value={journalEntry}
-        onChange={(e) => setJournalEntry(e.target.value)}
-        placeholder="Write your thoughts here..."
-      />
-      <div className="journal-actions">
-        <button className="journal-button save" onClick={handleSave}>
-          Save
-        </button>
-        <button className="journal-button clear" onClick={handleClear}>
-          Clear
-        </button>
+      <div className="journal-form">
+        <Sidebar />
+        {/* Left container */}
+        <div className="journal-list-container">
+          <h3>Your Journal Entries</h3>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <ul className="journal-list">
+              {journalList.length > 0 ? (
+                journalList.map((journal) => (
+                  <li key={journal.id} onClick={() => fetchSingleJournal(journal.id)}>
+                    <h4>{journal.title}</h4>
+                    <p>{journal.content.substring(0, 50)}...</p>
+                  </li>
+                ))
+              ) : (
+                <p>No journals available.</p>
+              )}
+            </ul>
+          )}
+          {singleJournal && (
+            <div className="single-journal">
+              <div className="journal-header">
+                <h3>Journal Details</h3>
+                <button className="close-button" onClick={() => setSingleJournal(null)}>
+                  ✕
+                </button>
+              </div>
+              <h4>{singleJournal.title}</h4>
+              <p>{singleJournal.content}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Right container */}
+        <div className="journal-post-container">
+          <h2>Write a Journal</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                disabled={saving}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="content">Content</label>
+              <textarea
+                id="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+                disabled={saving}
+              />
+            </div>
+            <button type="submit" className="btn" disabled={saving}>
+              {saving ? 'Saving...' : 'Save Journal'}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-    <Footer/>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
+
+export default Journal;

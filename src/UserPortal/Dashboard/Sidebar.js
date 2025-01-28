@@ -1,6 +1,6 @@
 import React from 'react';
 import './Sidebar.css';
-import { FaUser, FaClipboardList, FaUserMd, FaHistory, FaHome, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaClipboardList, FaUserMd, FaHistory, FaHome, FaSignOutAlt, FaJournalWhills } from 'react-icons/fa';
 import innerpeace from '../../../src/assest/innerpeace.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -53,32 +53,37 @@ const Sidebar = () => {
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
               <li className="sidebar-items">
-                <NavLink to="/profile" activeClassName="active">
+                <NavLink to="/profile" activeClassname="active">
                   <FaUser /> Profile
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/overview/dashboard" activeClassName="active">
-                  <FaClipboardList /> Dashboard
-                </NavLink>
-              </li>
-              <li className="sidebar-items">
-                <NavLink to="/" activeClassName="active">
+                <NavLink to="/" activeClassname="active">
                   <FaHome /> Home
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/doctor" activeClassName="active">
+                <NavLink to="/overview/dashboard" activeClassname="active">
+                  <FaClipboardList /> Dashboard
+                </NavLink>
+              </li>
+              <li className="sidebar-items">
+                <NavLink to="/doctor" activeClassname="active">
                   <FaUserMd /> Doctors
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/history" activeClassName="active">
+                <NavLink to="/journal" activeClassname="active">
+                  <FaJournalWhills /> Journal
+                </NavLink>
+              </li>
+              <li className="sidebar-items">
+                <NavLink to="/history" activeClassname="active">
                   <FaHistory /> History
                 </NavLink>
               </li>
               <li className="sidebar-items">
-                <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
+                <NavLink to="/login" activeClassname="active" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout
                 </NavLink>
               </li>

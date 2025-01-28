@@ -10,7 +10,7 @@ import Login from './UserPortal/Authentication/Login';
 import SignUp from './UserPortal/Authentication/SignUp';
 import { Profile } from './UserPortal/Pages/Profile/Profile';
 import { History } from './UserPortal/Pages/History/History';
-import { Journal } from './UserPortal/Pages/Journal/Journal';
+import  Journal  from './UserPortal/Pages/Journal/Journal';
 import Dashboard from './UserPortal/Dashboard/Dashboard';
 import { Doctor } from './UserPortal/Pages/Doctor/Doctor';
 
@@ -35,6 +35,7 @@ import DoctorChatPage from './DoctorPortal/Doctorchat/DoctorChatPage';
 import DoctorChat from './DoctorPortal/Doctorchat/DoctorChat';
 import PaymentSuccess from './UserPortal/Payment/PaymentSucess';
 import PaymentFailure from './UserPortal/Payment/PaymentFailure';
+import DoctorHistory from './DoctorPortal/History/DoctorHistory';
 
 
 const App = () => {
@@ -86,6 +87,14 @@ const App = () => {
           element={
             <ProtectedRoute doctorOnly={true}>
               <DoctorProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctorhistory"
+          element={
+            <ProtectedRoute doctorOnly={true}>
+              <DoctorHistory />
             </ProtectedRoute>
           }
         />
