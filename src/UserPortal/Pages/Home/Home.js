@@ -19,6 +19,7 @@ import accept from '../../../assest/accept.png'
 import modification from '../../../assest/modification.png'
 import contact from '../../../assest/contact.png'
 import Footer from "../../Component/Footer/Footer";
+import { useUser } from "../../UserContext";
 
 const teamMembers = [
   {
@@ -44,6 +45,10 @@ const teamMembers = [
 
 const Home = () => {
   const navigate = useNavigate();
+    const [profileData, setProfileData] = useState(null);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    const { setUserId } = useUser(); // Using Context for global userId management
   const role = localStorage.getItem("role");
   const getrole =()=>{
     if (role === "user") {
@@ -56,49 +61,73 @@ const Home = () => {
       alert("Role not defined. Please log in.");
     }
   }
-
-   const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
-
+  
   const [statusMessage, setStatusMessage] = useState({
     message: "",
     type: "",
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const response = await fetch('https://mental-health-assistant-backend.onrender.com/api/users/dashboard', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            // You can add Authorization token if required
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const userId = data.userId; // Assuming the response contains a userId field
-          console.log('User ID:', userId); // You can use this userId as needed
-        } else {
-          console.error('Failed to fetch user data');
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
+     const fetchProfileData = async () => {
+       const accessToken = localStorage.getItem("accessToken");
+ 
+       if (!accessToken) {
+         setError("You must be logged in to view the profile.");
+         setLoading(false);
+         return;
+       }
+ 
+       try {
+         const response = await fetch(
+           "https://mental-health-assistant-backend.onrender.com/api/users/dashboard",
+           {
+             method: "GET",
+             headers: {
+               Authorization: `Bearer ${accessToken}`,
+               "Content-Type": "application/json",
+             },
+           }
+         );
+ 
+         if (!response.ok) {
+           throw new Error(
+             `Failed to fetch: ${response.status} - ${response.statusText}`
+           );
+         }
+ 
+         const data = await response.json();
+         if (data.status === "success") {
+           setProfileData(data.data);
+           localStorage.setItem("user", JSON.stringify(data.data.user)); // Save full user object to localStorage
+           localStorage.setItem("userId", data.data.user.userId);
+           setUserId(data.data.user.userId);
+           console.log("userid:",data.data.user.userId);
+           setError("");
+         } else {
+           throw new Error(data.message || "Failed to fetch profile data.");
+         }
+       } catch (err) {
+         console.error("Error fetching profile data:", err.message);
+         setError("Failed to load profile data. Please try again.");
+       } finally {
+         setLoading(false);
+       }
+     };
+ 
+     fetchProfileData();
+   }, [setUserId]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
