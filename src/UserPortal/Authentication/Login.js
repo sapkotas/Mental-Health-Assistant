@@ -16,7 +16,7 @@ function Login() {
   const [formError, setFormError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState('error'); // "error" or "success"
+  const [snackbarSeverity, setSnackbarSeverity] = useState('error'); 
 
   useEffect(() => {
     setFormData({
@@ -39,15 +39,15 @@ function Login() {
     setFormError('');
   };
 
-  const handleRememberMe = (e) => {
-    if (e.target.checked) {
-      localStorage.setItem('rememberedEmail', formData.email);
-      localStorage.setItem('rememberedPassword', formData.password);
-    } else {
-      localStorage.removeItem('rememberedEmail');
-      localStorage.removeItem('rememberedPassword');
-    }
-  };
+  // const handleRememberMe = (e) => {
+  //   if (e.target.checked) {
+  //     localStorage.setItem('rememberedEmail', formData.email);
+  //     localStorage.setItem('rememberedPassword', formData.password);
+  //   } else {
+  //     localStorage.removeItem('rememberedEmail');
+  //     localStorage.removeItem('rememberedPassword');
+  //   }
+  // };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);

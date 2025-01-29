@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./ChatList.css";
 
 const ChatList = () => {
   const [chats, setChats] = useState([]);
+  const [boldMessages, setBoldMessages] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Get doctor from location.state (passed from the previous page)
   const { doctor } = location.state || {};
 
-  // Helper function to format the timestamp
+  // Helper function to format timestamps
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "Unknown time";
 
-    if (timestamp.seconds) {
-      const date = new Date(timestamp.seconds * 1000);
-      return date.toLocaleString();
-    }
-
-    if (timestamp._seconds) {
-      const date = new Date(timestamp._seconds * 1000);
-      return date.toLocaleString();
-    }
+    const seconds = timestamp.seconds || timestamp._seconds;
+    if (seconds) return new Date(seconds * 1000).toLocaleString();
 
     if (timestamp.nanoseconds) {
-      const date = new Date(timestamp.nanoseconds / 1000000); // Convert nanoseconds to ms
-      return date.toLocaleString();
+      return new Date(timestamp.nanoseconds / 1e6).toLocaleString();
     }
 
-    return "Invalid timestamp format";
+    return "Invalid timestamp";
   };
 
   // Fetch chats from the backend API
-  const fetchChats = async (showLoading = true) => {
+  const fetchChats = useCallback(async (showLoading = true) => {
     try {
       if (showLoading) setLoading(true);
       setError("");
@@ -43,7 +34,7 @@ const ChatList = () => {
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
         setError("You are not authorized. Please log in.");
-        if (showLoading) setLoading(false);
+        setLoading(false);
         return;
       }
 
@@ -64,44 +55,44 @@ const ChatList = () => {
       }
 
       const data = await response.json();
-      setChats(data.chats || []);
+      const fetchedChats = data.chats || [];
+
+      setChats(fetchedChats);
+      setBoldMessages(new Set(fetchedChats.map((chat) => chat.id))); // Mark all messages as bold
     } catch (err) {
       console.error("Error fetching chats:", err);
       setError("Failed to fetch chats. Please try again later.");
     } finally {
       if (showLoading) setLoading(false);
     }
-  };
-
-  // Fetch chats when the component mounts and periodically every 10 seconds
-  useEffect(() => {
-    fetchChats(); // Initial fetch with loading state
-
-    // const intervalId = setInterval(() => {
-    //   fetchChats(false); // Periodic fetch without showing loading
-    // }, 10000);
-
-    // return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
-  // Handle the consultation click for a chat (initiate conversation)
-  const handleConsultClick = (chat) => {
-    const userId = localStorage.getItem("userId");
-    const isLoggedIn = !!localStorage.getItem("accessToken");
+  // Fetch chats on mount
+  useEffect(() => {
+    fetchChats();
+  }, [fetchChats]);
 
-    if (!isLoggedIn) {
+  // Handle chat click
+  const handleConsultClick = (chat) => {
+    if (!localStorage.getItem("accessToken")) {
       alert("You need to log in to book a consultation.");
       navigate("/login");
       return;
     }
 
-    // Navigate to the chat page, passing the doctor and user info
+    // Remove bold formatting
+    setBoldMessages((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(chat.id);
+      return newSet;
+    });
+
     navigate("/chat", {
       state: {
         chat,
         doctor,
         user: {
-          id: userId,
+          id: localStorage.getItem("userId"),
           token: localStorage.getItem("accessToken"),
         },
       },
@@ -122,18 +113,16 @@ const ChatList = () => {
             <li
               key={chat.id}
               className="chat-item"
-              onClick={() => handleConsultClick(chat)} 
+              onClick={() => handleConsultClick(chat)}
             >
               <div className="chat-info">
                 <h3 className="chat-name">{chat.name || "Unknown User"}</h3>
-                <p className="chat-last-message">
+                <p className={`chat-last-message ${boldMessages.has(chat.id) ? "bold" : ""}`}>
                   {chat.lastMessage || "No messages yet"}
                 </p>
               </div>
               <div className="chat-meta">
-                <p className="chat-timestamp">
-                  {formatTimestamp(chat.timestamp)} {/* Using timestamp format helper */}
-                </p>
+                <p className="chat-timestamp">{formatTimestamp(chat.timestamp)}</p>
               </div>
             </li>
           ))}

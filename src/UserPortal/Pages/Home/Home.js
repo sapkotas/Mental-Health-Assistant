@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa"; 
@@ -74,7 +74,31 @@ const Home = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await fetch('https://mental-health-assistant-backend.onrender.com/api/users/dashboard', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            // You can add Authorization token if required
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const userId = data.userId; // Assuming the response contains a userId field
+          console.log('User ID:', userId); // You can use this userId as needed
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

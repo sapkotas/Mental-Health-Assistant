@@ -64,4 +64,12 @@
     font-size: 0.8rem;
     color: #999;
   }
+  .chat-last-message.bold {
+    font-weight: bold;
+  }  
+  .unread-counter {
+    font-size: 0.9rem;
+    color: red;
+    margin-left: 8px;
+  }
   
