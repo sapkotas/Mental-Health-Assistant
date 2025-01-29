@@ -3,7 +3,7 @@ import './Login.css';
 import logoforloginpage from '../../assest/logoforloginpage.PNG';
 import login from '../../assest/login.PNG';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Eye icons from react-icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -123,9 +123,6 @@ function Login() {
       setIsLoading(false);
     }
   };
-  
-  
-
   return (
     <div className="login-container">
       <div className="login-left">

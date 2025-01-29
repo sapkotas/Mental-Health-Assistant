@@ -41,7 +41,7 @@ const Sidebar = () => {
     <>
       <div className="sidebar-dashboard">
         <aside className="sidebar">
-          <div className="logo">
+          <div className="logo" onClick={()=>navigate("/")} style={{cursor:"pointer"}}>
             <img
               src={innerpeace}
               alt="Inner Peace Logo"
@@ -52,16 +52,11 @@ const Sidebar = () => {
           </div>
           <nav className="sidebar-nav">
             <ul className="sidebar-links">
-              <li className="sidebar-items">
-                <NavLink to="/profile" activeClassname="active">
-                  <FaUser /> Profile
-                </NavLink>
-              </li>
-              <li className="sidebar-items">
+              {/* <li className="sidebar-items">
                 <NavLink to="/" activeClassname="active">
-                  <FaHome /> Home
+                <FaHome /> Home
                 </NavLink>
-              </li>
+              </li> */}
               <li className="sidebar-items">
                 <NavLink to="/overview/dashboard" activeClassname="active">
                   <FaClipboardList /> Dashboard
@@ -82,6 +77,11 @@ const Sidebar = () => {
                   <FaHistory /> History
                 </NavLink>
               </li>
+                <li className="sidebar-items">
+                  <NavLink to="/profile" activeClassname="active">
+                    <FaUser /> Profile
+                  </NavLink>
+                </li>
               <li className="sidebar-items">
                 <NavLink to="/login" activeClassname="active" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout

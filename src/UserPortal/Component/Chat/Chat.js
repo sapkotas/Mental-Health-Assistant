@@ -8,9 +8,10 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
-  const { chat,doctor } = location.state || {};
+const { chat, doctor, payment } = location.state || {};
+
   
-  const receiverId = chat?.id || doctor?.id
+  const receiverId = chat?.id || doctor?.id || payment?.doctorId
   const userId = localStorage.getItem("userId");
   const messagesEndRef = useRef(null);
 
@@ -71,7 +72,7 @@ const Chat = () => {
           },
           body: JSON.stringify({
             receiverId,
-            senderId: userId,
+            senderId: userId || payment.userId,
             message: newMessage,
           }),
         }
@@ -133,7 +134,7 @@ const Chat = () => {
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Chat with Dr. {chat?.name || doctor?.fullName}</h2>
+        <h2>Chat with Dr. {chat?.name || doctor?.fullName || payment?.doctorName}</h2>
       </div>
 
       <div className="chat-history">

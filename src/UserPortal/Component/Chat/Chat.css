@@ -1,21 +1,18 @@
-/* Chat Container */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 600px;
+  max-width: 900px;
   width: 100%;
   background-color: #f7f7f8;
-  box-shadow: 0 4px 12px rgb(30, 29, 29);
+  box-shadow: 0 0px 12px rgb(30, 29, 29);
   border-radius: 8px;
-  margin: 20px auto;
+  margin: 10px auto;
   overflow: hidden;
   background-color: #ffffff;
 }
-
-/* Header Section */
 .chat-header {
-  background-color: #0078f7;
+  background-color: #1181f8d9;
   color: white;
   padding: 15px;
   text-align: center;
@@ -26,7 +23,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Chat History */
 .chat-history {
   flex: 1;
   padding: 20px;
@@ -37,7 +33,6 @@
   max-height: 75%;
 }
 
-/* Message Styling */
 .message {
   max-width: 75%;
   padding: 12px;
@@ -51,7 +46,7 @@
 
 .message.sent {
   align-self: flex-end;
-  background-color: #0078f7;
+  background-color: rgb(0, 178, 255);
   color: white;
 }
 

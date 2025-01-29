@@ -71,7 +71,7 @@
     display: flex;
     justify-content: space-between;
     padding: 12px 25px;
-    background-color: #007bff;
+    background-color: rgba(255, 0, 0, 0.934);
     color: white;
     font-size: 16px;
     border-radius: 5px;
@@ -84,6 +84,9 @@
   
   .consult-now-button:hover {
     background-color: #0056b3;
+  }
+  .payment-now-button:hover {
+    background-color: rgb(205, 32, 31);
   }
   
   @media (max-width: 768px) {

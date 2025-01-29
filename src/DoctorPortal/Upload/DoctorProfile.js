@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DoctorSidebar from "../DoctorSidebar/DoctorSidebar";
 import DoctorMain from "../DoctorSidebar/DoctorMain";
 import { useUser } from "../../UserPortal/UserContext";
+import profileimage from "../../assest/profileimage.jpg"
 
 export const DoctorProfile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -78,6 +79,9 @@ export const DoctorProfile = () => {
       <DoctorSidebar />
       <div className="profile-content">
         <div className="user-details">
+        <div className="user-image">
+            <img src={profileimage} alt="no-image" srcset="" />
+          </div>
           <h2>{user.fullName}</h2>
           <p>
             <strong>Role:</strong> {user.role}

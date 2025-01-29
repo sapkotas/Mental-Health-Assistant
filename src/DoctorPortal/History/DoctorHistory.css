@@ -1,0 +1,93 @@
+/* General Layout */
+.history-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .history-content {
+    width: 80%;
+    max-width: 1200px;
+    padding: 30px;
+    background-color: #ffffff;
+    margin-left: 250px; /* Assuming the sidebar has a width of 250px */
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .history-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Styles */
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+  }
+  
+  .payment-table th,
+  .payment-table td {
+    padding: 14px;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .payment-table th {
+    background-color: #f8f8f8;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .payment-table td {
+    background-color: #ffffff;
+  }
+  
+  .payment-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .payment-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Status Colors */
+  .status-success {
+    color: #28a745;
+    font-weight: 500;
+  }
+  
+  .status-failure {
+    color: #dc3545;
+    font-weight: 500;
+  }
+  
+  /* Loader Styles */
+  .loader {
+    font-size: 1.8rem;
+    color: #555;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  /* Sidebar (if needed) */
+  .history-sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    position: fixed;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: #dc3545;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+  

@@ -108,7 +108,7 @@ const ChatList = () => {
     });
   };
 
-  if (loading) return <p>Loading chats...</p>;
+  if (loading) return <p>Loading previous chats...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
@@ -122,7 +122,7 @@ const ChatList = () => {
             <li
               key={chat.id}
               className="chat-item"
-              onClick={() => handleConsultClick(chat)} // Pass selected chat
+              onClick={() => handleConsultClick(chat)} 
             >
               <div className="chat-info">
                 <h3 className="chat-name">{chat.name || "Unknown User"}</h3>

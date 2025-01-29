@@ -2,16 +2,43 @@ import React, { useEffect, useState } from "react";
 import './Profile.css'
 import Sidebar from "../../Dashboard/Sidebar";
 import { useUser } from "../../UserContext";
+import profileimage from '../../../assest/profileimage.jpg'
 
 export const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const { setUserId } = useUser();
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await fetch('https://mental-health-assistant-backend.onrender.com/api/users/dashboard', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            // You can add Authorization token if required
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const userId = data.userId; // Assuming the response contains a userId field
+          console.log('User ID:', userId); // You can use this userId as needed
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchUserId();
+  }, []); // Empty dependency array ensures this runs once when the component mounts
 
   useEffect(() => {
     const fetchProfileData = async () => {
       const accessToken = localStorage.getItem("accessToken");
+      console.log(accessToken)
 
       if (!accessToken) {
         setError("You must be logged in to view the profile.");
@@ -63,7 +90,7 @@ export const Profile = () => {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
-        <p>Loading, please wait...</p>
+        <p>Loading profile, please wait...</p>
       </div>
     );
   }
@@ -81,6 +108,9 @@ export const Profile = () => {
       <Sidebar />
       <div className="profile-content">
         <div className="user-details">
+          <div className="user-image">
+            <img src={profileimage} alt="" srcset="" />
+          </div>
           <h2>{user.fullName}</h2>
           <p>
             <strong>Role:</strong> {user.role}

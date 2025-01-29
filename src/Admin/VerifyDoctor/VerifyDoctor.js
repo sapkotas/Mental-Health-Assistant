@@ -115,7 +115,14 @@ const VerifyDoctor = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  if (loading) return <p>Loading pending doctors...</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading pending doctors, please wait...</p>
+      </div>
+    );
+  }
   if (error) return <p className="error">{error}</p>;
 
   return (

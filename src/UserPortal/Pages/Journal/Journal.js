@@ -111,47 +111,15 @@ const Journal = () => {
 
   return (
     <>
-      <div className="journal-form">
+    <div className="journal-container">
         <Sidebar />
-        {/* Left container */}
-        <div className="journal-list-container">
-          <h3>Your Journal Entries</h3>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <ul className="journal-list">
-              {journalList.length > 0 ? (
-                journalList.map((journal) => (
-                  <li key={journal.id} onClick={() => fetchSingleJournal(journal.id)}>
-                    <h4>{journal.title}</h4>
-                    <p>{journal.content.substring(0, 50)}...</p>
-                  </li>
-                ))
-              ) : (
-                <p>No journals available.</p>
-              )}
-            </ul>
-          )}
-          {singleJournal && (
-            <div className="single-journal">
-              <div className="journal-header">
-                <h3>Journal Details</h3>
-                <button className="close-button" onClick={() => setSingleJournal(null)}>
-                  ✕
-                </button>
-              </div>
-              <h4>{singleJournal.title}</h4>
-              <p>{singleJournal.content}</p>
-            </div>
-          )}
-        </div>
-
+      <div className="journal-form">
         {/* Right container */}
         <div className="journal-post-container">
-          <h2>Write a Journal</h2>
+          <h2>Write a daily Journal</h2><br />
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">What would you like to title this journal entry?</label>
               <input
                 type="text"
                 id="title"
@@ -162,7 +130,7 @@ const Journal = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="content">Content</label>
+              <label htmlFor="content">how are you feeling?</label>
               <textarea
                 id="content"
                 value={content}
@@ -176,7 +144,46 @@ const Journal = () => {
             </button>
           </form>
         </div>
+        </div>
+        {/* Left container */}
+        <div className="journal-list-container">
+          <h3>Your Journal Entries</h3>
+          {singleJournal && (
+          <div className="single-journal" style={{ position: 'relative' }}>
+            <div className="journal-header">
+              <h3>Journal Details</h3>
+              <button 
+                className="close-button" 
+                onClick={() => setSingleJournal(null)}
+                aria-label="Close Journal"
+              >
+                ✕
+              </button>
+            </div>
+            <h4>{singleJournal.title}</h4>
+            <p>{singleJournal.content}</p>
+          </div>
+        )}
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <ul className="journal-list">
+              {journalList.length > 0 ? (
+                journalList.map((journal) => (
+                  <li key={journal.id} onClick={() => fetchSingleJournal(journal.id)}>
+                    <h4> {journal.title}</h4>
+                    <p>{journal.content.substring(0, 50)}...</p>
+                  </li>
+                ))
+              ) : (
+                <p>No journals available.</p>
+              )}
+            </ul>
+          )}
+
+        </div>
       </div>
+      
 
       <Snackbar
         open={snackbar.open}

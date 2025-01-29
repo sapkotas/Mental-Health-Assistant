@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Snackbar } from "@mui/material";  // Import Snackbar
+import { Snackbar } from "@mui/material"; // Import Snackbar
 import Sidebar from "../Dashboard/Sidebar";
 import "./DoctorDetails.css";
 
@@ -15,7 +15,6 @@ const DoctorDetails = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken)
     if (accessToken) {
       setIsLoggedIn(true);
     }
@@ -28,16 +27,40 @@ const DoctorDetails = () => {
       return;
     }
 
-    // Navigate to the chat page and pass the doctor's details
-    navigate("/chat", {
-      state: {
-        doctor, 
-        user: {
-          id: userId,
-          token: localStorage.getItem("accessToken"), 
-        },
+    const accessToken = localStorage.getItem("accessToken");
+    
+    fetch("https://mental-health-assistant-backend.onrender.com/api/payment/check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
-    });
+      body: JSON.stringify({ doctorId: doctor.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "You are already subscribed to this doctor.") {
+          // Allow consultation if subscribed
+          navigate("/chat", {
+            state: {
+              doctor,
+              user: {
+                id: userId,
+                token: accessToken,
+              },
+            },
+          });
+        } else {
+          // Show snackbar if the user is not subscribed
+          setSnackbarMessage("You need to subscribe before consulting this doctor.");
+          setOpenSnackbar(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Subscription check failed:", error);
+        setSnackbarMessage("Failed to verify subscription. Please try again.");
+        setOpenSnackbar(true);
+      });
   };
 
   const handlePaymentClick = () => {
@@ -50,37 +73,28 @@ const DoctorDetails = () => {
       },
       body: JSON.stringify({ doctorId: doctor.id }),
     })
-      .then((response) => {
-        // Parse JSON response
-        return response.json().then((data) => ({ data, ok: response.ok }));
-      })
-      .then(({ data, ok }) => {
-        if (ok) {
-          if (data.paymentUrl && data.esewaConfig) {
-            // Handle eSewa payment redirection
-            const esewaConfig = data.esewaConfig;
-            const esewaParams = new URLSearchParams();
-            esewaParams.append("amt", esewaConfig.amt);
-            esewaParams.append("tAmt", esewaConfig.tAmt);
-            esewaParams.append("txAmt", esewaConfig.txAmt);
-            esewaParams.append("psc", esewaConfig.psc);
-            esewaParams.append("pdc", esewaConfig.pdc);
-            esewaParams.append("scd", esewaConfig.scd);
-            esewaParams.append("pid", esewaConfig.pid);
-            esewaParams.append("su", esewaConfig.su);
-            esewaParams.append("fu", esewaConfig.fu);
-  
-            const paymentUrl = data.paymentUrl + "?" + esewaParams.toString();
-  
-            window.location.href = paymentUrl;
-            setSnackbarMessage("Redirecting to eSewa for payment...");
-            setOpenSnackbar(true);
-          } else {
-            setSnackbarMessage(data.message || "Something went wrong.");
-            setOpenSnackbar(true);
-          }
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.paymentUrl && data.esewaConfig) {
+          const esewaConfig = data.esewaConfig;
+          const esewaParams = new URLSearchParams();
+          esewaParams.append("amt", esewaConfig.amt);
+          esewaParams.append("tAmt", esewaConfig.tAmt);
+          esewaParams.append("txAmt", esewaConfig.txAmt);
+          esewaParams.append("psc", esewaConfig.psc);
+          esewaParams.append("pdc", esewaConfig.pdc);
+          esewaParams.append("scd", esewaConfig.scd);
+          esewaParams.append("pid", esewaConfig.pid);
+          esewaParams.append("su", esewaConfig.su);
+          esewaParams.append("fu", esewaConfig.fu);
+    
+          const paymentUrl = data.paymentUrl + "?" + esewaParams.toString();
+    
+          window.location.href = paymentUrl;
+          setSnackbarMessage("Redirecting to eSewa for payment...");
+          setOpenSnackbar(true);
         } else {
-          setSnackbarMessage(data.error || "Failed to check subscription status.");
+          setSnackbarMessage(data.message || "Something went wrong.");
           setOpenSnackbar(true);
         }
       })
@@ -91,7 +105,6 @@ const DoctorDetails = () => {
       });
   };
   
-
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
@@ -129,9 +142,10 @@ const DoctorDetails = () => {
               Try Consultation
             </button>
             <button
-              className="consult-now-button"
+              className="payment-now-button"
               onClick={handlePaymentClick}
-            > Payment
+            > 
+              Subscribe
             </button>
           </div>
         </div>

@@ -11,13 +11,13 @@ const DoctorChatPage = () => {
     <>
     <div className= "chatpage-container">
       <DoctorSidebar/>
+      <div className="chatlist">
       <DoctorChatList/>
+      </div>
       <div className="chat-chat">
       <DoctorChat/>
       </div>
       </div>
-
-    
       </>
   );
 };

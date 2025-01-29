@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../UserPortal/UserContext";
 import AdminSidebar from "../Dashboard/Sidebar/AdminSidebar";
+import adminimage from '../../assest/adminimage.jpg'
 
 export const AdminUsers = () => {
   const [profileData, setProfileData] = useState(null);
@@ -62,7 +63,7 @@ export const AdminUsers = () => {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
-        <p>Loading, please wait...</p>
+        <p>Loading profile, please wait...</p>
       </div>
     );
   }
@@ -80,6 +81,9 @@ export const AdminUsers = () => {
       <AdminSidebar />
       <div className="profile-content">
         <div className="user-details">
+        <div className="user-image">
+            <img src={adminimage} alt="" srcset="" />
+          </div>
           <h2>{user.fullName}</h2>
           <p>
             <strong>Role:</strong> {user.role}
