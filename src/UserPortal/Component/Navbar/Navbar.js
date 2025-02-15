@@ -111,6 +111,7 @@ const Navbar = () => {
               }}
             >
               Contact
+
             </a>
           </li>
         </ul>

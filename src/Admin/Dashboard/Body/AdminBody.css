@@ -1,0 +1,143 @@
+/* Main Dashboard Container */
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+    justify-content: center;
+    background: white
+}
+
+/* Row layout for horizontal alignment */
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Card-like metric boxes */
+.metrics-box {
+    flex: 1;
+    min-width: 400px;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    /* border-radius: 10px; */
+    gap: 20px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);     */
+    text-align: center;
+    justify-content:center;
+}
+
+/* Titles inside boxes */
+.metrics-box h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.metrics-box p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Styling for True & Predicted Values */
+.values-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+/* Confusion Matrix Styling */
+.confusion-matrix-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.confusion-matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Confusion Matrix Boxes */
+.confusion-matrix div {
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100px;
+}
+
+/* Color-coded confusion matrix */
+.cm-0-0 { background: #f4a98a; }
+.cm-0-1 { background: #552233; color: white; }
+.cm-1-0 { background: black; color: white; }
+.cm-1-1 { background: #fdf1e5; }
+
+/* Histogram Graph Container */
+.histogram-box {
+    flex: 1;
+    min-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Loading Container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Spinner Animation */
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top-color: #4682b4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .histogram-box {
+        min-width: 100%;
+    }
+}

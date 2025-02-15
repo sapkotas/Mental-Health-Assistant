@@ -71,7 +71,7 @@ const History = () => {
             <tbody>
               {payments.length === 0 ? (
                 <tr>
-                  <td colSpan="6">No payments found.</td>
+                  <td colSpan="6">{loading ? "loading.." : "No payments found"}</td>
                 </tr>
               ) : (
                 payments.map((payment) => (
