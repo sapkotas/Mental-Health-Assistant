@@ -77,7 +77,7 @@ const History = () => {
                 payments.map((payment) => (
                   <tr key={payment.id}>
                     <td>{payment.doctorName}</td>
-                    <td>${payment.amount}</td>
+                    <td>Rs{payment.amount}</td>
                     <td>
                       <span className={`status-${payment.paymentStatus.toLowerCase()}`}>
                         {payment.paymentStatus}
