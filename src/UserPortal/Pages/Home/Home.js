@@ -227,7 +227,7 @@ const Home = () => {
 
 {/* service conatiner  */}
 <div className="service-container"> 
-<div className="service" id ="service">
+<div className="service" id ="service"> n
       <h1>Our <span style={{color:"red"}}>Services</span></h1>
       <p>
         Welcome to <b> Inner peace </b> These Terms of Service govern your use of
