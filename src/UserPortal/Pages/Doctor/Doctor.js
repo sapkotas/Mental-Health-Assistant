@@ -101,3 +101,4 @@ export const Doctor = () => {
     </div>
   );
 };
+
