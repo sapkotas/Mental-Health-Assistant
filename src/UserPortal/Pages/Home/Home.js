@@ -9,7 +9,7 @@ import { Detail } from "../../Component/Detail/Detail";
 // images below 
 import rohan from '../../../assest/rohan.jpg';
 import sunav from '../../../assest/sunav.jpg';
-// import shanky from '../../../assest/shanky.PNG';
+import shashank from '../../../assest/shashank.jpg';
 import hero from '../../../assest/hero.png';
 import personalized from '../../../assest/personalized.png'
 import secure from '../../../assest/secure.png'
@@ -36,9 +36,9 @@ const teamMembers = [
   },
 {
   name: "Developer",
-  // // image: shanky,
-  // github: "https://github.com/sh4nky2002",
-  // linkedin: "https://www.linkedin.com/in/shashank-katwal-605967340/",
+  image: shashank,
+  github: "https://github.com/sh4nky2002",
+  linkedin: "https://www.linkedin.com/in/shashank-katwal-605967340/",
 },
 ];
 
