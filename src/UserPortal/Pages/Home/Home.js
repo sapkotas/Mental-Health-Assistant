@@ -8,6 +8,8 @@ import Steps from "../../Component/Steps/Steps"
 import { Detail } from "../../Component/Detail/Detail";
 // images below 
 import rohan from '../../../assest/rohan.jpg';
+import sunav from '../../../assest/sunav.jpg';
+// import shanky from '../../../assest/shanky.PNG';
 import hero from '../../../assest/hero.png';
 import personalized from '../../../assest/personalized.png'
 import secure from '../../../assest/secure.png'
@@ -22,21 +24,21 @@ import { useUser } from "../../UserContext";
 const teamMembers = [
   {
     name: "Developer",
-    // image: rohan,
-    github: "",
-    linkedin: "",
+     image: rohan,
+    github: "https://github.com/Rotavirus22",
+    linkedin: "https://www.linkedin.com/in/rohan-pokhrel-730392235/",
   },
   {
     name: "Developer",
-    // image: ,
-    github: "",
-    linkedin: "",
+    image: sunav,
+    github: "https://github.com/sapkotas",
+    linkedin: "https://www.linkedin.com/in/sunav-sapkota-9a9958322/",
   },
 {
   name: "Developer",
-  // image: ,
-  github: "",
-  linkedin: "",
+  // // image: shanky,
+  // github: "https://github.com/sh4nky2002",
+  // linkedin: "https://www.linkedin.com/in/shashank-katwal-605967340/",
 },
 ];
 
